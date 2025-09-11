@@ -1,0 +1,15 @@
+see if we can use hourly rate component
+delete all unused components and stimulus controllers
+buttons messing when creating clients or projects on homepage. text and icon inside submit button not visible when creating or editing clients, projects, time entries
+consider using form instead of stimulus controllers turbo frame when searching or creating existing or new client or project
+hourly rate not properly used it should be project client user update it when client or project is selected
+create new client validation error no error shown
+use front-end design skills to improve welcome page and transform it into more likeable open
+  source landing page. before changing the code confirm that you are using
+  frontend-design skills. use clear minimalistic breathable approach, bare in mind that after
+  you'll need to redesign rest of the pages for this web app including dashboard.blade.php
+  index.blade.php for clients, projects, time entries... ask if you need more info. it should be minimalistic, elements
+  clearly visible easy  accessible
+
+use front-end design skills to improve all blade files according to minimalistic clean with some colours philosophy and transform it into more likeable. before changing the code confirm that you are using
+frontend-design skills. give me 5 examples so i can decide what i like think out of the box. also think about how data should be displayed, table or card or something else. where buttons should be where to put hourly rate title client name. ask if needed
