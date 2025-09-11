@@ -1,0 +1,572 @@
+@import 'tailwindcss';
+@import './turbo-loading.css';
+
+@source "../views";
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@plugin "./tailwind/daisyui.js" {
+    /* Light theme only - clean and minimalistic */
+    themes: light --default;
+};
+
+@theme {
+    --animate-appear-then-fade-out: appear-then-fade-out 5s both;
+
+    @keyframes appear-then-fade-out {
+        0%, 100% {
+            opacity: 0;
+        }
+        10%, 80% {
+            opacity: 1;
+        }
+    }
+}
+
+/* Subtle pulse animation override */
+.animate-pulse {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@custom-variant hotwire-native (&:where(.hotwire-native *));
+
+[data-bridge-components~="toast"] [data-controller~="bridge--toast"],
+[data-bridge-components~="form"] [data-controller~="bridge--form"]:not([data-controller-optout-android~="bridge--form"]) [type="submit"] {
+    @apply hidden;
+}
+
+/* Enhanced form spacing and sizing */
+.form-section {
+    @apply space-y-8 py-6;
+}
+
+.form-group {
+    @apply space-y-4;
+}
+
+.form-grid {
+    @apply grid gap-8;
+}
+
+/* Button enhancements for better UX */
+.btn {
+    @apply py-4 px-6 text-lg font-medium;
+}
+
+.btn-lg {
+    @apply py-5 px-8 text-xl;
+}
+
+/* ========================================
+   CSS Variables (extracted from welcome.blade.php)
+   ======================================== */
+:root {
+    --color-bg: #FAFBFC;
+    --color-surface: #FFFFFF;
+    --color-text: #1A1F36;
+    --color-text-secondary: #697386;
+    --color-text-muted: #9AA5B1;
+    --color-border: #E3E8EE;
+    --color-border-light: #F3F4F6;
+    --color-primary: #0066FF;
+    --color-primary-hover: #0052CC;
+    --color-primary-light: #E6F0FF;
+    --color-accent: #0066FF;
+    --color-accent-hover: #0052CC;
+    --color-accent-light: #E6F0FF;
+    --color-success: #0066FF;
+    --color-success-light: #E6F0FF;
+    --color-danger: #EF4444;
+    --font-display: 'Manrope', sans-serif;
+    --font-body: 'Manrope', sans-serif;
+    --ease-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --text: #1A1F36;
+    --text-secondary: #697386;
+    --text-muted: #9AA5B1;
+    --border: #E3E8EE;
+    --bg: #F3F4F6;
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+.font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    font-weight: 700;
+}
+
+/* ========================================
+   Animations (extracted from welcome.blade.php)
+   ======================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+}
+
+.stagger-1 { animation-delay: 0.15s; }
+.stagger-2 { animation-delay: 0.3s; }
+.stagger-3 { animation-delay: 0.45s; }
+.stagger-4 { animation-delay: 0.6s; }
+.stagger-5 { animation-delay: 0.75s; }
+.stagger-6 { animation-delay: 0.9s; }
+
+/* ========================================
+   Button Styles (extracted from welcome.blade.php)
+   ======================================== */
+.btn-primary {
+    background: var(--color-accent);
+    color: white;
+    transition: background-color 0.2s var(--ease-smooth);
+    border: none;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: var(--color-accent-hover);
+}
+
+.btn-primary:active {
+    background: var(--color-accent-hover);
+}
+
+.btn-secondary {
+    border: 2px solid var(--color-border);
+    color: var(--color-text);
+    background: var(--color-surface);
+    transition: all 0.3s var(--ease-smooth);
+    font-weight: 600;
+}
+
+.btn-secondary:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.1);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* ========================================
+   Card Styles (extracted from welcome.blade.php)
+   ======================================== */
+.feature-card {
+    transition: all 0.4s var(--ease-smooth);
+    position: relative;
+    background: var(--color-surface);
+    border: 2px solid var(--color-border-light);
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-primary-light), transparent);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-smooth);
+}
+
+.feature-card:hover::before {
+    opacity: 0.5;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(37, 99, 235, 0.12), 0 4px 8px rgba(0, 0, 0, 0.05);
+    border-color: var(--color-primary);
+}
+
+.screenshot-container {
+    border: 2px solid var(--color-border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--color-surface);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
+    transition: all 0.5s var(--ease-smooth);
+    position: relative;
+}
+
+.screenshot-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-smooth);
+    pointer-events: none;
+}
+
+.screenshot-container:hover::after {
+    opacity: 1;
+}
+
+.screenshot-container:hover {
+    box-shadow: 0 20px 48px rgba(37, 99, 235, 0.15), 0 8px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--color-primary);
+}
+
+.screenshot-container img {
+    transition: transform 0.5s var(--ease-smooth);
+}
+
+.screenshot-container:hover img {
+    transform: scale(1.03);
+}
+
+/* ========================================
+   Badge & Accent Styles (extracted from welcome.blade.php)
+   ======================================== */
+.badge {
+    background: linear-gradient(135deg, var(--color-success-light), var(--color-primary-light));
+    border: none;
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s var(--ease-smooth);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+}
+
+.badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+.accent-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--color-success);
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 2.5s ease-in-out infinite;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+}
+
+/* ========================================
+   Background Elements (extracted from welcome.blade.php)
+   ======================================== */
+.gradient-bg {
+    position: relative;
+    overflow: hidden;
+}
+
+.gradient-bg::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: 5%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 65%);
+    pointer-events: none;
+    animation: float 8s ease-in-out infinite;
+    border-radius: 50%;
+}
+
+.gradient-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -15%;
+    left: 5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.06) 0%, transparent 65%);
+    pointer-events: none;
+    animation: float 10s ease-in-out infinite reverse;
+    border-radius: 50%;
+}
+
+.geometric-accent {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.geometric-accent.circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent-light));
+    opacity: 0.4;
+    filter: blur(20px);
+}
+
+.geometric-accent.square {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--color-accent-light), var(--color-success-light));
+    opacity: 0.3;
+    transform: rotate(45deg);
+    filter: blur(25px);
+}
+
+.section-spacing {
+    padding: 120px 0;
+}
+
+@media (max-width: 768px) {
+    .section-spacing {
+        padding: 80px 0;
+    }
+}
+
+/* ========================================
+   Navigation & Link Styles (extracted from welcome.blade.php)
+   ======================================== */
+nav {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+a.link-hover {
+    position: relative;
+    transition: color 0.3s var(--ease-smooth);
+}
+
+a.link-hover::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s var(--ease-smooth);
+}
+
+a.link-hover:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* ========================================
+   New Custom Classes for Inline Style Replacement
+   ======================================== */
+
+/* Typography */
+.page-heading {
+    @apply text-5xl mb-2 text-[var(--color-text)];
+}
+
+.page-subheading {
+    @apply text-lg text-[var(--color-text-secondary)] font-normal;
+}
+
+.section-heading {
+    @apply text-2xl mb-6 text-[var(--color-text)];
+}
+
+.card-heading {
+    @apply text-xl mb-3 text-[var(--color-text)];
+}
+
+/* Button Enhancements */
+.btn-icon-wrapper {
+    @apply inline-flex items-center justify-center gap-1.5 leading-none;
+}
+
+.btn-icon {
+    @apply w-[18px] h-[18px] flex-shrink-0;
+}
+
+.btn-link {
+    @apply text-[var(--text-secondary)] px-6 py-3.5 font-semibold transition-colors text-center no-underline inline-block;
+}
+
+.btn-link:hover {
+    @apply text-[var(--text)];
+}
+
+.btn-export {
+    @apply bg-[#059669] text-white px-6 py-3.5 rounded-lg font-semibold text-[15px] inline-flex items-center gap-1.5 no-underline border-none transition-colors;
+}
+
+.btn-export:hover {
+    @apply bg-[#047857];
+}
+
+.btn-danger-gradient {
+    background: linear-gradient(135deg, var(--color-danger), #DC2626);
+    @apply text-white border-none shadow-[0_2px_8px_rgba(239,68,68,0.25)];
+}
+
+/* Empty State Component */
+.empty-state {
+    @apply py-16 px-8 text-center;
+}
+
+.empty-state-icon-wrapper {
+    @apply w-16 h-16 mx-auto mb-4 bg-[var(--bg)] rounded-full flex items-center justify-center;
+}
+
+.empty-state-title {
+    @apply text-lg font-semibold mb-2 text-[var(--text)];
+}
+
+.empty-state-description {
+    @apply text-sm text-[var(--text-secondary)] mb-5;
+}
+
+.empty-state-action {
+    @apply px-6 py-3 bg-[var(--accent)] text-white rounded-lg text-[15px] font-medium leading-none inline-flex items-center gap-1.5 no-underline border-none;
+}
+
+/* Card Variants */
+.card-spacious {
+    @apply card px-10 py-10;
+}
+
+.card-comfortable {
+    @apply card px-8 py-8;
+}
+
+.card-compact {
+    @apply card p-5;
+}
+
+.card-timer {
+    @apply card px-6 py-5 lg:px-8 lg:py-6;
+}
+
+.card-header {
+    @apply px-6 py-5 border-b border-[var(--border)];
+}
+
+.card-header-compact {
+    @apply px-5 py-5 border-b border-[var(--border)];
+}
+
+/* List Header Component */
+.list-header {
+    @apply px-7 py-7 border-b border-[var(--border)];
+}
+
+.list-header-title {
+    @apply text-[28px] font-semibold text-[var(--text)] mb-1;
+}
+
+.list-header-subtitle {
+    @apply text-sm text-[var(--text-secondary)];
+}
+
+/* Auth Layout Gradients */
+.auth-gradient-accent-1 {
+    @apply absolute top-[-10%] right-[5%] w-[400px] h-[400px] pointer-events-none rounded-full;
+    background: radial-gradient(circle, rgba(0, 102, 255, 0.08) 0%, transparent 65%);
+    animation: float 8s ease-in-out infinite;
+}
+
+.auth-gradient-accent-2 {
+    @apply absolute bottom-[-15%] left-[5%] w-[350px] h-[350px] pointer-events-none rounded-full;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.06) 0%, transparent 65%);
+    animation: float 10s ease-in-out infinite reverse;
+}
+
+.auth-logo-icon {
+    @apply w-14 h-14 rounded-2xl flex items-center justify-center mb-3 transition-all;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+    box-shadow: 0 4px 16px rgba(0, 102, 255, 0.2);
+}
+
+.auth-logo-icon:hover {
+    @apply scale-110 rotate-3;
+}
+
+.auth-card {
+    @apply card px-10 py-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)];
+}
+
+/* Icon Sizing Utilities */
+.icon-sm {
+    @apply w-4 h-4 flex-shrink-0;
+}
+
+.icon-md {
+    @apply w-[18px] h-[18px] flex-shrink-0;
+}
+
+.icon-lg {
+    @apply w-8 h-8 flex-shrink-0;
+}
+
+.icon-xl {
+    @apply w-14 h-14 flex-shrink-0;
+}
+
+/* Dashboard Stats */
+.stat-label {
+    @apply text-[10px] lg:text-sm font-medium text-[var(--text-secondary)] mb-0.5 lg:mb-2;
+}
+
+.stat-value {
+    @apply text-base lg:text-3xl font-bold text-[var(--text)];
+}
+
+.stat-value-accent {
+    @apply text-base lg:text-3xl font-bold text-[var(--accent)];
+}
