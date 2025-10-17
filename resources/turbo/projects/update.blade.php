@@ -38,15 +38,6 @@
                                     {{ __('No rate set') }}
                                 </div>
                             @endif
-
-                            @if($project->time_entries_count > 0)
-                                <div class="badge badge-success badge-outline text-xs sm:text-sm w-full sm:w-auto justify-center sm:justify-start">
-                                    <svg class="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    {{ $project->time_entries_count }} {{ Str::plural('entry', $project->time_entries_count) }}
-                                </div>
-                            @endif
                         </div>
 
                         @if($project->description)

@@ -32,7 +32,7 @@ class TimeEntryController extends Controller
         }
 
         $hourlyRate = null;
-        if ($validated['hourly_rate_amount']) {
+        if (! empty($validated['hourly_rate_amount'])) {
             $hourlyRate = Money::fromDecimal(
                 amount: (float) $validated['hourly_rate_amount'],
                 currency: $validated['hourly_rate_currency'] ?? 'USD'
@@ -86,6 +86,12 @@ class TimeEntryController extends Controller
 
     public function edit(TimeEntry $timeEntry, Request $request)
     {
+        // Prevent editing running entries from recent list
+        if (! $timeEntry->end_time && $request->header('turbo-frame') === "recent-entry-{$timeEntry->id}") {
+            return redirect()->route('dashboard')
+                ->with('error', 'Cannot edit a running time entry from recent list. Please edit it from the timer widget.');
+        }
+
         if ($request->has('recent') || $request->header('turbo-frame') === "recent-entry-{$timeEntry->id}") {
             return view('turbo::time-entries.edit-recent', ['timeEntry' => $timeEntry]);
         }
@@ -95,6 +101,12 @@ class TimeEntryController extends Controller
 
     public function update(UpdateTimeEntryRequest $request, TimeEntry $timeEntry)
     {
+        // Prevent editing running entries from recent list
+        if (! $timeEntry->end_time && $request->header('turbo-frame') === "recent-entry-{$timeEntry->id}") {
+            return redirect()->route('dashboard')
+                ->with('error', 'Cannot edit a running time entry from recent list. Please edit it from the timer widget.');
+        }
+
         $validated = $request->validated();
 
         $duration = null;
@@ -105,7 +117,7 @@ class TimeEntryController extends Controller
         }
 
         $hourlyRate = null;
-        if ($validated['hourly_rate_amount']) {
+        if (! empty($validated['hourly_rate_amount'])) {
             $hourlyRate = Money::fromDecimal(
                 amount: (float) $validated['hourly_rate_amount'],
                 currency: $validated['hourly_rate_currency'] ?? 'USD'

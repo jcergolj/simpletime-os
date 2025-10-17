@@ -18,6 +18,7 @@ class UpdateProjectRequest extends AppFormRequest
             'client_id' => ['required', 'exists:clients,id'],
             'hourly_rate_amount' => ['nullable', 'numeric', 'min:0'],
             'hourly_rate_currency' => 'required_with:hourly_rate_amount|string|in:'.implode(',', array_column(\App\Enums\Currency::cases(), 'value')),
+            'update_existing_entries' => ['nullable', 'boolean'],
         ];
     }
 

@@ -13,9 +13,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon|null $end_time
  * @property int|null $duration
  * @property string|null $notes
+ * @property int|null $user_id
  * @property int|null $client_id
  * @property int|null $project_id
  * @property \App\ValueObjects\Money|null $hourly_rate
+ * @property User|null $user
  * @property Client|null $client
  * @property Project|null $project
  */
@@ -28,6 +30,7 @@ class TimeEntry extends Model
         'end_time',
         'duration',
         'notes',
+        'user_id',
         'client_id',
         'project_id',
         'hourly_rate',
@@ -39,6 +42,7 @@ class TimeEntry extends Model
             'start_time' => 'datetime',
             'end_time' => 'datetime',
             'hourly_rate' => AsMoney::class,
+            'user_id' => 'integer',
             'client_id' => 'integer',
             'project_id' => 'integer',
         ];
@@ -54,11 +58,17 @@ class TimeEntry extends Model
         return $this->belongsTo(Project::class);
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function getEffectiveHourlyRate(): ?Money
     {
         return $this->hourly_rate
             ?? $this->project->hourly_rate
-            ?? $this->client?->hourly_rate;
+            ?? $this->client?->hourly_rate
+            ?? $this->user?->hourlyRate?->rate;
     }
 
     public function calculateEarnings(): ?Money

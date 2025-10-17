@@ -88,14 +88,16 @@
                     </form>
                 @endif
 
-                <a href="{{ route('turbo.time-entries.edit', $entry) }}"
-                   class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 h-7 rounded text-xs font-medium transition-colors inline-flex items-center space-x-1"
-                   data-turbo-frame="recent-entry-{{ $entry->id }}">
-                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                    </svg>
-                    <span>{{ __('Edit') }}</span>
-                </a>
+                @if($entry->end_time)
+                    <a href="{{ route('turbo.time-entries.edit', $entry) }}"
+                       class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 h-7 rounded text-xs font-medium transition-colors inline-flex items-center space-x-1"
+                       data-turbo-frame="recent-entry-{{ $entry->id }}">
+                        <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        </svg>
+                        <span>{{ __('Edit') }}</span>
+                    </a>
+                @endif
 
                 <a href="{{ route('time-entries.destroy', ['timeEntry' => $entry, 'is_recent' => true]) }}"
                    data-turbo-method="delete"
@@ -209,14 +211,16 @@
                             </form>
                         @endif
 
-                        <a href="{{ route('turbo.time-entries.edit', $entry) }}"
-                           class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center space-x-1"
-                           data-turbo-frame="recent-entry-{{ $entry->id }}">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                            </svg>
-                            <span>{{ __('Edit') }}</span>
-                        </a>
+                        @if($entry->end_time)
+                            <a href="{{ route('turbo.time-entries.edit', $entry) }}"
+                               class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center space-x-1"
+                               data-turbo-frame="recent-entry-{{ $entry->id }}">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                                <span>{{ __('Edit') }}</span>
+                            </a>
+                        @endif
 
                         <a href="{{ route('time-entries.destroy', ['timeEntry' => $entry, 'is_recent' => true]) }}"
                            data-turbo-method="delete"

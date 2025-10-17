@@ -41,4 +41,9 @@ class Project extends Model
     {
         return $this->hasMany(TimeEntry::class);
     }
+
+    public function countInheritedTimeEntries(): int
+    {
+        return $this->timeEntries()->whereNull('hourly_rate')->count();
+    }
 }

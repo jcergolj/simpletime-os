@@ -59,8 +59,8 @@
           <x-form.money-input
             name="hourly_rate_amount"
             currency-name="hourly_rate_currency"
-            :value="old('hourly_rate_amount', $project->hourly_rate?->toDecimal())"
-            :currency="old('hourly_rate_currency', $project->hourly_rate?->currency)"
+            :value="old('hourly_rate_amount', $project->hourly_rate?->toDecimal() ?? $project->client?->hourly_rate?->toDecimal() ?? auth()->user()?->hourlyRate?->rate?->toDecimal())"
+            :currency="old('hourly_rate_currency', $project->hourly_rate?->currency ?? $project->client?->hourly_rate?->currency ?? auth()->user()?->hourlyRate?->rate?->currency)"
             placeholder="0.00"
             :id="'edit_hourly_rate_amount_' . $project->id"
             :project="$project"
@@ -70,6 +70,24 @@
         <x-form.error for="hourly_rate_currency" />
         </div>
       </div>
+
+      <!-- Update Existing Entries Checkbox -->
+      @php
+        $inheritedCount = $project->countInheritedTimeEntries();
+      @endphp
+      @if($inheritedCount > 0)
+        <div class="form-control">
+          <label class="label cursor-pointer justify-start gap-3">
+            <input type="checkbox" name="update_existing_entries" value="1" class="checkbox checkbox-primary" />
+            <span class="label-text">
+              {{ __('Update old time entries too?') }}
+            </span>
+          </label>
+          <span class="label-text-alt text-base-content/50 ml-9">
+            {{ __('Applies new rate to past entries') }}
+          </span>
+        </div>
+      @endif
 
       <!-- Form Actions -->
       <div class="flex gap-2 justify-end">

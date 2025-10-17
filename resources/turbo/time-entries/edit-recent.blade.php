@@ -11,7 +11,6 @@
     <form action="{{ route('turbo.time-entries.update', $timeEntry) }}" method="POST" class="space-y-6">
       @csrf
       @method('PUT')
-
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <x-form.search-clients
@@ -68,7 +67,9 @@
           name="hourly_rate_amount"
           currency-name="hourly_rate_currency"
           :value="old('hourly_rate_amount', $timeEntry->hourly_rate?->toDecimal())"
-          :currency="old('hourly_rate_currency', $timeEntry->hourly_rate?->currency ?? 'USD')"
+          :currency="old('hourly_rate_currency', $timeEntry->hourly_rate?->currency)"
+          :project="$timeEntry->project"
+          :client="$timeEntry->client"
           placeholder="0.00"
           :id="'edit_recent_hourly_rate_' . $timeEntry->id"
         />

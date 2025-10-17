@@ -48,7 +48,7 @@ class ProjectController extends Controller
         }
 
         // Fetch updated list with filters applied
-        $query = Project::with('client')->withCount('timeEntries');
+        $query = Project::with('client');
 
         if ($request->filled('search')) {
             $search = $request->get('search');
@@ -78,6 +78,9 @@ class ProjectController extends Controller
     {
         $validated = $request->validated();
 
+        // Capture original hourly rate before updating
+        $originalHourlyRate = $project->hourly_rate;
+
         $hourlyRate = null;
         if (! empty($validated['hourly_rate_amount'])) {
             $hourlyRate = Money::fromDecimal(
@@ -92,8 +95,16 @@ class ProjectController extends Controller
             'hourly_rate' => $hourlyRate,
         ]);
 
+        // Update existing time entries if requested and hourly rate has changed
+        if ($request->boolean('update_existing_entries') && $this->hourlyRateChanged($originalHourlyRate, $hourlyRate)) {
+            $hourlyRateValue = $hourlyRate ? json_encode($hourlyRate->toArray()) : null;
+            $project->timeEntries()
+                ->whereNull('hourly_rate')
+                ->update(['hourly_rate' => $hourlyRateValue]);
+        }
+
         // Fetch updated list with filters applied
-        $query = Project::with('client')->withCount('timeEntries');
+        $query = Project::with('client');
 
         if ($request->filled('search')) {
             $search = $request->get('search');
@@ -109,9 +120,25 @@ class ProjectController extends Controller
 
         return response()
             ->view('turbo::projects.update', [
-                'project' => $project->fresh(['client'])->loadCount('timeEntries'),
+                'project' => $project->fresh(['client']),
                 'projects' => $projects,
             ])
             ->header('Content-Type', 'text/vnd.turbo-stream.html');
+    }
+
+    private function hourlyRateChanged(?Money $original, ?Money $new): bool
+    {
+        // Both are null - no change
+        if ($original === null && $new === null) {
+            return false;
+        }
+
+        // One is null, the other isn't - changed
+        if ($original === null || $new === null) {
+            return true;
+        }
+
+        // Both exist - compare using Money equals method
+        return ! $original->equals($new);
     }
 }

@@ -7,18 +7,32 @@ import { Controller } from "@hotwired/stimulus";
  * If the user is still authenticated (via Remember Me cookie), the request is retried.
  * If not authenticated, redirects to login page with session expired message.
  *
+ * Also proactively refreshes tokens before form submissions if token is close to expiration.
+ *
  * Usage: Add data-controller="session-recovery" to <body> or root element
  */
 export default class extends Controller {
+    // Session lifetime in minutes (from config/session.php)
+    static SESSION_LIFETIME = 120;
+    // Refresh token if within this many minutes of expiration
+    static EXPIRATION_BUFFER = 5;
+
     isRefreshing = false;
     pendingRequests = [];
 
     connect() {
         this.handleBeforeFetchResponse = this.handleBeforeFetchResponse.bind(this);
         this.handleFrameMissing = this.handleFrameMissing.bind(this);
+        this.handleBeforeSubmit = this.handleBeforeSubmit.bind(this);
 
         document.addEventListener("turbo:before-fetch-response", this.handleBeforeFetchResponse);
         document.addEventListener("turbo:frame-missing", this.handleFrameMissing);
+        document.addEventListener("turbo:submit-start", this.handleBeforeSubmit);
+
+        // Initialize token expiration timestamp on first page load
+        if (!this.getTokenExpiration()) {
+            this.updateTokenExpiration();
+        }
 
         // Check if there's a failed request to retry after login redirect
         this.retryFailedRequestIfPresent();
@@ -27,6 +41,7 @@ export default class extends Controller {
     disconnect() {
         document.removeEventListener("turbo:before-fetch-response", this.handleBeforeFetchResponse);
         document.removeEventListener("turbo:frame-missing", this.handleFrameMissing);
+        document.removeEventListener("turbo:submit-start", this.handleBeforeSubmit);
     }
 
     async handleBeforeFetchResponse(event) {
@@ -47,6 +62,85 @@ export default class extends Controller {
             event.preventDefault();
             this.redirectToLogin();
         }
+    }
+
+    async handleBeforeSubmit(event) {
+        // Check if token is expiring soon before form submission
+        if (this.isTokenExpiringSoon()) {
+            // Prevent submission temporarily
+            event.preventDefault();
+
+            // If already refreshing, wait for it to complete
+            if (this.isRefreshing) {
+                await new Promise((resolve) => {
+                    this.pendingRequests.push(resolve);
+                });
+                // After refresh completes, retry the submission
+                event.detail.formSubmission.resume();
+                return;
+            }
+
+            // Refresh token proactively
+            this.isRefreshing = true;
+            try {
+                const newToken = await this.fetchFreshToken();
+                if (newToken) {
+                    this.updateCsrfToken(newToken); // Also updates expiration
+
+                    // Resolve any pending requests
+                    this.pendingRequests.forEach((resolve) => resolve());
+                    this.pendingRequests = [];
+
+                    // Resume the form submission with fresh token
+                    event.detail.formSubmission.resume();
+                } else {
+                    // Token refresh failed - user not authenticated
+                    this.redirectToLogin();
+                }
+            } catch (error) {
+                console.error("Error refreshing token before submit:", error);
+                // Let the submission proceed and handle 419 error if it occurs
+                event.detail.formSubmission.resume();
+            } finally {
+                this.isRefreshing = false;
+            }
+        }
+        // If token is fresh, let submission proceed normally
+    }
+
+    updateTokenExpiration() {
+        const now = Date.now();
+        const expiresAt = now + (this.constructor.SESSION_LIFETIME * 60 * 1000);
+        try {
+            localStorage.setItem("csrf_token_expires_at", expiresAt.toString());
+        } catch (error) {
+            console.warn("Could not store token expiration in localStorage:", error);
+        }
+    }
+
+    getTokenExpiration() {
+        try {
+            const expiresAt = localStorage.getItem("csrf_token_expires_at");
+            return expiresAt ? parseInt(expiresAt, 10) : null;
+        } catch (error) {
+            console.warn("Could not read token expiration from localStorage:", error);
+            return null;
+        }
+    }
+
+    isTokenExpiringSoon() {
+        const expiresAt = this.getTokenExpiration();
+        if (!expiresAt) {
+            // No expiration stored - assume token is fresh
+            return false;
+        }
+
+        const now = Date.now();
+        const bufferMs = this.constructor.EXPIRATION_BUFFER * 60 * 1000;
+        const timeUntilExpiration = expiresAt - now;
+
+        // Return true if within buffer period or already expired
+        return timeUntilExpiration <= bufferMs;
     }
 
     async handle419Error(event) {
@@ -132,6 +226,8 @@ export default class extends Controller {
         if (metaTag) {
             metaTag.setAttribute("content", token);
         }
+        // Update expiration timestamp when token is refreshed
+        this.updateTokenExpiration();
     }
 
     redirectToLogin() {

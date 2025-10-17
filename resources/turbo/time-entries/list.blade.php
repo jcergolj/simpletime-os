@@ -31,8 +31,8 @@
                                         {{ $timeEntry->getFormattedDuration() }}
                                     </div>
                                 @else
-                                    <div class="badge badge-warning badge-outline text-xs sm:text-sm">
-                                        <span class="w-2 h-2 bg-warning rounded-full mr-1 animate-pulse"></span>
+                                    <div class="badge badge-error badge-outline text-xs sm:text-sm">
+                                        <span class="w-2 h-2 bg-error rounded-full mr-1 animate-pulse"></span>
                                         {{ __('Running') }}
                                     </div>
                                 @endif
@@ -99,13 +99,15 @@
 
                         <!-- Edit/Delete buttons - on the right for wider screens -->
                         <div class="flex items-center space-x-2 pt-2 border-t border-base-200 lg:border-t-0 lg:pt-0 lg:flex-shrink-0">
-                            <a href="{{ route('turbo.time-entries.edit', $timeEntry) }}"
-                               class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors inline-flex items-center space-x-1">
-                                <svg class="h-3 w-3 sm:h-4 sm:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                </svg>
-                                <span>{{ __('Edit') }}</span>
-                            </a>
+                            @if($timeEntry->duration)
+                                <a href="{{ route('turbo.time-entries.edit', $timeEntry) }}"
+                                   class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors inline-flex items-center space-x-1">
+                                    <svg class="h-3 w-3 sm:h-4 sm:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                    </svg>
+                                    <span>{{ __('Edit') }}</span>
+                                </a>
+                            @endif
 
                             <a href="{{ route('time-entries.destroy', $timeEntry) }}"
                                class="bg-red-100 hover:bg-red-200 text-red-700 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors inline-flex items-center space-x-1"

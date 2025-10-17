@@ -35,35 +35,4 @@ class Client extends Model
     {
         return $this->hasMany(TimeEntry::class);
     }
-
-    public function calculateTotalEarnings(): ?\App\ValueObjects\Money
-    {
-        $timeEntries = $this->timeEntries()->with(['project', 'client'])->whereNotNull('end_time')->get();
-
-        if ($timeEntries->isEmpty()) {
-            return null;
-        }
-
-        $totalAmount = 0;
-        $currency = null;
-
-        /** @var TimeEntry $entry */
-        foreach ($timeEntries as $entry) {
-            $earnings = $entry->calculateEarnings();
-
-            if ($earnings instanceof \App\ValueObjects\Money) {
-                $totalAmount += $earnings->amount;
-                $currency ??= $earnings->currency;
-            }
-        }
-
-        if (! $currency instanceof \App\Enums\Currency) {
-            return null;
-        }
-
-        return new \App\ValueObjects\Money(
-            amount: $totalAmount,
-            currency: $currency
-        );
-    }
 }
