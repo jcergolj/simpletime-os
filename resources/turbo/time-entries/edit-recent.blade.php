@@ -11,7 +11,6 @@
     <form action="{{ route('turbo.time-entries.update', $timeEntry) }}" method="POST" class="space-y-6">
       @csrf
       @method('PUT')
-
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <x-form.search-clients

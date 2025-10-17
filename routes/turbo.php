@@ -23,7 +23,7 @@ Route::middleware(['auth'])->as('turbo.')->group(function () {
 
     Route::get('time-entries/create', [TimeEntryController::class, 'create'])->name('time-entries.create');
     Route::post('time-entries', [TimeEntryController::class, 'store'])->name('time-entries.store');
-    Route::get('time-entries/{time_entry}/edit', [TimeEntryController::class, 'edit'])->name('time-entries.edit');
+    Route::get('time-entries/{timeEntry}/edit', [TimeEntryController::class, 'edit'])->name('time-entries.edit');
     Route::put('time-entries/{timeEntry}', [TimeEntryController::class, 'update'])->name('time-entries.update');
     Route::patch('time-entries/{timeEntry}', [TimeEntryController::class, 'update']);
 

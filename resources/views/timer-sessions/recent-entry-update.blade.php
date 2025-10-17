@@ -15,3 +15,15 @@
         @include('dashboard.weekly-earnings', compact('totalAmount', 'weeklyEarnings'))
     </template>
 </turbo-stream>
+
+<turbo-stream action="replace" target="timer-widget">
+    <template>
+        <x-timer-widget
+            :preselected-client-id="$timeEntry->client_id"
+            :preselected-client-name="$timeEntry->client?->name"
+            :preselected-project-id="$timeEntry->project_id"
+            :preselected-project-name="$timeEntry->project?->name"
+            :running-timer="$runningTimer"
+        />
+    </template>
+</turbo-stream>

@@ -48,7 +48,7 @@ class ProjectController extends Controller
         }
 
         // Fetch updated list with filters applied
-        $query = Project::with('client')->withCount('timeEntries');
+        $query = Project::with('client');
 
         if ($request->filled('search')) {
             $search = $request->get('search');
@@ -93,7 +93,7 @@ class ProjectController extends Controller
         ]);
 
         // Fetch updated list with filters applied
-        $query = Project::with('client')->withCount('timeEntries');
+        $query = Project::with('client');
 
         if ($request->filled('search')) {
             $search = $request->get('search');
@@ -109,7 +109,7 @@ class ProjectController extends Controller
 
         return response()
             ->view('turbo::projects.update', [
-                'project' => $project->fresh(['client'])->loadCount('timeEntries'),
+                'project' => $project->fresh(['client']),
                 'projects' => $projects,
             ])
             ->header('Content-Type', 'text/vnd.turbo-stream.html');
