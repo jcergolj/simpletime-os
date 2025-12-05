@@ -5,9 +5,9 @@
                 <h3 style="font-size: 28px; font-weight: 600; color: var(--text); margin-bottom: 4px;">{{ __('Recent Time Entries') }}</h3>
                 <p style="font-size: 14px; color: var(--text-secondary);">{{ __('Your latest time tracking activity') }}</p>
             </div>
-            <a href="{{ route('time-entries.index') }}" class="btn-secondary inline-flex items-center gap-2 text-sm" data-turbo-frame="_top">
-                <span>{{ __('View all') }}</span>
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <a href="{{ route('time-entries.index') }}" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 6px; line-height: 1; text-decoration: none; font-size: 14px;" data-turbo-frame="_top">
+                <span style="line-height: 1;">{{ __('View all') }}</span>
+                <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
             </a>

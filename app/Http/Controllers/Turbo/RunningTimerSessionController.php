@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Turbo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Turbo\StoreRunningTimerSessionRequest;
 use App\Http\Requests\Turbo\UpdateRunningTimerSessionRequest;
-use App\Models\Client;
-use App\Models\Project;
 use App\Models\TimeEntry;
 use App\Services\DashboardMetricsService;
 use App\Services\TimerStateService;
@@ -35,7 +33,7 @@ class RunningTimerSessionController extends Controller
             ]);
         }
 
-        return view('turbo::timer-sessions.start', ['lastEntry' => $lastEntry]);
+        return back();
     }
 
     public function store(StoreRunningTimerSessionRequest $request)

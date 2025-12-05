@@ -21,7 +21,8 @@
             <div class="relative">
                 <input type="text" id="new_client_name" name="new_client_name" value="{{ $query ?? '' }}"
                     placeholder="{{ __('Enter client name') }}"
-                    class="input input-bordered w-full pl-10"
+                    class="input-field"
+                    style="width: 100%; padding-left: 40px; font-size: 15px;"
                     data-search-clients-target="newClientName" />
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg class="h-5 w-5 text-base-content/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,12 +52,13 @@
             <x-form.error for="new_client_hourly_rate_currency" />
         </div>
 
-        <div class="flex justify-end">
+        <div class="flex justify-end items-center">
             <button type="button"
-                    class="btn btn-primary btn-2xl"
+                    class="btn-primary"
+                    style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1; text-decoration: none;"
                     data-action="click->search-clients#createClientFromFields"
                     data-create-url="{{ route('turbo.clients.store') }}">
-                {{ __('Create Client') }}
+                <span style="line-height: 1;">{{ __('Create Client') }}</span>
             </button>
         </div>
     </div>

@@ -6,7 +6,8 @@
             name="hourly_rate_amount"
             value="{{ $value }}"
             placeholder="0.00"
-            class="input input-bordered input-lg w-full text-lg focus:input-primary @error('hourly_rate_amount') input-error @enderror"
+            class="input-field @error('hourly_rate_amount') border-red-500 @enderror"
+            style="width: 100%; font-size: 15px;"
             step="0.01"
             min="0"
             {{ $required ? 'required' : '' }}
@@ -15,7 +16,8 @@
     </div>
     <select
         name="hourly_rate_currency"
-        class="select select-bordered select-lg w-full text-lg focus:select-primary @error('hourly_rate_currency') select-error @enderror"
+        class="input-field @error('hourly_rate_currency') border-red-500 @enderror"
+        style="width: 100%; font-size: 15px;"
         {!! $currencyAttributes !!}
     >
         @foreach($currencyOptions() as $code => $display)

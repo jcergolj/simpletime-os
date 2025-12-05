@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Turbo;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client;
-use App\Models\Project;
-use App\Models\TimeEntry;
 use App\Services\DashboardMetricsService;
 use App\Services\TimerStateService;
 use Illuminate\Http\Request;
@@ -24,15 +21,7 @@ class TimerSessionCompletionController extends Controller
         $runningEntry = $this->timerState->getRunningTimer();
 
         if (! $runningEntry) {
-            $lastEntry = TimeEntry::query()
-                ->with(['client.hourlyRate', 'project.hourlyRate'])
-                ->whereNotNull('end_time')
-                ->latest('end_time')
-                ->first();
-
-            return turbo_stream_view('turbo::timer-sessions.start', [
-                'lastEntry' => $lastEntry,
-            ]);
+            return back();
         }
 
         $runningEntry->update([
@@ -42,11 +31,6 @@ class TimerSessionCompletionController extends Controller
 
         Log::channel('time-entries')->info('time-entry-auto-stopped', $runningEntry->toArray());
 
-        $recentEntries = $this->dashboardMetrics->getRecentEntries();
-
-        return turbo_stream_view('turbo::timer-sessions.stopped', [
-            'lastEntry' => $runningEntry,
-            'recentEntries' => $recentEntries,
-        ]);
+        return back();
     }
 }

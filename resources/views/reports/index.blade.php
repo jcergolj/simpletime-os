@@ -27,7 +27,7 @@
                         <div>
                             <label class="label">{{ __('Project') }}</label>
                             <turbo-frame id="project-filter-mobile" src="{{ route('project-filter', ['client_id' => request('client_id'), 'selected_project_id' => request('project_id')]) }}" loading="lazy">
-                                <select name="project_id" class="input-field" style="background: var(--bg);" disabled>
+                                <select name="project_id" class="input-field" style="background: var(--bg); font-size: 15px;" disabled>
                                     <option value="">{{ request('client_id') ? __('Loading projects...') : __('Select a client first') }}</option>
                                 </select>
                             </turbo-frame>
@@ -85,7 +85,7 @@
                         <div class="flex-1">
                             <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('Project') }}</label>
                             <turbo-frame id="project-filter-desktop" src="{{ route('project-filter', ['client_id' => request('client_id'), 'selected_project_id' => request('project_id')]) }}" loading="lazy">
-                                <select name="project_id" class="w-full h-10 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent bg-gray-50" disabled>
+                                <select name="project_id" class="input-field" style="background: var(--bg); font-size: 15px;" disabled>
                                     <option value="">{{ request('client_id') ? __('Loading projects...') : __('Select a client first') }}</option>
                                 </select>
                             </turbo-frame>

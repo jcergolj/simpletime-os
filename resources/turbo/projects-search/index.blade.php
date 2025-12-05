@@ -34,7 +34,8 @@
             <div class="relative">
                 <input type="text" id="new_project_name" name="new_project_name" value="{{ request('q') ?? '' }}"
                     placeholder="{{ __('Enter project name') }}"
-                    class="input input-bordered w-full pl-10"
+                    class="input-field"
+                    style="width: 100%; padding-left: 40px; font-size: 15px;"
                     data-search-projects-target="newProjectName" />
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg class="h-5 w-5 text-base-content/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,7 +53,7 @@
                     <label class="label">
                         <span class="label-text font-semibold">{{ __('Client') }}</span>
                     </label>
-                    <div class="input input-bordered flex items-center bg-base-200 cursor-not-allowed">
+                    <div class="input-field flex items-center" style="background: var(--bg); cursor: not-allowed; font-size: 15px;">
                         <svg class="h-5 w-5 text-base-content/50 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
@@ -96,13 +97,14 @@
             <x-form.error for="new_project_hourly_rate_currency" />
         </div>
 
-        <div class="flex justify-end">
+        <div class="flex justify-end items-center">
             <button type="button"
-                    class="btn btn-primary btn-base"
+                    class="btn-primary"
+                    style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1; text-decoration: none;"
                     {{ !$clientId ? 'disabled' : '' }}
                     data-action="click->search-projects#createProjectFromFields"
                     data-create-url="{{ route('turbo.projects.store') }}">
-                {{ __('Create Project') }}
+                <span style="line-height: 1;">{{ __('Create Project') }}</span>
             </button>
         </div>
     </div>

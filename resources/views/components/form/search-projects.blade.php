@@ -4,7 +4,8 @@
         id="{{ $projectNameId }}"
         autocomplete="off"
         placeholder="{{ __('Search or create project...') }}"
-        class="input input-bordered input-lg w-full text-lg"
+        class="input-field"
+        style="width: 100%; font-size: 15px;"
         value="{{ $projectName }}"
         data-search-projects-target="input"
         data-action="input->search-projects#query keydown->search-projects#navigate">

@@ -6,7 +6,8 @@
         id="{{ $clientNameId }}"
         autocomplete="off"
         placeholder="Search clients..."
-        class="input input-bordered input-lg w-full text-lg"
+        class="input-field"
+        style="width: 100%; font-size: 15px;"
         value="{{ $clientName }}"
         data-search-clients-target="input"
         data-action="input->search-clients#query keydown->search-clients#navigate">
