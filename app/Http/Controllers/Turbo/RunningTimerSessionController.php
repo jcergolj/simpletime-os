@@ -22,6 +22,7 @@ class RunningTimerSessionController extends Controller
     {
         if (TimeEntry::whereNull('end_time')->first() !== null) {
             InAppNotification::error(__('Session already in progress.'));
+
             return to_route('dashboard');
         }
 
@@ -83,8 +84,17 @@ class RunningTimerSessionController extends Controller
 
         if ($runningEntry) {
             $runningEntry->delete();
+
+            Log::channel('time-entries')->info('timer-session-cancelled', $runningEntry->toArray());
         }
 
-        return to_route('dashboard');
+        $recentEntries = $this->dashboardMetrics->getRecentEntries();
+        $lastEntry = $recentEntries->first();
+
+        return turbo_stream_view('turbo::timer-sessions.destroy', [
+            'recentEntries' => $recentEntries,
+            'lastEntry' => $lastEntry,
+            'runningTimer' => null,
+        ]);
     }
 }

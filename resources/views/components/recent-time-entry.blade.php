@@ -73,7 +73,7 @@
                         <span>{{ __('Start') }}</span>
                     </button>
                 @else
-                    <form action="{{ route('turbo.running-timer-session.store') }}" method="POST" data-turbo-frame="timer-widget" class="inline">
+                    <form action="{{ route('turbo.running-timer-session.store') }}" method="POST" data-turbo-frame="_top" class="inline">
                         @csrf
                         <input type="hidden" name="client_id" value="{{ $entry->client_id }}">
                         <input type="hidden" name="project_id" value="{{ $entry->project_id }}">
@@ -196,7 +196,7 @@
                                 <span>{{ __('Start') }}</span>
                             </button>
                         @else
-                            <form action="{{ route('turbo.running-timer-session.store') }}" method="POST" data-turbo-frame="timer-widget">
+                            <form action="{{ route('turbo.running-timer-session.store') }}" method="POST" data-turbo-frame="_top">
                                 @csrf
                                 <input type="hidden" name="client_id" value="{{ $entry->client_id }}">
                                 <input type="hidden" name="project_id" value="{{ $entry->project_id }}">

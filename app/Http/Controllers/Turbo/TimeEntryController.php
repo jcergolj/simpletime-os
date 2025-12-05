@@ -112,36 +112,9 @@ class TimeEntryController extends Controller
         Log::channel('time-entries')->info('time-entry-updated', $timeEntry->fresh()->toArray());
 
         if ($request->boolean('is_recent', false)) {
-            $recentEntries = TimeEntry::query()
-                ->with(['client.hourlyRate', 'project.hourlyRate'])
-                ->latest('start_time')
-                ->limit(10)
-                ->get();
-
-            $runningTimer = $this->dashboardMetrics->getRunningTimer();
-
-            return turbo_stream_view('timer-sessions.recent-entry-update', [
-                'timeEntry' => $timeEntry,
-                'recentEntries' => $recentEntries,
-                'runningTimer' => $runningTimer,
-            ]);
+            return to_route('dashboard');
         }
 
-        $timeEntries = TimeEntry::query()
-            ->with(['client.hourlyRate', 'project.hourlyRate'])
-            ->forClient($request->client_id)
-            ->forProject($request->project_id)
-            ->betweenDates(
-                $request->filled('date_from') ? Carbon::parse($request->date_from) : null,
-                $request->filled('date_to') ? Carbon::parse($request->date_to) : null
-            )
-            ->latestFirst()
-            ->paginate(20)
-            ->withQueryString();
-
-        return turbo_stream_view('turbo::time-entries.update', [
-            'timeEntry' => $timeEntry,
-            'timeEntries' => $timeEntries,
-        ]);
+        return to_route('time-entries.index');
     }
 }

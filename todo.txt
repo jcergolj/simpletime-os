@@ -1,5 +1,4 @@
-save recent entry issue -> frame not closed
-project-filter-mobile fix for mobile
+why url does not changes when pagination 
 recent time entries by id desc
 hourly rate not properly used it should be project client user update it when client or project is selected
 consider using form instead of stimulus controllers
