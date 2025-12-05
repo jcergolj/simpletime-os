@@ -15,13 +15,12 @@ class TimerSessionCompletionController extends Controller
         protected TimerStateService $timerState
     ) {}
 
-    /** Complete (stop) a running timer session. */
     public function __invoke(Request $request)
     {
         $runningEntry = $this->timerState->getRunningTimer();
 
         if (! $runningEntry) {
-            return back();
+            return to_route('dashboard');
         }
 
         $runningEntry->update([
@@ -31,6 +30,6 @@ class TimerSessionCompletionController extends Controller
 
         Log::channel('time-entries')->info('time-entry-auto-stopped', $runningEntry->toArray());
 
-        return back();
+        return to_route('dashboard');
     }
 }

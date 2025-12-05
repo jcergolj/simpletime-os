@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Turbo\ClientController;
-use App\Http\Controllers\Turbo\ProjectController;
-use App\Http\Controllers\Turbo\TimeEntryController;
 use App\Http\Controllers\Turbo\ClientSearchController;
+use App\Http\Controllers\Turbo\ProjectController;
 use App\Http\Controllers\Turbo\ProjectSearchController;
 use App\Http\Controllers\Turbo\RunningTimerSessionController;
+use App\Http\Controllers\Turbo\TimeEntryController;
 use App\Http\Controllers\Turbo\TimerSessionCompletionController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->as('turbo.')->group(function () {
     Route::get('clients/create', [ClientController::class, 'create'])->name('clients.create');
@@ -32,7 +32,6 @@ Route::middleware(['auth'])->as('turbo.')->group(function () {
 
     Route::get('projects-search', ProjectSearchController::class)->name('projects-search.index');
 
-    Route::get('running-timer-session', [RunningTimerSessionController::class, 'show'])->name('running-timer-session.show');
     Route::get('running-timer-session/edit', [RunningTimerSessionController::class, 'edit'])->name('running-timer-session.edit');
     Route::post('running-timer-session', [RunningTimerSessionController::class, 'store'])->name('running-timer-session.store');
     Route::post('running-timer-session/completion', TimerSessionCompletionController::class)->name('running-timer-session.completion');

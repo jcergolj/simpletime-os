@@ -19,21 +19,7 @@ class RunningTimerSessionController extends Controller
 
     public function show()
     {
-        $runningTimer = $this->timerState->getRunningTimer();
-
-        $lastEntry = TimeEntry::query()
-            ->with(['client.hourlyRate', 'project.hourlyRate'])
-            ->whereNotNull('end_time')
-            ->latest('end_time')
-            ->first();
-
-        if ($runningTimer) {
-            return view('turbo::timer-sessions.running', [
-                'runningTimer' => $runningTimer,
-            ]);
-        }
-
-        return back();
+        return to_route('dashboard');
     }
 
     public function store(StoreRunningTimerSessionRequest $request)
@@ -81,7 +67,7 @@ class RunningTimerSessionController extends Controller
             ->first();
 
         if (! $runningEntry) {
-            return to_route('turbo.running-timer-session.show');
+            return to_route('dashboard');
         }
 
         $validated = $request->validated();
@@ -94,12 +80,7 @@ class RunningTimerSessionController extends Controller
 
         Log::channel('time-entries')->info('timer-session-updated', $runningEntry->toArray());
 
-        $recentEntries = $this->dashboardMetrics->getRecentEntries();
-
-        return turbo_stream_view('turbo::timer-sessions.running-updated', [
-            'runningTimer' => $runningEntry,
-            'recentEntries' => $recentEntries,
-        ]);
+        return to_route('dashboard');
     }
 
     public function destroy()
@@ -113,17 +94,6 @@ class RunningTimerSessionController extends Controller
             $runningEntry->delete();
         }
 
-        $lastEntry = TimeEntry::query()
-            ->with(['client.hourlyRate', 'project.hourlyRate'])
-            ->whereNotNull('end_time')
-            ->latest('end_time')
-            ->first();
-
-        $recentEntries = $this->dashboardMetrics->getRecentEntries();
-
-        return turbo_stream_view('turbo::timer-sessions.stopped', [
-            'lastEntry' => $lastEntry,
-            'recentEntries' => $recentEntries,
-        ]);
+        return to_route('dashboard');
     }
 }

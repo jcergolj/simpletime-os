@@ -5,7 +5,7 @@
          data-timer-start-time-value="{{ $runningTimer->start_time->timestamp }}">
         <!-- Cancel Button - Top Right -->
         <div class="flex justify-end mb-2">
-            <a href="{{ route('turbo.running-timer-session.show') }}"
+            <a href="{{ route('dashboard') }}"
                data-turbo-frame="timer-widget"
                class="text-gray-500 hover:text-gray-700 transition-colors"
                title="{{ __('Cancel') }}">

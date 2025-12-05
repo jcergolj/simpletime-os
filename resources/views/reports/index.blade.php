@@ -55,14 +55,14 @@
                             </select>
                         </div>
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-2">
-                        <button type="submit" style="padding: 8px 16px; background: var(--accent); color: white; border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; justify-center; gap: 6px; border: none; width: 100%;" class="sm:w-auto">
-                            <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button type="submit" class="sm:w-auto" style="padding: 8px 16px; background: var(--accent); color: white; border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: none;">
+                            <svg style="width: 18px; height: 18px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
                             <span style="line-height: 1;">{{ __('Generate') }}</span>
                         </button>
-                        <a href="{{ route('reports.index') }}" style="padding: 8px 16px; background: white; color: var(--text); border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; justify-center; text-decoration: none;">
+                        <a href="{{ route('reports.index') }}" style="padding: 8px 16px; background: white; color: var(--text); border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 1; display: flex; align-items: center; justify-content: center; text-decoration: none;">
                             <span style="line-height: 1;">{{ __('Clear Filters') }}</span>
                         </a>
                     </div>
