@@ -9,6 +9,7 @@ use App\Models\TimeEntry;
 use App\Services\DashboardMetricsService;
 use App\Services\TimerStateService;
 use Illuminate\Support\Facades\Log;
+use Jcergolj\InAppNotifications\InAppNotification;
 
 class RunningTimerSessionController extends Controller
 {
@@ -17,14 +18,12 @@ class RunningTimerSessionController extends Controller
         protected TimerStateService $timerState
     ) {}
 
-    public function show()
-    {
-        return to_route('dashboard');
-    }
-
     public function store(StoreRunningTimerSessionRequest $request)
     {
-        $this->timerState->stopRunningTimer();
+        if (TimeEntry::whereNull('end_time')->first() !== null) {
+            InAppNotification::error(__('Session already in progress.'));
+            return to_route('dashboard');
+        }
 
         $timeEntry = TimeEntry::create([
             'start_time' => now(),
@@ -34,15 +33,7 @@ class RunningTimerSessionController extends Controller
 
         Log::channel('time-entries')->info('time-entry-auto-created', $timeEntry->toArray());
 
-        // Load the timeEntry with relationships for display
-        $timeEntry->load(['client.hourlyRate', 'project.hourlyRate', 'hourlyRate']);
-
-        $recentEntries = $this->dashboardMetrics->getRecentEntries();
-
-        return turbo_stream_view('turbo::timer-sessions.started', [
-            'timeEntry' => $timeEntry,
-            'recentEntries' => $recentEntries,
-        ]);
+        return to_route('dashboard');
     }
 
     public function edit()
