@@ -23,7 +23,7 @@
             <div class="text-6xl font-mono font-bold text-black" data-timer-target="display">00:00:00</div>
 
             <!-- Edit Form -->
-            <form action="{{ route('turbo.running-timer-session.update') }}" method="POST" data-turbo-frame="_top" class="space-y-6">
+            <form action="{{ route('running-timer-session.update') }}" method="POST" data-turbo-frame="_top" class="space-y-6">
                 @csrf
                 @method('PUT')
 

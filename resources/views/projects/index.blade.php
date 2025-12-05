@@ -1,14 +1,14 @@
 <x-layouts.app :title="__('Projects')">
     <div class="space-y-8" data-controller="inline-edit">
         <!-- Page Header -->
-        <div class="px-4 sm:px-0">
-            <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; color: var(--text);">{{ __('Projects') }}</h1>
-            <p style="font-size: 17px; color: var(--text-secondary); font-weight: 400;">{{ __('Manage your projects and track time') }}</p>
+        <div class="px-4 sm:px-0 animate-fade-in-up">
+            <h1 class="font-display" style="font-size: 48px; margin-bottom: 8px; color: var(--color-text);">{{ __('Projects') }}</h1>
+            <p style="font-size: 18px; color: var(--color-text-secondary); font-weight: 400;">{{ __('Manage your projects and track time') }}</p>
         </div>
 
         <!-- Search Filter -->
-        <div class="card mx-4 sm:px-0" style="padding: 32px 28px;">
-            <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 24px; color: var(--text);">{{ __('Search Projects') }}</h3>
+        <div class="card mx-4 sm:px-0 animate-fade-in-up stagger-1" style="padding: 32px 28px;">
+            <h3 class="font-display" style="font-size: 22px; margin-bottom: 24px; color: var(--color-text);">{{ __('Search Projects') }}</h3>
             <form method="GET" action="{{ route('projects.index') }}">
                 <div class="flex flex-col sm:flex-row gap-4">
                     <div class="flex-1">
@@ -37,14 +37,14 @@
         </div>
 
         <!-- Add Project Section -->
-        <div class="card mx-4 sm:mx-0" style="padding: 32px 28px;">
+        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-2" style="padding: 32px 28px;">
             <turbo-frame id="project-create-form">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
                     <div>
-                        <h2 style="font-size: 24px; font-weight: 600; margin-bottom: 8px; color: var(--text);">{{ __('Add New Project') }}</h2>
-                        <p style="font-size: 15px; color: var(--text-secondary);">{{ __('Create a new project and organize your work') }}</p>
+                        <h2 class="font-display" style="font-size: 22px; margin-bottom: 8px; color: var(--color-text);">{{ __('Add New Project') }}</h2>
+                        <p style="font-size: 16px; color: var(--color-text-secondary);">{{ __('Create a new project and organize your work') }}</p>
                     </div>
-                    <a href="{{ route('turbo.projects.create') }}" class="btn-primary sm:w-auto" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1; text-decoration: none;">
+                    <a href="{{ route('projects.create') }}" class="btn-primary sm:w-auto" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1; text-decoration: none;">
                         <svg style="width: 18px; height: 18px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>

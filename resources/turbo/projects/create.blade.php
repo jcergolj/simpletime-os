@@ -8,7 +8,7 @@
     </div>
 
     <!-- Form -->
-    <form action="{{ route('turbo.projects.store') }}" method="POST" class="space-y-6" data-turbo-frame="project-create-form">
+    <form action="{{ route('projects.store') }}" method="POST" class="space-y-6" data-turbo-frame="_top">
       @csrf
 
       <!-- Project Name, Client, and Hourly Rate in One Row -->

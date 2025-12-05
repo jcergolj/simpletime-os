@@ -1,14 +1,14 @@
 <x-layouts.app :title="__('Time Entries')">
     <div class="space-y-8" data-controller="inline-edit">
         <!-- Page Header -->
-        <div class="px-4 sm:px-0">
-            <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; color: var(--text);">{{ __('Time Entries') }}</h1>
-            <p style="font-size: 17px; color: var(--text-secondary); font-weight: 400;">{{ __('Track and manage your time entries') }}</p>
+        <div class="px-4 sm:px-0 animate-fade-in-up">
+            <h1 class="font-display" style="font-size: 48px; margin-bottom: 8px; color: var(--color-text);">{{ __('Time Entries') }}</h1>
+            <p style="font-size: 18px; color: var(--color-text-secondary); font-weight: 400;">{{ __('Track and manage your time entries') }}</p>
         </div>
 
         <!-- Filters Section -->
-        <div class="card mx-4 sm:mx-0" style="padding: 32px 28px;">
-            <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 24px; color: var(--text);">{{ __('Filters') }}</h3>
+        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-1" style="padding: 32px 28px;">
+            <h3 class="font-display" style="font-size: 22px; margin-bottom: 24px; color: var(--color-text);">{{ __('Filters') }}</h3>
             <form method="GET" action="{{ route('time-entries.index') }}">
                 <!-- Mobile/Tablet: Stacked layout -->
                 <div class="block xl:hidden">
@@ -105,7 +105,7 @@
         </div>
 
         <!-- Add Time Entry Section -->
-        <div class="card mx-4 sm:mx-0" style="padding: 32px 28px;">
+        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-2" style="padding: 32px 28px;">
             <x-time-entry-create-button />
         </div>
 

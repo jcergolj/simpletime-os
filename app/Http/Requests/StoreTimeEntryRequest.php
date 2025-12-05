@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Turbo;
+namespace App\Http\Requests;
 
 use App\Enums\Currency;
-use App\Http\Requests\AppFormRequest;
 use Illuminate\Validation\Rule;
 
 class StoreTimeEntryRequest extends AppFormRequest
 {
     protected function getRedirectUrl(): string
     {
-        return route('turbo.time-entries.create');
+        return route('time-entries.create');
     }
 
     public function rules(): array

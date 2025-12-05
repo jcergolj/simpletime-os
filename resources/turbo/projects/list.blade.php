@@ -43,7 +43,7 @@
 
                 <!-- Actions -->
                 <div class="flex items-center gap-2">
-                    <a href="{{ route('turbo.projects.edit', $project) }}" style="padding: 8px 16px; background: var(--accent); color: white; border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; border: none;">
+                    <a href="{{ route('projects.edit', $project) }}" style="padding: 8px 16px; background: var(--accent); color: white; border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; border: none;">
                         <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                         </svg>
@@ -79,7 +79,7 @@
             </div>
             <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--text);">{{ __('No projects yet') }}</h3>
             <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px;">{{ __('Get started by adding your first project above.') }}</p>
-            <a href="{{ route('turbo.projects.create') }}" style="padding: 12px 24px; background: var(--accent); color: white; border-radius: 8px; font-size: 15px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; border: none;" data-turbo-frame="project-create-form">
+            <a href="{{ route('projects.create') }}" style="padding: 12px 24px; background: var(--accent); color: white; border-radius: 8px; font-size: 15px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; border: none;" data-turbo-frame="project-create-form">
                 <svg style="width: 18px; height: 18px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                 </svg>

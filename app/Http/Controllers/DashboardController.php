@@ -12,7 +12,7 @@ class DashboardController extends Controller
         protected DashboardMetricsService $dashboardMetrics
     ) {}
 
-    public function __invoke(Request $request): View
+    public function __invoke(): View
     {
         $recentEntries = $this->dashboardMetrics->getRecentEntries();
         $lastEntry = $recentEntries->first();

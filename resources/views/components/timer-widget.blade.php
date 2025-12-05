@@ -8,7 +8,7 @@
             <div class="text-center">
                 <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">{{ __('Start New Timer') }}</h2>
 
-                    <form action="{{ route('turbo.running-timer-session.store') }}" method="POST" data-turbo-frame="timer-widget">
+                    <form action="{{ route('running-timer-session.store') }}" method="POST" data-turbo-frame="timer-widget">
                         @csrf
 
                         <!-- Client and Project Selection Row -->

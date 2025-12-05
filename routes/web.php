@@ -5,11 +5,13 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectFilterController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\RunningTimerSessionController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\PreferencesController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TimeEntryController;
+use App\Http\Controllers\TimerSessionCompletionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('welcome'))->name('home');
@@ -19,14 +21,41 @@ Route::get('dashboard', DashboardController::class)
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
+    // Client routes
     Route::get('clients', [ClientController::class, 'index'])->name('clients.index');
+    Route::get('clients/create', [\App\Http\Controllers\Turbo\ClientController::class, 'create'])->name('clients.create');
+    Route::post('clients', [ClientController::class, 'store'])->name('clients.store');
+    Route::get('clients/{client}/edit', [\App\Http\Controllers\Turbo\ClientController::class, 'edit'])->name('clients.edit');
+    Route::put('clients/{client}', [ClientController::class, 'update'])->name('clients.update');
+    Route::patch('clients/{client}', [ClientController::class, 'update']);
     Route::delete('clients/{client}', [ClientController::class, 'destroy'])->name('clients.destroy');
 
+    // Project routes
     Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
+    Route::get('projects/create', [\App\Http\Controllers\Turbo\ProjectController::class, 'create'])->name('projects.create');
+    Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');
+    Route::get('projects/{project}/edit', [\App\Http\Controllers\Turbo\ProjectController::class, 'edit'])->name('projects.edit');
+    Route::put('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
+    Route::patch('projects/{project}', [ProjectController::class, 'update']);
     Route::delete('projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 
+    // TimeEntry routes
     Route::get('time-entries', [TimeEntryController::class, 'index'])->name('time-entries.index');
+    Route::get('time-entries/create', [\App\Http\Controllers\Turbo\TimeEntryController::class, 'create'])->name('time-entries.create');
+    Route::post('time-entries', [TimeEntryController::class, 'store'])->name('time-entries.store');
+    Route::get('time-entries/{timeEntry}/edit', [\App\Http\Controllers\Turbo\TimeEntryController::class, 'edit'])->name('time-entries.edit');
+    Route::put('time-entries/{timeEntry}', [TimeEntryController::class, 'update'])->name('time-entries.update');
+    Route::patch('time-entries/{timeEntry}', [TimeEntryController::class, 'update']);
     Route::delete('time-entries/{timeEntry}', [TimeEntryController::class, 'destroy'])->name('time-entries.destroy');
+
+    // RunningTimerSession routes
+    Route::get('running-timer-session/edit', [\App\Http\Controllers\Turbo\RunningTimerSessionController::class, 'edit'])->name('running-timer-session.edit');
+    Route::post('running-timer-session', [RunningTimerSessionController::class, 'store'])->name('running-timer-session.store');
+    Route::put('running-timer-session', [RunningTimerSessionController::class, 'update'])->name('running-timer-session.update');
+    Route::delete('running-timer-session', [\App\Http\Controllers\Turbo\RunningTimerSessionController::class, 'destroy'])->name('running-timer-session.destroy');
+
+    // Timer completion route
+    Route::post('running-timer-session/completion', TimerSessionCompletionController::class)->name('running-timer-session.completion');
 
     Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
     Route::get('report-exports', \App\Http\Controllers\ReportExportController::class)->name('report-exports.show');

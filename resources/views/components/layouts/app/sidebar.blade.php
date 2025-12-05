@@ -11,11 +11,11 @@
         <meta name="turbo-refresh-method" content="morph">
         <meta name="turbo-refresh-scroll" content="preserve">
     </head>
-    <body @class(["min-h-screen", "hotwire-native" => Turbo::isHotwireNativeVisit()]) data-controller="session-recovery" style="background: var(--bg);">
+    <body @class(["min-h-screen", "hotwire-native" => Turbo::isHotwireNativeVisit()]) data-controller="session-recovery" style="background: var(--color-bg);">
         <!-- Top Navigation -->
-        <nav style="background: var(--card); border-bottom: 1px solid var(--border);">
+        <nav class="sticky top-0 z-50 animate-fade-in">
             <div class="mx-auto px-2 sm:px-4 lg:px-8">
-                <div class="flex justify-between h-16">
+                <div class="flex justify-between h-20">
                     <!-- Left side - Logo and main navigation -->
                     <div class="flex items-center">
                         <!-- Logo -->
@@ -93,7 +93,7 @@
         <x-in-app-notifications::notification />
 
         <!-- Main Content -->
-        <main style="background: var(--bg);">
+        <main style="background: var(--color-bg); min-height: calc(100vh - 80px);">
             {{ $slot }}
         </main>
     </body>

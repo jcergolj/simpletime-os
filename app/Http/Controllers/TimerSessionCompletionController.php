@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Turbo;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Services\DashboardMetricsService;
 use App\Services\TimerStateService;
 use Illuminate\Http\Request;

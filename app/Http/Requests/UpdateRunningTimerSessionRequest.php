@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Turbo;
-
-use App\Http\Requests\AppFormRequest;
+namespace App\Http\Requests;
 
 class UpdateRunningTimerSessionRequest extends AppFormRequest
 {

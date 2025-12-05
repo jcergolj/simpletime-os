@@ -8,7 +8,7 @@
     </div>
 
     <!-- Form -->
-    <form action="{{ route('turbo.projects.update', $project) }}" method="POST" class="space-y-6" data-turbo-frame="project-{{ $project->id }}">
+    <form action="{{ route('projects.update', $project) }}" method="POST" class="space-y-6" data-turbo-frame="_top">
       @csrf
       @method('PUT')
 

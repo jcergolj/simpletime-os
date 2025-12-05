@@ -1,5 +1,5 @@
-why url does not changes when pagination 
-recent time entries by id desc
+buttons messing when creating clients or projects on homepage. text and icon inside submit button not visible when creating or editing clients, projects, time entries
+simplify hourly rate. replace table with json field inside users, clients, projects and time entry tables. modify existing migrations ill run php artisan refresh
 hourly rate not properly used it should be project client user update it when client or project is selected
 consider using form instead of stimulus controllers
 create new client validation error no error shown

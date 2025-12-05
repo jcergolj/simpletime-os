@@ -2,13 +2,13 @@
 <x-layouts.app :title="__('Time Tracking Dashboard')">
     <div class="space-y-8">
         <!-- Header -->
-        <div class="px-4 sm:px-0">
-            <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; color: var(--text);">{{ __('Dashboard') }}</h1>
-            <p style="font-size: 17px; color: var(--text-secondary); font-weight: 400;">{{ __('Weekly overview and time tracking') }}</p>
+        <div class="px-4 sm:px-0 animate-fade-in-up">
+            <h1 class="font-display" style="font-size: 48px; margin-bottom: 8px; color: var(--color-text);">{{ __('Dashboard') }}</h1>
+            <p style="font-size: 18px; color: var(--color-text-secondary); font-weight: 400;">{{ __('Weekly overview and time tracking') }}</p>
         </div>
 
         <!-- Stats -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 sm:px-0">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 sm:px-0 animate-fade-in-up stagger-1">
             <turbo-frame id="weekly-hours">
                 <x-dashboard.weekly-hours />
             </turbo-frame>
@@ -20,7 +20,7 @@
 
         <!-- Timer Section -->
         <turbo-frame id="timer-widget" class="contents">
-        <div class="card mx-4 sm:mx-0" style="padding: 40px;">
+        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-2" style="padding: 40px;">
             @if($runningTimer)
                 <div class="p-8"
          data-controller="timer keyboard-shortcuts"
@@ -30,7 +30,7 @@
                 <!-- Session Status with Edit Button -->
                 <div class="flex justify-between items-center">
                     <div class="text-lg font-medium text-gray-700">{{ __('Session in progress') }}</div>
-                    <a href="{{ route('turbo.running-timer-session.edit') }}"
+                    <a href="{{ route('running-timer-session.edit') }}"
                        data-turbo-frame="timer-widget"
                        class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center space-x-1"
                        title="{{ __('Edit Timer') }}">
@@ -76,8 +76,9 @@
 
                 <!-- Control Buttons -->
                 <div class="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-                    <a href="{{ route('turbo.running-timer-session.completion') }}"
+                    <a href="{{ route('running-timer-session.completion') }}"
                        data-turbo-method="post"
+                       data-turbo-frame="_top"
                        class="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 flex items-center justify-center space-x-3"
                        data-keyboard-shortcuts-target="stopButton"
                        title="{{ __('Stop Timer') }} (Ctrl+Shift+T)">
@@ -91,7 +92,7 @@
 
                 <!-- Cancel Action (Less Prominent) -->
                 <div class="mt-4 text-center">
-                    <a href="{{ route('turbo.running-timer-session.destroy') }}"
+                    <a href="{{ route('running-timer-session.destroy') }}"
                        data-turbo-method="delete"
                        class="text-gray-500 hover:text-gray-700 text-sm font-medium underline transition-colors"
                        data-keyboard-shortcuts-target="cancelButton"
@@ -109,7 +110,7 @@
             <div class="text-center">
                 <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">{{ __('Start New Timer') }}</h2>
 
-                    <form action="{{ route('turbo.running-timer-session.store') }}" method="POST" data-turbo-frame="_top">
+                    <form action="{{ route('running-timer-session.store') }}" method="POST" data-turbo-frame="_top">
                         @csrf
 
                         <!-- Client and Project Selection Row -->

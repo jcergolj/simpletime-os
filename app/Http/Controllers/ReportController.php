@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Actions\Reports\GenerateReportDataAction;
 use App\Models\Client;
-use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 

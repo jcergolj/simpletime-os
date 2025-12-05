@@ -103,7 +103,7 @@
                     style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1; text-decoration: none;"
                     {{ !$clientId ? 'disabled' : '' }}
                     data-action="click->search-projects#createProjectFromFields"
-                    data-create-url="{{ route('turbo.projects.store') }}">
+                    data-create-url="{{ route('projects.store') }}">
                 <span style="line-height: 1;">{{ __('Create Project') }}</span>
             </button>
         </div>

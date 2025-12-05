@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Turbo;
+namespace App\Http\Requests;
 
 use App\Enums\Currency;
-use App\Http\Requests\AppFormRequest;
 use Illuminate\Validation\Rule;
 
 class StoreClientRequest extends AppFormRequest
 {
     protected function getRedirectUrl(): string
     {
-        return route('turbo.clients.create');
+        return route('clients.create');
     }
 
     public function rules(): array

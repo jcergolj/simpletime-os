@@ -1,14 +1,14 @@
 <x-layouts.app :title="__('Reports')">
     <div class="space-y-8">
         <!-- Page Header -->
-        <div class="px-4 sm:px-0">
-            <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; color: var(--text); text-align: center;">{{ __('Reports') }}</h1>
-            <p style="font-size: 17px; color: var(--text-secondary); font-weight: 400; text-align: center;">{{ __('View detailed time tracking reports and export data.') }}</p>
+        <div class="px-4 sm:px-0 animate-fade-in-up">
+            <h1 class="font-display" style="font-size: 48px; margin-bottom: 8px; color: var(--color-text); text-align: center;">{{ __('Reports') }}</h1>
+            <p style="font-size: 18px; color: var(--color-text-secondary); font-weight: 400; text-align: center;">{{ __('View detailed time tracking reports and export data.') }}</p>
         </div>
 
         <!-- Filters -->
-        <div class="card mx-4 sm:mx-0" style="padding: 32px;">
-            <h2 style="font-size: 24px; font-weight: 600; color: var(--text); margin-bottom: 24px;">{{ __('Report Filters') }}</h2>
+        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-1" style="padding: 32px;">
+            <h2 class="font-display" style="font-size: 22px; color: var(--color-text); margin-bottom: 24px;">{{ __('Report Filters') }}</h2>
             <form method="GET" action="{{ route('reports.index') }}">
                 <!-- Mobile: Stacked layout -->
                 <div class="block xl:hidden">

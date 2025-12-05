@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Turbo;
+namespace App\Http\Requests;
 
 use App\Enums\Currency;
-use App\Http\Requests\AppFormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateTimeEntryRequest extends AppFormRequest
@@ -14,7 +13,7 @@ class UpdateTimeEntryRequest extends AppFormRequest
             return route('dashboard');
         }
 
-        return route('turbo.time-entries.edit', $this->timeEntry);
+        return route('time-entries.edit', $this->timeEntry);
     }
 
     public function rules(): array

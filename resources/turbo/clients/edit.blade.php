@@ -12,7 +12,7 @@
         </div>
 
         <!-- Form -->
-        <form action="{{ route('turbo.clients.update', $client->id) }}" method="POST" class="space-y-4" data-turbo-frame="client-{{ $client->id }}">
+        <form action="{{ route('clients.update', $client->id) }}" method="POST" class="space-y-4" data-turbo-frame="_top">
             @csrf
             @method('PUT')
 

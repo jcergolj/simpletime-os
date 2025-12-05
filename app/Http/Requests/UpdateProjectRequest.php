@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Turbo;
+namespace App\Http\Requests;
 
 use App\Enums\Currency;
-use App\Http\Requests\AppFormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateProjectRequest extends AppFormRequest
 {
     protected function getRedirectUrl(): string
     {
-        return route('turbo.projects.edit', $this->route('project'));
+        return route('projects.edit', $this->route('project'));
     }
 
     public function rules(): array

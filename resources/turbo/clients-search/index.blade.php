@@ -57,7 +57,7 @@
                     class="btn-primary"
                     style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1; text-decoration: none;"
                     data-action="click->search-clients#createClientFromFields"
-                    data-create-url="{{ route('turbo.clients.store') }}">
+                    data-create-url="{{ route('clients.store') }}">
                 <span style="line-height: 1;">{{ __('Create Client') }}</span>
             </button>
         </div>

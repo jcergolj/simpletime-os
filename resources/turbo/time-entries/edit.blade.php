@@ -8,7 +8,7 @@
     </div>
 
     <!-- Form -->
-    <form action="{{ route('turbo.time-entries.update', $timeEntry) }}" method="POST" class="space-y-6" data-turbo-frame="_top">
+    <form action="{{ route('time-entries.update', $timeEntry) }}" method="POST" class="space-y-6" data-turbo-frame="_top">
       @csrf
       @method('PUT')
       @if($is_recent)
