@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string $name
+ * @property Money|null $hourlyRate
  */
 class Client extends Model
 {
@@ -42,12 +43,20 @@ class Client extends Model
     protected function hourlyRate(): Attribute
     {
         return Attribute::make(
-            get: fn () => isset($this->attributes['hourly_rate'])
-                ? Money::from(json_decode($this->attributes['hourly_rate'], true))
-                : null,
-            set: fn (?Money $value) => [
-                'hourly_rate' => $value?->toArray(),
-            ]
+            get: function (): ?Money {
+                if (isset($this->attributes['hourly_rate'])) {
+                    return Money::from(json_decode((string) $this->attributes['hourly_rate'], true));
+                }
+
+                return null;
+            },
+            set: function (mixed $value): ?string {
+                if ($value instanceof Money) {
+                    return json_encode($value->toArray());
+                }
+
+                return null;
+            }
         );
     }
 }

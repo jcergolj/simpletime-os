@@ -12,5 +12,5 @@
 
     <input type="hidden" name="project_id" id="{{ $projectIdId }}" value="{{ $projectId }}">
 
-    <div data-search-projects-target="results" id="{{ $projectResultsId }}" class="absolute z-50 w-full bg-base-100 rounded-lg mt-1 shadow-lg max-h-96 overflow-y-auto"></div>
+    <div data-search-projects-target="results" id="{{ $projectResultsId }}" class="absolute z-50 w-full bg-base-100 rounded-lg mt-1 shadow-lg max-h-[700px] overflow-y-auto"></div>
 </div>

@@ -27,7 +27,7 @@ class SearchClients extends SearchComponent
         parent::__construct($searchId);
         $this->clientId = $client?->id;
         $this->clientName = $client?->name;
-        $this->uniqueId = $searchId ? (string) $searchId : 'main';
+        $this->uniqueId = $searchId ?: 'main';
         $this->clientNameId = $this->uniqueId.'-client-name';
         $this->clientIdId = $this->uniqueId.'-client-id';
         $this->clientResultsId = $this->uniqueId.'-search-client-results';

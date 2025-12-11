@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\SyncHourlyRateAction;
 use App\Http\Requests\StoreTimeEntryRequest;
 use App\Http\Requests\UpdateTimeEntryRequest;
 use App\Models\Client;
 use App\Models\TimeEntry;
 use App\Services\DashboardMetricsService;
+use App\ValueObjects\Money;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,7 +19,6 @@ class TimeEntryController extends Controller
 {
     public function __construct(
         protected DashboardMetricsService $dashboardMetrics,
-        protected SyncHourlyRateAction $syncHourlyRate
     ) {}
 
     public function index(Request $request): View
@@ -65,13 +64,15 @@ class TimeEntryController extends Controller
             'notes' => $validated['notes'],
             'client_id' => $validated['client_id'],
             'project_id' => $validated['project_id'],
+            'hourly_rate' => Money::fromValidated($validated),
         ]);
 
-        $this->syncHourlyRate->execute($timeEntry, $validated);
-
+        
         Log::channel('time-entries')->info('time-entry-created', $timeEntry->toArray());
+        
+        InAppNotification::success(__('Time Entry successful created.'));
 
-        return to_intended_route('time-entries.index');
+        return turbo_stream()->redirect(route('time-entries.index'));
     }
 
     public function edit(TimeEntry $timeEntry, Request $request): View|RedirectResponse
@@ -107,17 +108,18 @@ class TimeEntryController extends Controller
             'notes' => $validated['notes'],
             'client_id' => $validated['client_id'],
             'project_id' => $validated['project_id'],
+            'hourly_rate' => Money::fromValidated($validated),
         ]);
 
-        $this->syncHourlyRate->execute($timeEntry, $validated);
-
         Log::channel('time-entries')->info('time-entry-updated', $timeEntry->fresh()->toArray());
+
+        InAppNotification::success(__('Time Entry successful updated.'));
 
         if ($request->boolean('is_recent', false)) {
             return to_route('dashboard');
         }
 
-        return to_route('time-entries.index');
+        return turbo_stream()->redirect(route('time-entries.index'));
     }
 
     public function destroy(Request $request, TimeEntry $timeEntry): RedirectResponse

@@ -59,4 +59,5 @@
             @include('turbo::clients.list', ['clients' => $clients])
         </turbo-frame>
     </div>
+    
 </x-layouts.app>

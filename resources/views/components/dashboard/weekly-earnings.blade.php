@@ -1,6 +1,6 @@
 @props(['metrics'])
 
-<div id="weekly-earnings" class="card" style="padding: 32px;">
+<div id="weekly-earnings" class="card" style="padding: 20px;">
     <div class="stat-label">{{ __('Weekly Earnings') }}</div>
 
     @if(count($metrics->weeklyEarnings) > 0)

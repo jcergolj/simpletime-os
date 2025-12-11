@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Enums\Currency;
-use App\Models\HourlyRate;
 use App\Models\User;
 use App\ValueObjects\Money;
 use Illuminate\Console\Command;
@@ -12,24 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class CreateUserCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'app:create-user {--force : Force create user even if one already exists}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Create a new user for the time tracking application';
 
-    /** Execute the console command. */
     public function handle(): int
     {
-        // Check if a user already exists
         if (User::exists() && ! $this->option('force')) {
             $this->error('A user already exists in the system.');
             $this->info('Only one user is allowed per application.');
@@ -46,11 +33,9 @@ class CreateUserCommand extends Command
         $this->components->info('This will be your login account for accessing the dashboard.');
         $this->newLine();
 
-        // Get user input
         $name = $this->ask('What is your name?');
         $email = $this->ask('What is your email address?');
 
-        // Validate email
         $validator = Validator::make(['email' => $email], [
             'email' => ['required', 'email', 'unique:users,email'],
         ]);
@@ -76,35 +61,30 @@ class CreateUserCommand extends Command
             return self::FAILURE;
         }
 
-        // Get hourly rate
         $hourlyRateInput = $this->ask('What is your default hourly rate? (Optional, press Enter to skip)');
+
+        $hourlyRateInput = $this->ask('What is your default hourly rate? (Optional, press Enter to skip)');
+
+        /** @var Money|null  $hourlyRate */
         $hourlyRate = null;
 
         if (! empty($hourlyRateInput)) {
             $hourlyRateAmount = (float) $hourlyRateInput;
             if ($hourlyRateAmount > 0) {
-                $currency = $this->choice('Select currency', Currency::commonOptions(), 'USD');
+                $currency = $this->choice('Select currency', Currency::options(), 'USD');
 
                 $hourlyRate = Money::fromDecimal($hourlyRateAmount, $currency);
             }
         }
 
-        // Create the user
         try {
             $user = User::create([
                 'name' => $name,
                 'email' => $email,
                 'password' => Hash::make($password),
-                'email_verified_at' => now(), // Auto-verify since this is single user app
+                'email_verified_at' => now(),
+                'hourly_rate' => $hourlyRate,
             ]);
-
-            if ($hourlyRate instanceof Money) {
-                HourlyRate::create([
-                    'rate' => $hourlyRate,
-                    'rateable_id' => $user->id,
-                    'rateable_type' => User::class,
-                ]);
-            }
 
             $user->load('hourlyRate');
 

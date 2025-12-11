@@ -53,7 +53,7 @@
                         </div>
                         <div class="stat">
                             <div class="stat-title">Total Duration</div>
-                            <div class="stat-value text-success">{{ $project->getFormattedDuration()['hours'] }}h {{ $project->getFormattedDuration()['minutes'] }}m</div>
+                            <div class="stat-value text-success">{{ $project->formattedDuration->formatted() }}</div>
                             <div class="stat-desc">Time tracked</div>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                                                     <div class="text-sm text-base-content/70"><x-user-time :time="$timeEntry->start_time" /></div>
                                                 </td>
                                                 <td>
-                                                    <div class="badge badge-primary">{{ $timeEntry->getFormattedDuration() }}</div>
+                                                    <div class="badge badge-primary">{{ $timeEntry->formattedDuration }}</div>
                                                 </td>
                                                 <td>
                                                     <div class="max-w-xs truncate">{{ $timeEntry->notes ?: 'No notes' }}</div>

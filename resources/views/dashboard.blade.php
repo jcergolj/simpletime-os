@@ -28,8 +28,8 @@
          data-timer-start-time-value="{{ $runningTimer->start_time->timestamp ?? $timeEntry->start_time->timestamp }}">
         <div class="text-center space-y-6">
                 <!-- Session Status with Edit Button -->
-                <div class="flex justify-between items-center">
-                    <div class="text-lg font-medium text-gray-700">{{ __('Session in progress') }}</div>
+                <div class="flex justify-between items-center mb-4 sm:mb-6">
+                    <h2 class="text-xl sm:text-2xl font-bold text-gray-900">{{ __('Session in progress') }}</h2>
                     <a href="{{ route('running-timer-session.edit') }}"
                        data-turbo-frame="timer-widget"
                        class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center space-x-1"
@@ -94,6 +94,7 @@
                 <div class="mt-4 text-center">
                     <a href="{{ route('running-timer-session.destroy') }}"
                        data-turbo-method="delete"
+                       data-turbo-frame="_top"
                        class="text-gray-500 hover:text-gray-700 text-sm font-medium underline transition-colors"
                        data-keyboard-shortcuts-target="cancelButton"
                        data-turbo-confirm="{{ __('Are you sure you want to cancel this timer? All progress will be lost.') }}"

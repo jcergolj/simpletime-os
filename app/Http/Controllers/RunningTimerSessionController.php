@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TimeEntry;
+use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreRunningTimerSessionRequest;
 use App\Http\Requests\UpdateRunningTimerSessionRequest;
-use App\Models\TimeEntry;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Log;
-use Illuminate\View\View;
+use Jcergolj\InAppNotifications\Facades\InAppNotification;
 
 class RunningTimerSessionController extends Controller
 {
@@ -24,6 +25,8 @@ class RunningTimerSessionController extends Controller
         ]);
 
         Log::channel('time-entries')->info('time-entry-auto-created', $timeEntry->toArray());
+
+        InAppNotification::success(__('Session started.'));
 
         return to_route('dashboard');
     }
@@ -49,6 +52,8 @@ class RunningTimerSessionController extends Controller
 
         Log::channel('time-entries')->info('timer-session-updated', $runningEntry->toArray());
 
+        InAppNotification::success(__('Session updated.'));
+
         return to_route('dashboard');
     }
 
@@ -60,7 +65,7 @@ class RunningTimerSessionController extends Controller
             ->first();
 
         if (! $runningTimer) {
-            return redirect()->route('dashboard');
+            return to_route('dashboard');
         }
 
         return view('turbo::timer-sessions.edit', ['runningTimer' => $runningTimer]);
@@ -78,6 +83,8 @@ class RunningTimerSessionController extends Controller
 
             Log::channel('time-entries')->info('timer-session-cancelled', $runningEntry->toArray());
         }
+
+        InAppNotification::success(__('Session deleted.'));
 
         return to_route('dashboard');
     }

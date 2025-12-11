@@ -8,7 +8,7 @@
     </div>
 
     <!-- Form -->
-    <form action="{{ route('time-entries.update', $timeEntry) }}" method="POST" class="space-y-6" data-turbo-frame="_top">
+    <form action="{{ route('time-entries.update', $timeEntry) }}" method="POST" class="space-y-6">
       @csrf
       @method('PUT')
       @if($is_recent)
@@ -88,17 +88,10 @@
             {{ __('Cancel') }}
             </a>
         @else
-            <a href="{{ route('time-entries.index') }}" class="text-gray-600 hover:text-gray-900 px-6 py-3 font-medium transition-colors inline-flex items-center" data-turbo-frame="time-entry-{{ $timeEntry->id }}">
-          {{ __('Cancel') }}
-        </a>
+            <x-form.button.cancel :href="route('time-entries.index')" turboFrame="time-entry-edit-form">{{ __('Cancel') }}</x-form.button.cancel>
         @endif
         
-        <button type="submit" class="bg-gray-900 text-white px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition-colors inline-flex items-center space-x-2">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-          <span>{{ __('Update Time Entry') }}</span>
-        </button>
+        <x-form.button.save text="{{ __('Update Time Entry') }}" />
       </div>
     </form>
 

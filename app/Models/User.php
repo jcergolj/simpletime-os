@@ -12,6 +12,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
+/**
+ * @property Money|null $hourlyRate
+ */
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -81,12 +84,20 @@ class User extends Authenticatable
     protected function hourlyRate(): Attribute
     {
         return Attribute::make(
-            get: fn () => isset($this->attributes['hourly_rate'])
-                ? Money::from(json_decode($this->attributes['hourly_rate'], true))
-                : null,
-            set: fn (?Money $value) => [
-                'hourly_rate' => $value?->toArray(),
-            ]
+            get: function (): ?Money {
+                if (isset($this->attributes['hourly_rate'])) {
+                    return Money::from(json_decode((string) $this->attributes['hourly_rate'], true));
+                }
+
+                return null;
+            },
+            set: function (mixed $value): ?string {
+                if ($value instanceof Money) {
+                    return json_encode($value->toArray());
+                }
+
+                return null;
+            }
         );
     }
 }

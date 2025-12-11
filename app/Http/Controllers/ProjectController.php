@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\SyncHourlyRateAction;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Client;
 use App\Models\Project;
+use App\Models\TimeEntry;
 use App\ValueObjects\Money;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -16,10 +16,6 @@ use Jcergolj\InAppNotifications\Facades\InAppNotification;
 
 class ProjectController extends Controller
 {
-    public function __construct(
-        protected SyncHourlyRateAction $syncHourlyRate
-    ) {}
-
     public function index(Request $request): View
     {
         $projects = Project::with('client')
@@ -36,7 +32,7 @@ class ProjectController extends Controller
     {
         $clients = Client::all();
 
-        return view('turbo::projects.create', compact('clients'));
+        return view('turbo::projects.create', ['clients' => $clients]);
     }
 
     public function store(StoreProjectRequest $request)
@@ -46,9 +42,8 @@ class ProjectController extends Controller
         $project = Project::create([
             'name' => $validated['name'],
             'client_id' => $validated['client_id'],
+            'hourly_rate' => Money::fromValidated($validated),
         ]);
-
-        $this->syncHourlyRate->execute($project, $validated);
 
         if ($request->wantsJson() || $request->ajax()) {
             return new JsonResponse([
@@ -63,14 +58,16 @@ class ProjectController extends Controller
             ]);
         }
 
-        return to_intended_route('projects.index');
+        InAppNotification::success(__('Project :name successfully created.', ['name' => $project->name]));
+
+        return turbo_stream()->redirect(route('projects.index'));
     }
 
     public function edit(Project $project): View
     {
         $clients = Client::all();
 
-        return view('turbo::projects.edit', compact('project', 'clients'));
+        return view('turbo::projects.edit', ['project' => $project, 'clients' => $clients]);
     }
 
     public function update(UpdateProjectRequest $request, Project $project)
@@ -82,15 +79,15 @@ class ProjectController extends Controller
         $project->update([
             'name' => $validated['name'],
             'client_id' => $validated['client_id'],
+            'hourly_rate' => Money::fromValidated($validated),
         ]);
-
-        $this->syncHourlyRate->execute($project, $validated);
 
         $newHourlyRate = $project->fresh()->hourlyRate;
 
         if ($request->boolean('update_existing_entries') && $this->hourlyRateChanged($originalHourlyRate, $newHourlyRate)) {
             $timeEntriesToUpdate = $project->timeEntries()->whereNull('hourly_rate')->get();
 
+            /** @var TimeEntry $timeEntry */
             foreach ($timeEntriesToUpdate as $timeEntry) {
                 if ($newHourlyRate instanceof Money) {
                     $timeEntry->hourlyRate = $newHourlyRate;
@@ -99,7 +96,9 @@ class ProjectController extends Controller
             }
         }
 
-        return to_intended_route('projects.index');
+        InAppNotification::success(__('Project :name successfully updated.', ['name' => $project->name]));
+
+        return turbo_stream()->redirect(route('projects.index'));
     }
 
     public function destroy(Project $project): RedirectResponse

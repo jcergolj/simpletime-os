@@ -8,7 +8,7 @@
     </div>
 
     <!-- Form -->
-    <form action="{{ route('clients.store') }}" method="POST" class="space-y-6" data-turbo-frame="_top">
+    <form action="{{ route('clients.store') }}" method="POST" class="space-y-6">
         @csrf
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -46,14 +46,8 @@
 
         <!-- Form Actions -->
         <div class="flex justify-end gap-2 mt-4">
-            <a href="{{ route('clients.index') }}" data-turbo-frame="client-create-form" class="btn btn-ghost">{{ __('Cancel') }}</a>
-            <button type="submit" class="btn btn-primary flex items-center gap-1">
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                </svg>
-                {{ __('Create') }}
-            </button>
+            <x-form.button.cancel :href="route('clients.index')" turboFrame="client-create-form">{{ __('Cancel') }}</x-form.button.cancel>
+            <x-form.button.save text="{{ __('Create Client') }}" />
         </div>
     </form>
 

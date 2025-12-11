@@ -13,7 +13,7 @@
     </head>
     <body @class(["min-h-screen", "hotwire-native" => Turbo::isHotwireNativeVisit()]) data-controller="session-recovery" style="background: var(--color-bg);">
         <!-- Top Navigation -->
-        <nav class="sticky top-0 z-50 animate-fade-in">
+        <nav class="sticky top-0 z-50">
             <div class="mx-auto px-2 sm:px-4 lg:px-8">
                 <div class="flex justify-between h-20">
                     <!-- Left side - Logo and main navigation -->

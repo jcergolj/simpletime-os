@@ -26,8 +26,8 @@
                         <div>
                             <div class="entry-label">{{ __('Duration') }}</div>
                             <div class="entry-value">
-                                @if($timeEntry->duration)
-                                    {{ $timeEntry->getFormattedDuration() }}
+                                @if($timeEntry->formattedDuration)
+                                    {{ $timeEntry->formattedDuration }}
                                 @else
                                     <span style="color: var(--accent);">{{ __('Running...') }}</span>
                                 @endif

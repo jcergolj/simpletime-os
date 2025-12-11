@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('client_id')->constrained()->cascadeOnDelete();
-            $table->text('description')->nullable();
             $table->json('hourly_rate')->nullable();
             $table->timestamps();
         });

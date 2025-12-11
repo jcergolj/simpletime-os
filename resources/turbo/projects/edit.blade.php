@@ -8,7 +8,7 @@
     </div>
 
     <!-- Form -->
-    <form action="{{ route('projects.update', $project) }}" method="POST" class="space-y-6" data-turbo-frame="_top">
+    <form action="{{ route('projects.update', $project) }}" method="POST" class="space-y-6">
       @csrf
       @method('PUT')
 
@@ -78,13 +78,8 @@
 
       <!-- Form Actions -->
       <div class="flex gap-2 justify-end">
-        <a href="{{ route('projects.index') }}" class="btn btn-ghost">{{ __('Cancel') }}</a>
-        <button type="submit" class="btn btn-primary flex items-center gap-1">
-          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-          {{ __('Update Project') }}
-        </button>
+        <x-form.button.cancel :href="route('projects.index')" turboFrame="project-edit-form">{{ __('Cancel') }}</x-form.button.cancel>
+        <x-form.button.save text="{{ __('Update Project') }}" />
       </div>
     </form>
   </div>

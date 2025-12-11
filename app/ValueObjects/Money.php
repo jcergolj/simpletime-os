@@ -3,6 +3,8 @@
 namespace App\ValueObjects;
 
 use App\Enums\Currency;
+use App\Enums\ExceptionCode;
+use Exception;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 
@@ -26,6 +28,19 @@ class Money implements Arrayable, JsonSerializable
         return new self(
             amount: (int) round($amount * 100),
             currency: is_string($currency) ? Currency::from($currency) : $currency
+        );
+    }
+
+    public static function fromValidated(array $data): self
+    {
+        $hourly_rate = $data['hourly_rate'];
+        throw_unless(isset($hourly_rate['amount']), Exception::class, 'Hourly rate amount is missing.', ExceptionCode::Hourly_Rate_Amount_Missing->value);
+
+        throw_unless(isset($hourly_rate['currency']), Exception::class, 'Hourly rate currency is missing.', ExceptionCode::Hourly_Rate_Currency_Missing->value);
+
+        return new self(
+            amount: (int) round($hourly_rate['amount'] * 100),
+            currency: is_string($hourly_rate['currency']) ? Currency::from($hourly_rate['currency']) : $hourly_rate['currency']
         );
     }
 
@@ -55,7 +70,6 @@ class Money implements Arrayable, JsonSerializable
         $symbol = $this->currency->symbol();
         $decimalAmount = $this->amount / 100;
 
-        // Format without comma thousands separators for CSV compatibility
         return $symbol.number_format($decimalAmount, 2, '.', '');
     }
 
@@ -67,5 +81,15 @@ class Money implements Arrayable, JsonSerializable
     public function equals(Money $other): bool
     {
         return $this->amount === $other->amount && $this->currency === $other->currency;
+    }
+
+    public function earnings(int $durationInSeconds): Money
+    {
+        $hours = $durationInSeconds / 3600;
+
+        return new Money(
+            amount: (int) round($this->amount * $hours),
+            currency: $this->currency
+        );
     }
 }

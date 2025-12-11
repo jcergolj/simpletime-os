@@ -1,7 +1,12 @@
-buttons messing when creating clients or projects on homepage. text and icon inside submit button not visible when creating or editing clients, projects, time entries
+add spacing at when timer is running on dashboard or when editing running time entry
+13 inch
+keep the same size when timer is running or is is edited
+use frontend design skills to match edit running time entry with other forms
 consider using form instead of stimulus controllers turbo frame when searching or creating existing or new client or project
 hourly rate not properly used it should be project client user update it when client or project is selected
-create new client validation error no error shown
+
+
+
 use front-end design skills to improve welcome page and transform it into more likeable open
   source landing page. before changing the code confirm that you are using
   frontend-design skills. use clear minimalistic breathable approach, bare in mind that after

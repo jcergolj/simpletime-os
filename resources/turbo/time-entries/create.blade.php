@@ -73,16 +73,9 @@
       </div>
 
       <div class="flex gap-3 justify-end">
-        <a href="{{ route('time-entries.index') }}" class="text-gray-600 hover:text-gray-900 px-6 py-3 font-medium transition-colors inline-flex items-center">
-          {{ __('Cancel') }}
-        </a>
-        
-        <button type="submit" class="bg-gray-900 text-white px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition-colors inline-flex items-center space-x-2">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-          </svg>
-          <span>{{ __('Create Time Entry') }}</span>
-        </button>
+        <x-form.button.cancel :href="route('time-entries.index')" turboFrame="time-entry-create-form">{{ __('Cancel') }}</x-form.button.cancel>
+
+        <x-form.button.save text="{{ __('Create Time Entry') }}" />
       </div>
     </form>
 

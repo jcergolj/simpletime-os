@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\ValueObjects\Duration;
 use App\ValueObjects\Money;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $name
  * @property string|null $description
  * @property Client $client
+ * @property Money|null $hourlyRate
+ * @property Duration $formattedDuration
  */
 class Project extends Model
 {
@@ -43,16 +46,15 @@ class Project extends Model
             ->count();
     }
 
-    public function getFormattedDuration(): array
+    protected function formattedDuration(): Attribute
     {
-        $totalSeconds = $this->timeEntries->sum('duration');
-        $totalHours = floor($totalSeconds / 3600);
-        $totalMinutes = floor(($totalSeconds % 3600) / 60);
+        return Attribute::make(
+            get: function (): Duration {
+                $totalSeconds = $this->timeEntries->sum('duration');
 
-        return [
-            'hours' => $totalHours,
-            'minutes' => $totalMinutes,
-        ];
+                return Duration::fromSeconds($totalSeconds);
+            }
+        );
     }
 
     public function scopeSearchByName($query, ?string $search)
@@ -66,12 +68,20 @@ class Project extends Model
     protected function hourlyRate(): Attribute
     {
         return Attribute::make(
-            get: fn () => isset($this->attributes['hourly_rate'])
-                ? Money::from(json_decode($this->attributes['hourly_rate'], true))
-                : null,
-            set: fn (?Money $value) => [
-                'hourly_rate' => $value?->toArray(),
-            ]
+            get: function (): ?Money {
+                if (isset($this->attributes['hourly_rate'])) {
+                    return Money::from(json_decode((string) $this->attributes['hourly_rate'], true));
+                }
+
+                return null;
+            },
+            set: function (mixed $value): ?string {
+                if ($value instanceof Money) {
+                    return json_encode($value->toArray());
+                }
+
+                return null;
+            }
         );
     }
 }

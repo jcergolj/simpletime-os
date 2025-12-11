@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\SyncHourlyRateAction;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
+use App\ValueObjects\Money;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,10 +14,6 @@ use Jcergolj\InAppNotifications\Facades\InAppNotification;
 
 class ClientController extends Controller
 {
-    public function __construct(
-        protected SyncHourlyRateAction $syncHourlyRate
-    ) {}
-
     public function index(Request $request): View
     {
         $clients = Client::query()
@@ -42,9 +38,8 @@ class ClientController extends Controller
 
         $client = Client::create([
             'name' => $validated['name'],
+            'hourly_rate' => Money::fromValidated($validated),
         ]);
-
-        $this->syncHourlyRate->execute($client, $validated);
 
         if ($request->wantsJson() || $request->ajax()) {
             return new JsonResponse([
@@ -57,7 +52,9 @@ class ClientController extends Controller
             ]);
         }
 
-        return to_intended_route('clients.index');
+        InAppNotification::success(__('Client :name successfully created.', ['name' => $client->name]));
+
+        return turbo_stream()->redirect(route('clients.index'));
     }
 
     public function edit(Client $client): View
@@ -71,11 +68,12 @@ class ClientController extends Controller
 
         $client->update([
             'name' => $validated['name'],
+            'hourly_rate' => Money::fromValidated($validated),
         ]);
 
-        $this->syncHourlyRate->execute($client, $validated);
+        InAppNotification::success(__('Client :name successfully updated.', ['name' => $client->name]));
 
-        return to_intended_route('clients.index');
+        return turbo_stream()->redirect(route('clients.index'));
     }
 
     public function destroy(Client $client): RedirectResponse

@@ -27,7 +27,7 @@ class SearchProjects extends SearchComponent
         parent::__construct($searchId);
         $this->projectId = $project?->id;
         $this->projectName = $project?->name;
-        $this->uniqueId = $searchId ? (string) $searchId : 'main';
+        $this->uniqueId = $searchId ?: 'main';
         $this->projectNameId = $this->uniqueId.'-project-name';
         $this->projectIdId = $this->uniqueId.'-project-id';
         $this->projectResultsId = $this->uniqueId.'-search-project-results';

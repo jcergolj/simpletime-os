@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int|null $project_id
  * @property Client|null $client
  * @property Project|null $project
+ * @property Money|null $hourlyRate
+ * @property string $formattedDuration
  */
 class TimeEntry extends Model
 {
@@ -77,8 +79,8 @@ class TimeEntry extends Model
 
         // Attributes are loaded directly from JSON - no eager loading needed
         return $this->hourlyRate
-            ?? $this->project?->hourlyRate
-            ?? $this->client?->hourlyRate
+            ?? $this->project->hourlyRate
+            ?? $this->client->hourlyRate
             ?? $user?->hourlyRate;
     }
 
@@ -90,42 +92,50 @@ class TimeEntry extends Model
             return null;
         }
 
-        $hours = $this->duration / 3600;
-
-        return new Money(
-            amount: (int) round($rate->amount * $hours),
-            currency: $rate->currency
-        );
+        return $rate->earnings($this->duration);
     }
 
-    public function getFormattedDuration(): string
+    protected function formattedDuration(): Attribute
     {
-        if (! $this->duration || $this->duration < 0) {
-            return '0m';
-        }
+        return Attribute::make(
+            get: function (): string {
+                if (! $this->duration || $this->duration < 0) {
+                    return '0m';
+                }
 
-        $hours = intval($this->duration / 3600);
-        $minutes = intval(($this->duration % 3600) / 60);
-        if ($hours > 0 && $minutes > 0) {
-            return "{$hours}h {$minutes}m";
-        }
+                $hours = intval($this->duration / 3600);
+                $minutes = intval(($this->duration % 3600) / 60);
 
-        if ($hours > 0) {
-            return "{$hours}h";
-        }
+                if ($hours > 0 && $minutes > 0) {
+                    return "{$hours}h {$minutes}m";
+                }
 
-        return "{$minutes}m";
+                if ($hours > 0) {
+                    return "{$hours}h";
+                }
+
+                return "{$minutes}m";
+            }
+        );
     }
 
     protected function hourlyRate(): Attribute
     {
         return Attribute::make(
-            get: fn () => isset($this->attributes['hourly_rate'])
-                ? Money::from(json_decode($this->attributes['hourly_rate'], true))
-                : null,
-            set: fn (?Money $value) => [
-                'hourly_rate' => $value?->toArray(),
-            ]
+            get: function (): ?Money {
+                if (isset($this->attributes['hourly_rate'])) {
+                    return Money::from(json_decode((string) $this->attributes['hourly_rate'], true));
+                }
+
+                return null;
+            },
+            set: function (mixed $value): ?string {
+                if ($value instanceof Money) {
+                    return json_encode($value->toArray());
+                }
+
+                return null;
+            }
         );
     }
 }

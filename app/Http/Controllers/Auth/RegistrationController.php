@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Actions\SyncHourlyRateAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\StoreRegistrationRequest;
 use App\Models\User;
+use App\ValueObjects\Money;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Hash;
 
 class RegistrationController extends Controller
 {
-    public function __construct(
-        protected SyncHourlyRateAction $syncHourlyRate
-    ) {}
-
     public function create()
     {
         // Check if any user already exists (only one user allowed in v1)
@@ -40,9 +36,8 @@ class RegistrationController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'hourly_rate' => Money::fromValidated($validated),
         ]))));
-
-        $this->syncHourlyRate->execute($user, $validated);
 
         Auth::login($user);
 

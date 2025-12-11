@@ -34,11 +34,14 @@ class DateInput extends Component
     {
         $format = $this->userFormat();
 
-        return $format ? $format->example() : '';
+        return $format instanceof DateFormat ? $format->example() : '';
     }
 
     public function render(): View|Closure|string
     {
-        return view('components.form.date-input');
+        /** @var view-string $viewName */
+        $viewName = 'components.form.date-input';
+
+        return view($viewName);
     }
 }

@@ -16,7 +16,7 @@ class SingleUserRestriction
             if ($request->expectsJson()) {
                 return new JsonResponse([
                     'message' => __('Registration is disabled. Only one user is allowed per application.'),
-                ], \RESPONSE);
+                ], Response::HTTP_FORBIDDEN);
             }
 
             // For web requests, redirect to login with message

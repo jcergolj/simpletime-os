@@ -4,13 +4,13 @@ namespace App\ValueObjects;
 
 use Illuminate\Support\Collection;
 
-class ReportData
+readonly class ReportData
 {
     public function __construct(
-        public readonly Collection $timeEntries,
-        public readonly float $totalHours,
-        public readonly Collection $earningsByCurrency,
-        public readonly Collection $projectTotals,
-        public readonly DateRangeFilter $dateFilter
+        public Collection $timeEntries,
+        public float $totalHours,
+        public Collection $earningsByCurrency,
+        public Collection $projectTotals,
+        public DateRangeFilter $dateFilter
     ) {}
 }

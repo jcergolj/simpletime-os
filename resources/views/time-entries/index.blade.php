@@ -1,13 +1,13 @@
 <x-layouts.app :title="__('Time Entries')">
     <div class="space-y-8" data-controller="inline-edit">
         <!-- Page Header -->
-        <div class="px-4 sm:px-0 animate-fade-in-up">
+        <div class="px-4 sm:px-0">
             <h1 class="font-display" style="font-size: 48px; margin-bottom: 8px; color: var(--color-text);">{{ __('Time Entries') }}</h1>
             <p style="font-size: 18px; color: var(--color-text-secondary); font-weight: 400;">{{ __('Track and manage your time entries') }}</p>
         </div>
 
         <!-- Filters Section -->
-        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-1" style="padding: 32px 28px;">
+        <div class="card mx-4 sm:mx-0" style="padding: 32px 28px;">
             <h3 class="font-display" style="font-size: 22px; margin-bottom: 24px; color: var(--color-text);">{{ __('Filters') }}</h3>
             <form method="GET" action="{{ route('time-entries.index') }}">
                 <!-- Mobile/Tablet: Stacked layout -->
@@ -105,8 +105,22 @@
         </div>
 
         <!-- Add Time Entry Section -->
-        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-2" style="padding: 32px 28px;">
-            <x-time-entry-create-button />
+        <div class="card mx-4 sm:mx-0" style="padding: 32px 28px;">
+            <turbo-frame id="time-entry-create-form">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+        <div>
+            <h2 class="text-lg sm:text-xl font-medium text-gray-900 mb-1">{{ __('Manual Time Entry') }}</h2>
+            <p class="text-gray-600 text-sm sm:text-base">{{ __('Add time entries with specific start and end times, client, and project details.') }}</p>
+        </div>
+        <a href="{{ route('time-entries.create') }}" class="btn-primary sm:w-auto" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1; text-decoration: none;">
+            <svg style="width: 18px; height: 18px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            <span>{{ __('Add Manual Entry') }}</span>
+        </a>
+    </div>
+</turbo-frame>
+
         </div>
 
         <!-- Time Entries List -->

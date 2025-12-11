@@ -1,6 +1,6 @@
 <x-layouts.auth :title="__('Login')">
     <div>
-        <div class="text-center mb-10 animate-fade-in">
+        <div class="text-center mb-10">
             <h2 class="font-display" style="font-size: 32px; color: var(--color-text); margin-bottom: 8px;">Welcome Back</h2>
             <p style="font-size: 16px; color: var(--color-text-secondary);">Enter your credentials to access your account</p>
         </div>

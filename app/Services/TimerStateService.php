@@ -17,9 +17,17 @@ class TimerStateService
 
     public function stopRunningTimer(): void
     {
-        TimeEntry::whereNull('end_time')->update([
-            'end_time' => now(),
-            'duration' => DB::raw('strftime("%s", "now") - strftime("%s", start_time)'),
+        $timeEntry = TimeEntry::whereNull('end_time')->first();
+
+        if ($timeEntry === null) {
+            return;
+        }
+
+        $end = now();
+
+        $timeEntry->update([
+            'end_time' => $end,
+            'duration' => $end->diffInSeconds($timeEntry->start_time),
         ]);
     }
 
@@ -27,7 +35,7 @@ class TimerStateService
     {
         $runningTimer = $this->getRunningTimer();
 
-        if ($runningTimer) {
+        if ($runningTimer instanceof TimeEntry) {
             $this->stopRunningTimer();
             $runningTimer->refresh();
         }

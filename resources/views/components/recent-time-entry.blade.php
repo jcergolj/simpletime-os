@@ -16,7 +16,7 @@
                 @if($entry->duration)
                     <div class="text-right ml-3">
                         <div class="text-lg font-mono font-bold text-gray-900">
-                            {{ $entry->getFormattedDuration() }}
+                            {{ $entry->formattedDuration }}
                         </div>
                         @if($entry->calculateEarnings())
                             <div class="text-xs text-gray-600">
@@ -165,7 +165,7 @@
                     <div class="text-right">
                         @if($entry->duration)
                             <div class="text-xl font-mono font-bold text-gray-900">
-                                {{ $entry->getFormattedDuration() }}
+                                {{ $entry->formattedDuration }}
                             </div>
                         @endif
                         <div class="space-y-1 mt-1">

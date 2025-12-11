@@ -16,7 +16,7 @@
         <div class="flex min-h-screen flex-col items-center justify-center px-2 py-12" style="position: relative; z-index: 1;">
             <x-in-app-notifications::notification />
 
-            <div class="w-full max-w-lg px-4 animate-scale-in">
+            <div class="w-full max-w-lg px-4">
                 <div class="text-center mb-8">
                     <a href="{{ route('home') }}" class="inline-flex flex-col items-center group">
                         <div style="width: 56px; height: 56px; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover)); border-radius: 16px; display: flex; align-items: center; justify-center; margin-bottom: 12px; transition: all 0.3s var(--ease-smooth); box-shadow: 0 4px 16px rgba(0, 102, 255, 0.2);" class="group-hover:scale-110 group-hover:rotate-3">
@@ -29,7 +29,7 @@
                     <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
                 </div>
 
-                <div class="card animate-fade-in-up stagger-1" style="padding: 40px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);">
+                <div class="card" style="padding: 40px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);">
                     {{ $slot }}
                 </div>
             </div>

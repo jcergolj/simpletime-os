@@ -74,6 +74,6 @@ class DateRangeFilter
 
     public function hasDateRange(): bool
     {
-        return $this->startDate !== null && $this->endDate !== null;
+        return $this->startDate instanceof Carbon && $this->endDate instanceof Carbon;
     }
 }

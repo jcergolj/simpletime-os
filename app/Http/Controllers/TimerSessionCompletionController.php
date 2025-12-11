@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\DashboardMetricsService;
-use App\Services\TimerStateService;
+use App\Models\TimeEntry;
 use Illuminate\Http\Request;
+use App\Services\TimerStateService;
 use Illuminate\Support\Facades\Log;
+use App\Services\DashboardMetricsService;
+use Jcergolj\InAppNotifications\Facades\InAppNotification;
 
 class TimerSessionCompletionController extends Controller
 {
@@ -18,7 +20,7 @@ class TimerSessionCompletionController extends Controller
     {
         $runningEntry = $this->timerState->getRunningTimer();
 
-        if (! $runningEntry) {
+        if (! $runningEntry instanceof TimeEntry) {
             return to_route('dashboard');
         }
 
@@ -28,6 +30,8 @@ class TimerSessionCompletionController extends Controller
         ]);
 
         Log::channel('time-entries')->info('time-entry-auto-stopped', $runningEntry->toArray());
+
+        InAppNotification::success(__('Session stopped.'));
 
         return to_route('dashboard');
     }

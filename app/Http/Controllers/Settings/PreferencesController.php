@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers\Settings;
 
-use App\Actions\SyncHourlyRateAction;
 use App\Enums\DateFormat;
 use App\Enums\TimeFormat;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Settings\UpdatePreferencesRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\ValueObjects\Money;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Settings\UpdatePreferencesRequest;
 use Jcergolj\InAppNotifications\Facades\InAppNotification;
 
 class PreferencesController extends Controller
 {
-    public function __construct(
-        protected SyncHourlyRateAction $syncHourlyRate
-    ) {}
-
     public function edit(Request $request): View
     {
         return view('settings.preferences.edit', [
@@ -37,9 +33,8 @@ class PreferencesController extends Controller
         $user->update([
             'date_format' => $validated['date_format'],
             'time_format' => $validated['time_format'],
+            'hourly_rate' => Money::fromValidated($validated)
         ]);
-
-        $this->syncHourlyRate->execute($user, $validated);
 
         InAppNotification::success(__('Preferences updated.'));
 

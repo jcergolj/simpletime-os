@@ -8,7 +8,7 @@
     </div>
 
     <!-- Form -->
-    <form action="{{ route('projects.store') }}" method="POST" class="space-y-6" data-turbo-frame="_top">
+    <form action="{{ route('projects.store') }}" method="POST" class="space-y-6">
       @csrf
 
       <!-- Project Name, Client, and Hourly Rate in One Row -->
@@ -61,13 +61,8 @@
 
       <!-- Form Actions -->
       <div class="flex gap-2 justify-end">
-        <a href="{{ route('projects.index') }}" class="btn btn-ghost">{{ __('Cancel') }}</a>
-        <button type="submit" class="btn btn-primary flex items-center gap-1">
-          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-          </svg>
-          {{ __('Create Project') }}
-        </button>
+        <x-form.button.cancel :href="route('projects.index')" turboFrame="project-create-form">{{ __('Cancel') }}</x-form.button.cancel>
+        <x-form.button.save text="{{ __('Create Project') }}"  />
       </div>
     </form>
   </div>

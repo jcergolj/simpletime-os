@@ -1,8 +1,8 @@
-<div id="recent-entries" class="card" style="padding: 0;">
-    <div style="padding: 28px 32px; border-bottom: 1px solid var(--border);">
+<div class="card" style="padding: 0;">
+    <div style="padding: 20px 24px; border-bottom: 1px solid var(--border);">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-                <h3 style="font-size: 28px; font-weight: 600; color: var(--text); margin-bottom: 4px;">{{ __('Recent Time Entries') }}</h3>
+                <h3 style="font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 4px;">{{ __('Recent Time Entries') }}</h3>
                 <p style="font-size: 14px; color: var(--text-secondary);">{{ __('Your latest time tracking activity') }}</p>
             </div>
             <a href="{{ route('time-entries.index') }}" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 6px; line-height: 1; text-decoration: none; font-size: 14px;" data-turbo-frame="_top">

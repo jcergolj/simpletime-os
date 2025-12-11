@@ -1,13 +1,13 @@
 <x-layouts.app :title="__('Projects')">
     <div class="space-y-8" data-controller="inline-edit">
         <!-- Page Header -->
-        <div class="px-4 sm:px-0 animate-fade-in-up">
+        <div class="px-4 sm:px-0">
             <h1 class="font-display" style="font-size: 48px; margin-bottom: 8px; color: var(--color-text);">{{ __('Projects') }}</h1>
             <p style="font-size: 18px; color: var(--color-text-secondary); font-weight: 400;">{{ __('Manage your projects and track time') }}</p>
         </div>
 
         <!-- Search Filter -->
-        <div class="card mx-4 sm:px-0 animate-fade-in-up stagger-1" style="padding: 32px 28px;">
+        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-1" style="padding: 32px 28px;">
             <h3 class="font-display" style="font-size: 22px; margin-bottom: 24px; color: var(--color-text);">{{ __('Search Projects') }}</h3>
             <form method="GET" action="{{ route('projects.index') }}">
                 <div class="flex flex-col sm:flex-row gap-4">
@@ -37,7 +37,7 @@
         </div>
 
         <!-- Add Project Section -->
-        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-2" style="padding: 32px 28px;">
+        <div class="card mx-4 sm:mx-0" style="padding: 32px 28px;">
             <turbo-frame id="project-create-form">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
                     <div>
