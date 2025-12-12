@@ -20,7 +20,7 @@
 
         <!-- Timer Section -->
         <turbo-frame id="timer-widget" class="contents">
-        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-2" style="padding: 40px;">
+        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-2" style="padding: 40px; min-height: 520px;">
             @if($runningTimer)
                 <div class="p-8"
          data-controller="timer keyboard-shortcuts"
@@ -34,10 +34,10 @@
                        data-turbo-frame="timer-widget"
                        class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center space-x-1"
                        title="{{ __('Edit Timer') }}">
-                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                         </svg>
-                        {{ __('Edit') }}
+                        <span>{{ __('Edit') }}</span>
                     </a>
                 </div>
 
@@ -107,8 +107,8 @@
     </div>
 </turbo-frame>
             @else
-                 <div class="p-4 sm:p-8" data-controller="keyboard-shortcuts">
-            <div class="text-center">
+                 <div class="p-8 flex items-center justify-center" data-controller="keyboard-shortcuts">
+            <div class="text-center w-full">
                 <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">{{ __('Start New Timer') }}</h2>
 
                     <form action="{{ route('running-timer-session.store') }}" method="POST" data-turbo-frame="_top">

@@ -1,6 +1,3 @@
-
-keep the same size when timer is running or is is edited
-
 add spacing at when timer is running on dashboard or when editing running time entry
 13 inch
 use frontend design skills to match edit running time entry with other forms

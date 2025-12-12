@@ -1,9 +1,9 @@
 <turbo-frame id="timer-widget" class="contents">
-    <div class="card bg-base-100 shadow-lg"
+    <div class="card mx-4 sm:mx-0" style="padding: 40px; min-height: 520px;"
          data-controller="timer keyboard-shortcuts"
          data-timer-running-value="true"
          data-timer-start-time-value="{{ $runningTimer->start_time->timestamp }}">
-        <div class="card-body space-y-6">
+        <div class="p-8 space-y-6">
 
             <!-- Header with Cancel Button -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-4">
