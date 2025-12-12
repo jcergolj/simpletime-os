@@ -1,51 +1,33 @@
 <x-layouts.app :title="__('Profile & Settings')">
     <div class="max-w-2xl mx-auto">
         <!-- Page Header -->
-        <div class="text-center py-4 mb-8">
-            <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ __('Profile & Settings') }}</h1>
-            <p class="text-gray-600">{{ __('Manage your account settings and preferences') }}</p>
-        </div>
+        <x-settings.page-header
+            :title="__('Profile & Settings')"
+            :description="__('Manage your account settings and preferences')"
+        />
 
         <!-- Settings Menu -->
         <div class="bg-white rounded-lg border border-gray-200 divide-y divide-gray-200">
-            <a href="{{ route('settings.profile.edit') }}" class="flex items-center px-6 py-4">
-                <div class="flex-shrink-0">
-                    <x-heroicon-o-user class="h-6 w-6 text-gray-400" />
-                </div>
-                <div class="ml-4 flex-1">
-                    <h3 class="text-sm font-medium text-gray-900">{{ __('Edit Profile') }}</h3>
-                    <p class="text-sm text-gray-500">{{ __('Update your name and email address') }}</p>
-                </div>
-                <div class="flex-shrink-0">
-                    <x-heroicon-o-chevron-right class="h-5 w-5 text-gray-400" />
-                </div>
-            </a>
+            <x-settings.menu-item
+                route="settings.profile.edit"
+                icon="user"
+                :title="__('Edit Profile')"
+                :description="__('Update your name and email address')"
+            />
 
-            <a href="{{ route('settings.preferences.edit') }}" class="flex items-center px-6 py-4">
-                <div class="flex-shrink-0">
-                    <x-heroicon-o-cog-6-tooth class="h-6 w-6 text-gray-400" />
-                </div>
-                <div class="ml-4 flex-1">
-                    <h3 class="text-sm font-medium text-gray-900">{{ __('Preferences') }}</h3>
-                    <p class="text-sm text-gray-500">{{ __('Customize defaults and display settings') }}</p>
-                </div>
-                <div class="flex-shrink-0">
-                    <x-heroicon-o-chevron-right class="h-5 w-5 text-gray-400" />
-                </div>
-            </a>
+            <x-settings.menu-item
+                route="settings.preferences.edit"
+                icon="cog-6-tooth"
+                :title="__('Preferences')"
+                :description="__('Customize defaults and display settings')"
+            />
 
-            <a href="{{ route('settings.password.edit') }}" class="flex items-center px-6 py-4">
-                <div class="flex-shrink-0">
-                    <x-heroicon-o-key class="h-6 w-6 text-gray-400" />
-                </div>
-                <div class="ml-4 flex-1">
-                    <h3 class="text-sm font-medium text-gray-900">{{ __('Change Password') }}</h3>
-                    <p class="text-sm text-gray-500">{{ __('Update your account password') }}</p>
-                </div>
-                <div class="flex-shrink-0">
-                    <x-heroicon-o-chevron-right class="h-5 w-5 text-gray-400" />
-                </div>
-            </a>
+            <x-settings.menu-item
+                route="settings.password.edit"
+                icon="key"
+                :title="__('Change Password')"
+                :description="__('Update your account password')"
+            />
 
             <a href="{{ route('settings.profile.delete') }}" class="flex items-center px-6 py-4">
                 <div class="flex-shrink-0">

@@ -1,17 +1,10 @@
 <div class="card mx-4 sm:mx-0" style="padding: 0;">
-    <div style="padding: 28px 32px; border-bottom: 1px solid var(--border);">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-            <div>
-                <h3 style="font-size: 28px; font-weight: 600; color: var(--text); margin-bottom: 4px;">{{ __('Your Time Entries') }}</h3>
-                <p style="font-size: 14px; color: var(--text-secondary);">{{ $timeEntries->total() }} {{ Str::plural(__('entry'), $timeEntries->total()) }} {{ __('total') }}</p>
-            </div>
-            @if($timeEntries->hasPages())
-                <div style="font-size: 14px; color: var(--text-secondary);">
-                    {{ __('Showing') }} {{ $timeEntries->firstItem() }}-{{ $timeEntries->lastItem() }} {{ __('of') }} {{ $timeEntries->total() }}
-                </div>
-            @endif
-        </div>
-    </div>
+    <x-list.header
+        :title="__('Your Time Entries')"
+        :items="$timeEntries"
+        :singularLabel="__('entry')"
+        :pluralLabel="__('entries')"
+    />
 
     @forelse($timeEntries as $timeEntry)
         <turbo-frame id="time-entry-{{ $timeEntry->id }}">
@@ -65,27 +58,12 @@
                     </div>
 
                     <!-- Actions -->
-                    <div class="flex items-center gap-2">
-                        @if($timeEntry->duration)
-                            <a href="{{ route('time-entries.edit', $timeEntry) }}" style="padding: 8px 16px; background: var(--accent); color: white; border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; border: none;">
-                                <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                </svg>
-                                <span style="line-height: 1;">{{ __('Edit') }}</span>
-                            </a>
-                        @endif
-
-                        <a href="{{ route('time-entries.destroy', $timeEntry) }}"
-                           style="padding: 8px 16px; background: white; color: var(--text); border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;"
-                           data-turbo-method="delete"
-                           data-turbo-confirm="{{ __('Are you sure you want to delete this time entry?') }}"
-                           data-turbo-frame="_top">
-                            <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                            </svg>
-                            <span style="line-height: 1;">{{ __('Delete') }}</span>
-                        </a>
-                    </div>
+                    <x-list.action-buttons
+                        :edit-route="route('time-entries.edit', $timeEntry)"
+                        :delete-route="route('time-entries.destroy', $timeEntry)"
+                        :confirm-message="__('Are you sure you want to delete this time entry?')"
+                        :show-edit="(bool) $timeEntry->duration"
+                    />
                 </div>
 
                 <!-- Client/Project row below -->
@@ -115,23 +93,18 @@
             </div>
         </turbo-frame>
     @empty
-        <div style="padding: 64px 32px; text-align: center;">
-            <div style="width: 64px; height: 64px; margin: 0 auto 16px; background: var(--bg); border-radius: 50%; display: flex; align-items: center; justify-center;">
+        <x-list.empty-state
+            :title="__('No time entries yet')"
+            :description="__('Get started by tracking your first time entry above.')"
+            :action-route="route('time-entries.create')"
+            :action-text="__('Add Your First Time Entry')"
+            turbo-frame="time-entry-create-form">
+            <x-slot:icon>
                 <svg style="width: 32px; height: 32px; color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-            </div>
-            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--text);">{{ __('No time entries yet') }}</h3>
-            <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px;">{{ __('Get started by tracking your first time entry above.') }}</p>
-            <a href="{{ route('time-entries.create') }}"
-               style="padding: 12px 24px; background: var(--accent); color: white; border-radius: 8px; font-size: 15px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; border: none;"
-               data-turbo-frame="time-entry-create-form">
-                <svg style="width: 18px; height: 18px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                </svg>
-                <span style="line-height: 1;">{{ __('Add Your First Time Entry') }}</span>
-            </a>
-        </div>
+            </x-slot:icon>
+        </x-list.empty-state>
     @endforelse
 
     @if($timeEntries->hasPages())
