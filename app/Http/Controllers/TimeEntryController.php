@@ -67,9 +67,8 @@ class TimeEntryController extends Controller
             'hourly_rate' => Money::fromValidated($validated),
         ]);
 
-        
         Log::channel('time-entries')->info('time-entry-created', $timeEntry->toArray());
-        
+
         InAppNotification::success(__('Time Entry successful created.'));
 
         return turbo_stream()->redirect(route('time-entries.index'));

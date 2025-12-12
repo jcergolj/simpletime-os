@@ -58,20 +58,18 @@
                 </div>
 
                 <!-- Start Time -->
-                <div class="form-control">
-                    <label class="label" for="start_time">
-                        <span class="label-text font-semibold">{{ __('Start Time') }}</span>
-                        <span class="label-text-alt text-base-content/50">{{ __('Cannot be in future') }}</span>
-                    </label>
+                <div>
+                    <label for="start_time" class="block text-sm font-medium text-gray-700 mb-2">{{ __('Start Time') }}</label>
                     <input
                         type="datetime-local"
                         id="start_time"
                         name="start_time"
                         value="{{ old('start_time', $runningTimer->start_time->format('Y-m-d\TH:i')) }}"
                         max="{{ now()->format('Y-m-d\TH:i') }}"
-                        class="input input-bordered input-lg w-full text-lg @error('start_time') input-error @enderror"
+                        class="w-full px-4 py-4 text-lg border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent @error('start_time') border-red-500 @enderror"
                         required
                     >
+                    <p class="mt-1 text-sm text-gray-600">{{ __('Cannot be in future') }}</p>
                     <x-form.error for="start_time" />
                 </div>
 

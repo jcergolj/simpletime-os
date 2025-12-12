@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\TimeEntry;
-use Illuminate\Http\Request;
-use App\Services\TimerStateService;
-use Illuminate\Support\Facades\Log;
 use App\Services\DashboardMetricsService;
+use App\Services\TimerStateService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Jcergolj\InAppNotifications\Facades\InAppNotification;
 
 class TimerSessionCompletionController extends Controller

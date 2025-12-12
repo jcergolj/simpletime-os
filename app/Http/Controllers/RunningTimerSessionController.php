@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TimeEntry;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreRunningTimerSessionRequest;
 use App\Http\Requests\UpdateRunningTimerSessionRequest;
+use App\Models\TimeEntry;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 use Jcergolj\InAppNotifications\Facades\InAppNotification;
 
 class RunningTimerSessionController extends Controller
