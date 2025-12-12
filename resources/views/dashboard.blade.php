@@ -2,13 +2,13 @@
 <x-layouts.app :title="__('Time Tracking Dashboard')">
     <div class="space-y-8">
         <!-- Header -->
-        <div class="px-4 sm:px-0 animate-fade-in-up">
+        <div class="px-4 sm:px-0">
             <h1 class="font-display" style="font-size: 48px; margin-bottom: 8px; color: var(--color-text);">{{ __('Dashboard') }}</h1>
             <p style="font-size: 18px; color: var(--color-text-secondary); font-weight: 400;">{{ __('Weekly overview and time tracking') }}</p>
         </div>
 
         <!-- Stats -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 sm:px-0 animate-fade-in-up stagger-1">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 sm:px-0">
             <turbo-frame id="weekly-hours">
                 <x-dashboard.weekly-hours />
             </turbo-frame>
@@ -20,7 +20,7 @@
 
         <!-- Timer Section -->
         <turbo-frame id="timer-widget" class="contents">
-        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-2" style="padding: 40px; min-height: 520px;">
+        <div class="card mx-4 sm:mx-0" style="padding: 40px; min-height: 520px;">
             @if($runningTimer)
                 <div class="p-8"
          data-controller="timer keyboard-shortcuts"

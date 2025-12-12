@@ -92,30 +92,6 @@
             50% { transform: translateY(-6px); }
         }
 
-        .animate-fade-in-up {
-            animation: fadeInUp 1.2s var(--ease-smooth) forwards;
-            opacity: 0;
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 1s var(--ease-smooth) forwards;
-            opacity: 0;
-        }
-
-        .animate-slide-in-right {
-            animation: slideInRight 1.2s var(--ease-smooth) forwards;
-            opacity: 0;
-        }
-
-        .animate-scale-in {
-            animation: scaleIn 1s var(--ease-smooth) forwards;
-            opacity: 0;
-        }
-
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-
         .stagger-1 { animation-delay: 0.15s; }
         .stagger-2 { animation-delay: 0.3s; }
         .stagger-3 { animation-delay: 0.45s; }
@@ -372,7 +348,7 @@
 <body class="min-h-screen">
     <!-- Navigation -->
     @if (Route::has('login'))
-        <nav class="sticky top-0 z-50 animate-fade-in">
+        <nav class="sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-6 lg:px-8">
                 <div class="flex justify-between items-center h-20">
                     <div class="flex items-center gap-16">
@@ -388,9 +364,10 @@
                         @auth
                             <a href="{{ url('/dashboard') }}" class="btn-primary px-6 py-2.5 rounded-xl text-sm">{{ __('Dashboard') }}</a>
                         @else
-                            <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors hidden sm:inline-block link-hover">{{ __('Log in') }}</a>
                             @if (Route::has('register') && !\App\Models\User::exists())
                                 <a href="{{ route('register') }}" class="btn-primary px-6 py-2.5 rounded-xl text-sm">{{ __('Get Started') }}</a>
+                            @else
+                                <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors hidden sm:inline-block link-hover">{{ __('Log in') }}</a>
                             @endif
                         @endauth
                     </div>
@@ -402,35 +379,35 @@
     <!-- Hero Section -->
     <section class="section-spacing gradient-bg overflow-hidden relative">
         <!-- Geometric Accents -->
-        <div class="geometric-accent circle animate-float" style="top: 20%; right: 15%;"></div>
-        <div class="geometric-accent square animate-float" style="bottom: 30%; left: 10%; animation-delay: 1s;"></div>
+        <div class="geometric-accent circle " style="top: 20%; right: 15%;"></div>
+        <div class="geometric-accent square " style="bottom: 30%; left: 10%; animation-delay: 1s;"></div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-center">
                 <div class="lg:col-span-6 space-y-8">
-                    <div class="badge animate-scale-in stagger-1">
+                    <div class="badge  stagger-1">
                         <span class="accent-dot"></span>
                         <span class="text-gray-800">Open Source • MIT Licensed</span>
                     </div>
 
-                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-display mb-4 leading-[1.05] animate-fade-in-up stagger-2">
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-display mb-4 leading-[1.05]  stagger-2">
                         <span class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
                             {{ __('SimpleTime OS') }}
                         </span>
                     </h1>
 
-                    <p class="text-2xl sm:text-3xl font-display text-gray-600 leading-[1.25] animate-fade-in-up stagger-3">
+                    <p class="text-2xl sm:text-3xl font-display text-gray-600 leading-[1.25]  stagger-3">
                         {{ __('Self-hosted time tracking for') }}
                         <span class="text-orange-500">{{ __('freelancers') }}</span>
                         {{ __('&') }}
                         <span class="text-blue-600">{{ __('developers') }}</span>
                     </p>
 
-                    <p class="text-base text-gray-600 leading-relaxed max-w-lg animate-fade-in-up stagger-4">
+                    <p class="text-base text-gray-600 leading-relaxed max-w-lg  stagger-4">
                         {{ __('Track your work privately. Your data stays on your server. No subscriptions. A clean Laravel-powered time tracker for clients, projects, and reporting.') }}
                     </p>
 
-                    <div class="flex flex-col sm:flex-row gap-4 animate-fade-in-up stagger-5">
+                    <div class="flex flex-col sm:flex-row gap-4  stagger-5">
                         @auth
                             <a href="{{ route('dashboard') }}" class="btn-primary px-8 py-4 rounded-2xl text-center inline-flex items-center justify-center gap-2">
                                 <span>{{ __('Go to Dashboard') }}</span>
@@ -446,14 +423,15 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                     </svg>
                                 </a>
+                            @else
+                                <a href="{{ route('login') }}" class="btn-secondary px-8 py-4 rounded-2xl text-center">
+                                    {{ __('Sign In') }}
+                                </a>
                             @endif
-                            <a href="{{ route('login') }}" class="btn-secondary px-8 py-4 rounded-2xl text-center">
-                                {{ __('Sign In') }}
-                            </a>
                         @endauth
                     </div>
 
-                    <a href="https://github.com/jcergolj/simpletime-os#readme" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 text-sm font-medium text-gray-500 hover:text-blue-600 transition-colors group animate-fade-in-up stagger-6">
+                    <a href="https://github.com/jcergolj/simpletime-os#readme" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 text-sm font-medium text-gray-500 hover:text-blue-600 transition-colors group  stagger-6">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                         </svg>
@@ -461,7 +439,7 @@
                     </a>
                 </div>
 
-                <div class="lg:col-span-6 animate-slide-in-right stagger-4">
+                <div class="lg:col-span-6  stagger-4">
                     <div class="screenshot-container relative">
                         <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full opacity-20 blur-3xl"></div>
                         <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full opacity-20 blur-3xl"></div>
@@ -488,7 +466,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="group bg-white p-8 rounded-3xl border-2 border-blue-100 hover:border-blue-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 animate-fade-in-up stagger-1">
+                <div class="group bg-white p-8 rounded-3xl border-2 border-blue-100 hover:border-blue-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-1">
                     <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -498,7 +476,7 @@
                     <p class="text-gray-600 leading-relaxed">{{ __('Designed for one user—fast, simple, zero overhead.') }}</p>
                 </div>
 
-                <div class="group bg-white p-8 rounded-3xl border-2 border-orange-100 hover:border-orange-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 animate-fade-in-up stagger-2">
+                <div class="group bg-white p-8 rounded-3xl border-2 border-orange-100 hover:border-orange-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-2">
                     <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -508,7 +486,7 @@
                     <p class="text-gray-600 leading-relaxed">{{ __('MIT license gives you full control—modify, share, and keep it.') }}</p>
                 </div>
 
-                <div class="group bg-white p-8 rounded-3xl border-2 border-green-100 hover:border-green-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 animate-fade-in-up stagger-3">
+                <div class="group bg-white p-8 rounded-3xl border-2 border-green-100 hover:border-green-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-3">
                     <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -518,7 +496,7 @@
                     <p class="text-gray-600 leading-relaxed">{{ __('Timers start instantly—no friction, no delays.') }}</p>
                 </div>
 
-                <div class="group bg-white p-8 rounded-3xl border-2 border-purple-100 hover:border-purple-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 animate-fade-in-up stagger-4">
+                <div class="group bg-white p-8 rounded-3xl border-2 border-purple-100 hover:border-purple-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-4">
                     <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
@@ -528,7 +506,7 @@
                     <p class="text-gray-600 leading-relaxed">{{ __('Only the essential tools—track time without distractions.') }}</p>
                 </div>
 
-                <div class="group bg-white p-8 rounded-3xl border-2 border-blue-100 hover:border-blue-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 animate-fade-in-up stagger-5">
+                <div class="group bg-white p-8 rounded-3xl border-2 border-blue-100 hover:border-blue-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-5">
                     <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
@@ -538,7 +516,7 @@
                     <p class="text-gray-600 leading-relaxed">{{ __('Clean Laravel code that\'s easy to extend and audit.') }}</p>
                 </div>
 
-                <div class="group bg-white p-8 rounded-3xl border-2 border-orange-100 hover:border-orange-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 animate-fade-in-up stagger-6">
+                <div class="group bg-white p-8 rounded-3xl border-2 border-orange-100 hover:border-orange-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-6">
                     <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -565,7 +543,7 @@
                         </div>
                     </div>
 
-                    <div class="lg:col-span-7 order-1 lg:order-2 lg:pl-16 animate-slide-in-right space-y-6">
+                    <div class="lg:col-span-7 order-1 lg:order-2 lg:pl-16  space-y-6">
                         <div class="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
@@ -600,7 +578,7 @@
                         </p>
                     </div>
 
-                    <div class="lg:col-span-5 animate-slide-in-right">
+                    <div class="lg:col-span-5 ">
                         <div class="screenshot-container relative">
                             <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-green-400 to-green-600 rounded-full opacity-15 blur-3xl"></div>
                             <img src="{{ asset('screenshots/time-running-dashboard.png') }}" alt="Active timer showing elapsed time and project details" class="w-full h-auto relative z-10">
@@ -617,7 +595,7 @@
                         </div>
                     </div>
 
-                    <div class="lg:col-span-7 order-1 lg:order-2 lg:pl-16 animate-slide-in-right space-y-6">
+                    <div class="lg:col-span-7 order-1 lg:order-2 lg:pl-16  space-y-6">
                         <div class="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -640,8 +618,8 @@
     <!-- Philosophy Section -->
     <section class="bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white section-spacing relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl animate-float"></div>
-            <div class="absolute bottom-0 right-0 w-96 h-96 bg-orange-500 rounded-full filter blur-3xl animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl "></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-orange-500 rounded-full filter blur-3xl " style="animation-delay: 2s;"></div>
         </div>
 
         <div class="max-w-5xl mx-auto px-6 lg:px-8 relative z-10">

@@ -1,3 +1,6 @@
+time entries and report buttons buttons and 
+for all buttons use the same border radius, and on hover effects bg-green-600 hover:bg-green-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium flex items-center justify-center space-x-2 sm:space-x-3 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 (this is from start timer) i want all buttons to be consistent
+
 add spacing at when timer is running on dashboard or when editing running time entry
 13 inch
 use frontend design skills to match edit running time entry with other forms

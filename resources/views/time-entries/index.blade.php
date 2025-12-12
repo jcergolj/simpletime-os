@@ -2,13 +2,13 @@
     <div class="space-y-8" data-controller="inline-edit">
         <!-- Page Header -->
         <div class="px-4 sm:px-0">
-            <h1 class="font-display" style="font-size: 48px; margin-bottom: 8px; color: var(--color-text);">{{ __('Time Entries') }}</h1>
-            <p style="font-size: 18px; color: var(--color-text-secondary); font-weight: 400;">{{ __('Track and manage your time entries') }}</p>
+            <h1 class="font-display text-5xl mb-2 text-[var(--color-text)]">{{ __('Time Entries') }}</h1>
+            <p class="text-lg text-[var(--color-text-secondary)] font-normal">{{ __('Track and manage your time entries') }}</p>
         </div>
 
         <!-- Filters Section -->
-        <div class="card mx-4 sm:mx-0" style="padding: 32px 28px;">
-            <h3 class="font-display" style="font-size: 22px; margin-bottom: 24px; color: var(--color-text);">{{ __('Filters') }}</h3>
+        <div class="card mx-4 sm:mx-0 px-7 py-8">
+            <h3 class="font-display text-2xl mb-6 text-[var(--color-text)]">{{ __('Filters') }}</h3>
             <form method="GET" action="{{ route('time-entries.index') }}">
                 <!-- Mobile/Tablet: Stacked layout -->
                 <div class="block xl:hidden">
@@ -27,7 +27,7 @@
                         <div>
                             <label class="label">{{ __('Project') }}</label>
                             <turbo-frame id="project-filter-mobile" src="{{ route('project-filter', ['client_id' => request('client_id'), 'selected_project_id' => request('project_id')]) }}" loading="lazy">
-                                <select name="project_id" class="input-field" style="background: var(--bg); font-size: 15px;" disabled>
+                                <select name="project_id" class="input-field bg-[var(--bg)] text-base" disabled>
                                     <option value="">{{ request('client_id') ? __('Loading projects...') : __('Select a client first') }}</option>
                                 </select>
                             </turbo-frame>
@@ -44,13 +44,13 @@
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <button type="submit" class="btn-primary sm:w-auto" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1;">
-                            <svg style="width: 18px; height: 18px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <button type="submit" class="btn-primary sm:w-auto inline-flex items-center justify-center gap-1.5 leading-none">
+                            <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
                             </svg>
-                            <span style="line-height: 1;">{{ __('Filter') }}</span>
+                            <span class="leading-none">{{ __('Filter') }}</span>
                         </button>
-                        <a href="{{ route('time-entries.index') }}" style="color: var(--text-secondary); padding: 14px 24px; font-weight: 600; transition: color 0.2s; text-align: center; text-decoration: none; display: flex; align-items: center; justify-center;">
+                        <a href="{{ route('time-entries.index') }}" class="text-[var(--text-secondary)] px-6 py-3.5 font-semibold transition-colors text-center no-underline flex items-center justify-center">
                             {{ __('Clear Filters') }}
                         </a>
                     </div>
@@ -73,7 +73,7 @@
                         <div class="flex-1">
                             <label class="label">{{ __('Project') }}</label>
                             <turbo-frame id="project-filter-desktop" src="{{ route('project-filter', ['client_id' => request('client_id'), 'selected_project_id' => request('project_id')]) }}" loading="lazy">
-                                <select name="project_id" class="input-field" style="background: var(--bg); font-size: 15px;" disabled>
+                                <select name="project_id" class="input-field bg-[var(--bg)] text-base" disabled>
                                     <option value="">{{ request('client_id') ? __('Loading projects...') : __('Select a client first') }}</option>
                                 </select>
                             </turbo-frame>
@@ -89,13 +89,13 @@
                                    class="input-field">
                         </div>
                         <div class="flex gap-3">
-                            <button type="submit" class="btn-primary" style="display: inline-flex; align-items: center; gap: 6px; line-height: 1; white-space: nowrap;">
-                                <svg style="width: 18px; height: 18px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <button type="submit" class="btn-primary inline-flex items-center gap-1.5 leading-none whitespace-nowrap">
+                                <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
                                 </svg>
-                                <span style="line-height: 1;">{{ __('Filter') }}</span>
+                                <span class="leading-none">{{ __('Filter') }}</span>
                             </button>
-                            <a href="{{ route('time-entries.index') }}" style="color: var(--text-secondary); padding: 14px 24px; font-weight: 600; transition: color 0.2s; text-decoration: none; display: flex; align-items: center; white-space: nowrap;">
+                            <a href="{{ route('time-entries.index') }}" class="text-[var(--text-secondary)] px-6 py-3.5 font-semibold transition-colors no-underline flex items-center whitespace-nowrap">
                                 {{ __('Clear Filters') }}
                             </a>
                         </div>
@@ -105,15 +105,15 @@
         </div>
 
         <!-- Add Time Entry Section -->
-        <div class="card mx-4 sm:mx-0" style="padding: 32px 28px;">
+        <div class="card mx-4 sm:mx-0 px-7 py-8">
             <turbo-frame id="time-entry-create-form">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
         <div>
             <h2 class="text-lg sm:text-xl font-medium text-gray-900 mb-1">{{ __('Manual Time Entry') }}</h2>
             <p class="text-gray-600 text-sm sm:text-base">{{ __('Add time entries with specific start and end times, client, and project details.') }}</p>
         </div>
-        <a href="{{ route('time-entries.create') }}" class="btn-primary sm:w-auto" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1; text-decoration: none;">
-            <svg style="width: 18px; height: 18px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a href="{{ route('time-entries.create') }}" class="btn-primary sm:w-auto inline-flex items-center justify-center gap-1.5 leading-none no-underline">
+            <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
             <span>{{ __('Add Manual Entry') }}</span>

@@ -72,10 +72,5 @@
                 <x-form.button.primary type="submit" class="w-full">{{ __('Create account') }}</x-form.button.primary>
             </div>
         </form>
-
-        <div class="text-center" style="font-size: 14px; color: var(--text-secondary);">
-            {{ __('Already have an account?') }}
-            <x-link :href="route('login')" style="color: var(--accent); font-weight: 600; text-decoration: none; margin-left: 4px;">{{ __('Log in') }}</x-link>
-        </div>
     </div>
 </x-layouts.auth>
