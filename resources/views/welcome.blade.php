@@ -48,11 +48,11 @@
             font-weight: 700;
         }
 
-        /* Animations */
+        /* Subtle Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(24px);
+                transform: translateY(12px);
             }
             to {
                 opacity: 1;
@@ -65,21 +65,10 @@
             to { opacity: 1; }
         }
 
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-24px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
         @keyframes slideInRight {
             from {
                 opacity: 0;
-                transform: translateX(24px);
+                transform: translateX(12px);
             }
             to {
                 opacity: 1;
@@ -90,7 +79,7 @@
         @keyframes scaleIn {
             from {
                 opacity: 0;
-                transform: scale(0.96);
+                transform: scale(0.98);
             }
             to {
                 opacity: 1;
@@ -98,53 +87,41 @@
             }
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-        }
-
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(2deg); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
         }
 
         .animate-fade-in-up {
-            animation: fadeInUp 0.8s var(--ease-smooth) forwards;
+            animation: fadeInUp 1.2s var(--ease-smooth) forwards;
             opacity: 0;
         }
 
         .animate-fade-in {
-            animation: fadeIn 0.6s var(--ease-smooth) forwards;
-            opacity: 0;
-        }
-
-        .animate-slide-in-left {
-            animation: slideInLeft 0.8s var(--ease-smooth) forwards;
+            animation: fadeIn 1s var(--ease-smooth) forwards;
             opacity: 0;
         }
 
         .animate-slide-in-right {
-            animation: slideInRight 0.8s var(--ease-smooth) forwards;
+            animation: slideInRight 1.2s var(--ease-smooth) forwards;
             opacity: 0;
         }
 
         .animate-scale-in {
-            animation: scaleIn 0.7s var(--ease-smooth) forwards;
+            animation: scaleIn 1s var(--ease-smooth) forwards;
             opacity: 0;
         }
 
         .animate-float {
-            animation: float 4s ease-in-out infinite;
+            animation: float 6s ease-in-out infinite;
         }
 
-        .stagger-1 { animation-delay: 0.1s; }
-        .stagger-2 { animation-delay: 0.2s; }
-        .stagger-3 { animation-delay: 0.3s; }
-        .stagger-4 { animation-delay: 0.4s; }
-        .stagger-5 { animation-delay: 0.5s; }
-        .stagger-6 { animation-delay: 0.6s; }
-        .stagger-7 { animation-delay: 0.7s; }
-        .stagger-8 { animation-delay: 0.8s; }
+        .stagger-1 { animation-delay: 0.15s; }
+        .stagger-2 { animation-delay: 0.3s; }
+        .stagger-3 { animation-delay: 0.45s; }
+        .stagger-4 { animation-delay: 0.6s; }
+        .stagger-5 { animation-delay: 0.75s; }
+        .stagger-6 { animation-delay: 0.9s; }
 
         /* Button Styles */
         .btn-primary {

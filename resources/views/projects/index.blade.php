@@ -7,7 +7,7 @@
         </div>
 
         <!-- Search Filter -->
-        <div class="card mx-4 sm:mx-0 animate-fade-in-up stagger-1" style="padding: 32px 28px;">
+        <div class="card mx-4 sm:mx-0" style="padding: 32px 28px;">
             <h3 class="font-display" style="font-size: 22px; margin-bottom: 24px; color: var(--color-text);">{{ __('Search Projects') }}</h3>
             <form method="GET" action="{{ route('projects.index') }}">
                 <div class="flex flex-col sm:flex-row gap-4">

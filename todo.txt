@@ -1,6 +1,9 @@
 
 keep the same size when timer is running or is is edited
-remove all unused animation classes and make existing one more satule never run pint or rector or tests or formater
+move those controllers out of turbo namespace, remove turbo.php route file, keep views in turbo
+    Route::get('clients-search', ClientSearchController::class)->name('clients-search.index');
+    Route::get('projects-search', ProjectSearchController::class)->name('projects-search.index');
+
 add spacing at when timer is running on dashboard or when editing running time entry
 13 inch
 use frontend design skills to match edit running time entry with other forms
