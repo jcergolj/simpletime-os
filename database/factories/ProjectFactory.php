@@ -23,7 +23,6 @@ class ProjectFactory extends Factory
         return [
             'name' => fake()->sentence(3),
             'client_id' => Client::factory(),
-            'description' => $this->faker->boolean(60) ? fake()->paragraph() : null,
             '__create_hourly_rate' => true,
         ];
     }

@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string $name
- * @property string|null $description
  * @property Client $client
  * @property Money|null $hourlyRate
  * @property Duration $formattedDuration

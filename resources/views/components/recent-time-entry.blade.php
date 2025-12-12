@@ -78,7 +78,7 @@
                         <input type="hidden" name="client_id" value="{{ $entry->client_id }}">
                         <input type="hidden" name="project_id" value="{{ $entry->project_id }}">
                         <button type="submit"
-                                class="bg-green-100 hover:bg-green-200 text-green-700 px-2 py-1 h-7 rounded text-xs font-medium transition-colors inline-flex items-center space-x-1">
+                                class="bg-green-100 hover:bg-green-200 text-green-700 px-2 py-1 h-7 rounded-lg text-xs font-medium transition-colors inline-flex items-center space-x-1">
                             <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>

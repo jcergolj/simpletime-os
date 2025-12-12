@@ -1,82 +1,71 @@
 <turbo-frame id="timer-widget" class="contents">
-    <div class="card mx-4 sm:mx-0" style="padding: 40px; min-height: 520px;"
-         data-controller="timer keyboard-shortcuts"
-         data-timer-running-value="true"
-         data-timer-start-time-value="{{ $runningTimer->start_time->timestamp }}">
-        <div class="p-8 space-y-6">
+    <div class="card-timer bg-white border border-base-300 mx-4 sm:mx-0 min-h-[252px] lg:min-h-[312px]">
+        <div class="relative px-4 py-2 lg:px-6 lg:py-3 min-h-[216px] lg:min-h-[276px] flex flex-col"
+             data-controller="timer keyboard-shortcuts"
+             data-timer-running-value="true"
+             data-timer-start-time-value="{{ $runningTimer->start_time->timestamp }}">
 
-            <!-- Header with Cancel Button -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-4">
-                <div>
-                    <h3 class="card-title text-xl">{{ __('Edit Running Session') }}</h3>
-                    <p class="text-base-content/70">{{ __('Update client, project, and start time for your active session.') }}</p>
-                </div>
-                <a href="{{ route('dashboard') }}"
-                   data-turbo-frame="timer-widget"
-                   class="inline-flex items-center justify-center w-10 h-10 rounded-lg hover:bg-base-200 transition-colors"
-                   title="{{ __('Cancel') }}">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </a>
+            <!-- Top Controls: Back button (right) -->
+            <div class="flex justify-end items-start mb-1.5 lg:mb-2 -mx-4 lg:-mx-6">
+                <x-form.button.cancel :href="route('dashboard')" turboFrame="timer-widget">{{ __('Cancel') }}</x-form.button.cancel>
             </div>
 
-            <!-- Running Time Display - Prominent -->
-            <div class="text-center py-8 px-4 rounded-2xl bg-gradient-to-br from-base-200/50 to-base-100 border border-base-300">
-                <div class="text-7xl font-mono font-bold tracking-tight" data-timer-target="display">00:00:00</div>
-                <div class="mt-4 text-sm font-medium text-base-content/60 uppercase tracking-wider">{{ __('Active Session') }}</div>
+            <!-- Center Content: Timer -->
+            <div class="text-center space-y-1.5 lg:space-y-2 mb-2 lg:mb-3">
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Edit Running Session') }}</p>
+                <div class="text-5xl lg:text-7xl font-mono font-bold text-gray-900 tracking-tight" data-timer-target="display">00:00:00</div>
             </div>
 
             <!-- Edit Form -->
-            <form action="{{ route('running-timer-session.update') }}" method="POST" class="space-y-6">
+            <form action="{{ route('running-timer-session.update') }}" method="POST" data-turbo-frame="_top" class="space-y-2 lg:space-y-3">
                 @csrf
                 @method('PUT')
 
-                <!-- Client and Project Selection -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-semibold">{{ __('Client') }}</span>
-                        </label>
+                <!-- Client, Project, and Start Time Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-3">
+                    <div class="w-full">
                         <x-form.search-clients
                             searchId="edit-timer-session"
                             :client="$runningTimer->client"
                         />
-                        <x-form.error for="client_id" />
                     </div>
 
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-semibold">{{ __('Project') }}</span>
-                        </label>
+                    <div class="w-full">
                         <x-form.search-projects
                             searchId="edit-timer-session"
                             :project="$runningTimer->project"
                         />
-                        <x-form.error for="project_id" />
+                    </div>
+
+                    <div class="w-full">
+                        <label for="start_time" class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">{{ __('Start Time') }}</label>
+                        <input
+                            type="datetime-local"
+                            id="start_time"
+                            name="start_time"
+                            value="{{ old('start_time', $runningTimer->start_time->format('Y-m-d\TH:i')) }}"
+                            max="{{ now()->format('Y-m-d\TH:i') }}"
+                            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent @error('start_time') border-red-500 @enderror"
+                            required
+                        >
                     </div>
                 </div>
 
-                <!-- Start Time -->
-                <div>
-                    <label for="start_time" class="block text-sm font-medium text-gray-700 mb-2">{{ __('Start Time') }}</label>
-                    <input
-                        type="datetime-local"
-                        id="start_time"
-                        name="start_time"
-                        value="{{ old('start_time', $runningTimer->start_time->format('Y-m-d\TH:i')) }}"
-                        max="{{ now()->format('Y-m-d\TH:i') }}"
-                        class="w-full px-4 py-4 text-lg border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent @error('start_time') border-red-500 @enderror"
-                        required
-                    >
-                    <p class="mt-1 text-sm text-gray-600">{{ __('Cannot be in future') }}</p>
+                <!-- Error Messages -->
+                <div class="space-y-1">
+                    <x-form.error for="client_id" />
+                    <x-form.error for="project_id" />
                     <x-form.error for="start_time" />
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="flex justify-end gap-2 pt-4">
-                    <x-form.button.cancel :href="route('dashboard')" turboFrame="timer-widget">{{ __('Cancel') }}</x-form.button.cancel>
-                    <x-form.button.save text="{{ __('Save Changes') }}" />
+                <!-- Save Button (Centered) -->
+                <div class="flex justify-center pt-1.5 lg:pt-2">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 lg:px-6 py-2 lg:py-2.5 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 inline-flex items-center justify-center gap-2">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-sm lg:text-base">{{ __('Save Changes') }}</span>
+                    </button>
                 </div>
             </form>
         </div>

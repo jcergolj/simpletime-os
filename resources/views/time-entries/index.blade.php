@@ -44,13 +44,13 @@
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <button type="submit" class="btn-primary sm:w-auto inline-flex items-center justify-center gap-1.5 leading-none">
-                            <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <button type="submit" class="btn-primary sm:w-auto btn-icon-wrapper">
+                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
                             </svg>
                             <span class="leading-none">{{ __('Filter') }}</span>
                         </button>
-                        <a href="{{ route('time-entries.index') }}" class="text-[var(--text-secondary)] px-6 py-3.5 font-semibold transition-colors text-center no-underline flex items-center justify-center">
+                        <a href="{{ route('time-entries.index') }}" class="btn-link">
                             {{ __('Clear Filters') }}
                         </a>
                     </div>
@@ -89,13 +89,13 @@
                                    class="input-field">
                         </div>
                         <div class="flex gap-3">
-                            <button type="submit" class="btn-primary inline-flex items-center gap-1.5 leading-none whitespace-nowrap">
-                                <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <button type="submit" class="btn-primary btn-icon-wrapper whitespace-nowrap">
+                                <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
                                 </svg>
                                 <span class="leading-none">{{ __('Filter') }}</span>
                             </button>
-                            <a href="{{ route('time-entries.index') }}" class="text-[var(--text-secondary)] px-6 py-3.5 font-semibold transition-colors no-underline flex items-center whitespace-nowrap">
+                            <a href="{{ route('time-entries.index') }}" class="btn-link whitespace-nowrap">
                                 {{ __('Clear Filters') }}
                             </a>
                         </div>
@@ -112,11 +112,11 @@
             <h2 class="text-lg sm:text-xl font-medium text-gray-900 mb-1">{{ __('Manual Time Entry') }}</h2>
             <p class="text-gray-600 text-sm sm:text-base">{{ __('Add time entries with specific start and end times, client, and project details.') }}</p>
         </div>
-        <a href="{{ route('time-entries.create') }}" class="btn-primary sm:w-auto inline-flex items-center justify-center gap-1.5 leading-none no-underline">
-            <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a href="{{ route('time-entries.create') }}" class="btn-primary sm:w-auto btn-icon-wrapper no-underline">
+            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
-            <span>{{ __('Add Manual Entry') }}</span>
+            <span class="leading-none">{{ __('Add Manual Entry') }}</span>
         </a>
     </div>
 </turbo-frame>

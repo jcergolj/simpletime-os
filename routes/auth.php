@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\ConfirmPasswordController;
+use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\SessionsController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Middleware\RedirectToRegistrationIfNoUser;
-use App\Http\Controllers\Auth\ConfirmPasswordController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::middleware(RedirectToRegistrationIfNoUser::class)->get('login', [SessionsController::class, 'create'])

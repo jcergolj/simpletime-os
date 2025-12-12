@@ -41,12 +41,6 @@
                     :confirm-message="__('Are you sure you want to delete this project? This will also delete all associated time entries.')"
                 />
             </div>
-            @if($project->description)
-                <div style="margin-top: 12px;">
-                    <div class="entry-label">{{ __('Description') }}</div>
-                    <p style="font-size: 15px; color: var(--text-secondary);">{{ $project->description }}</p>
-                </div>
-            @endif
         </div>
         </turbo-frame>
     @empty

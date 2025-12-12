@@ -2,13 +2,13 @@
     <div class="space-y-8">
         <!-- Page Header -->
         <div class="px-4 sm:px-0">
-            <h1 class="font-display" style="font-size: 48px; margin-bottom: 8px; color: var(--color-text); text-align: center;">{{ __('Reports') }}</h1>
-            <p style="font-size: 18px; color: var(--color-text-secondary); font-weight: 400; text-align: center;">{{ __('View detailed time tracking reports and export data.') }}</p>
+            <h1 class="font-display page-heading text-center">{{ __('Reports') }}</h1>
+            <p class="page-subheading text-center">{{ __('View detailed time tracking reports and export data.') }}</p>
         </div>
 
         <!-- Filters -->
-        <div class="card mx-4 sm:mx-0" style="padding: 32px;">
-            <h2 class="font-display" style="font-size: 22px; color: var(--color-text); margin-bottom: 24px;">{{ __('Report Filters') }}</h2>
+        <div class="card mx-4 sm:mx-0 p-8">
+            <h2 class="font-display section-heading">{{ __('Report Filters') }}</h2>
             <form method="GET" action="{{ route('reports.index') }}">
                 <!-- Mobile: Stacked layout -->
                 <div class="block xl:hidden">
@@ -27,7 +27,7 @@
                         <div>
                             <label class="label">{{ __('Project') }}</label>
                             <turbo-frame id="project-filter-mobile" src="{{ route('project-filter', ['client_id' => request('client_id'), 'selected_project_id' => request('project_id')]) }}" loading="lazy">
-                                <select name="project_id" class="input-field" style="background: var(--bg); font-size: 15px;" disabled>
+                                <select name="project_id" class="input-field" disabled>
                                     <option value="">{{ request('client_id') ? __('Loading projects...') : __('Select a client first') }}</option>
                                 </select>
                             </turbo-frame>
@@ -56,14 +56,14 @@
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <button type="submit" class="sm:w-auto" style="padding: 8px 16px; background: var(--accent); color: white; border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: none;">
-                            <svg style="width: 18px; height: 18px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <button type="submit" class="btn-primary sm:w-auto btn-icon-wrapper">
+                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
-                            <span style="line-height: 1;">{{ __('Generate') }}</span>
+                            <span class="leading-none">{{ __('Generate') }}</span>
                         </button>
-                        <a href="{{ route('reports.index') }}" style="padding: 8px 16px; background: white; color: var(--text); border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 1; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-                            <span style="line-height: 1;">{{ __('Clear Filters') }}</span>
+                        <a href="{{ route('reports.index') }}" class="btn-link">
+                            {{ __('Clear Filters') }}
                         </a>
                     </div>
                 </div>
@@ -72,8 +72,8 @@
                 <div class="hidden xl:block">
                     <div class="flex items-end gap-4 mb-4">
                         <div class="flex-1">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('Client') }}</label>
-                            <select name="client_id" class="w-full h-10 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent">
+                            <label class="label">{{ __('Client') }}</label>
+                            <select name="client_id" class="input-field">
                                 <option value="">{{ __('All Clients') }}</option>
                                 @foreach($clients as $client)
                                     <option value="{{ $client->id }}" {{ request('client_id') == $client->id ? 'selected' : '' }}>
@@ -83,26 +83,26 @@
                             </select>
                         </div>
                         <div class="flex-1">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('Project') }}</label>
+                            <label class="label">{{ __('Project') }}</label>
                             <turbo-frame id="project-filter-desktop" src="{{ route('project-filter', ['client_id' => request('client_id'), 'selected_project_id' => request('project_id')]) }}" loading="lazy">
-                                <select name="project_id" class="input-field" style="background: var(--bg); font-size: 15px;" disabled>
+                                <select name="project_id" class="input-field" disabled>
                                     <option value="">{{ request('client_id') ? __('Loading projects...') : __('Select a client first') }}</option>
                                 </select>
                             </turbo-frame>
                         </div>
                         <div class="flex-1">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('From Date') }}</label>
+                            <label class="label">{{ __('From Date') }}</label>
                             <input type="date" name="date_from" value="{{ $reportData->dateFilter->startDate?->format('Y-m-d') ?? request('date_from') }}"
-                                   class="w-full h-10 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent">
+                                   class="input-field">
                         </div>
                         <div class="flex-1">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('To Date') }}</label>
+                            <label class="label">{{ __('To Date') }}</label>
                             <input type="date" name="date_to" value="{{ $reportData->dateFilter->endDate?->format('Y-m-d') ?? request('date_to') }}"
-                                   class="w-full h-10 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent">
+                                   class="input-field">
                         </div>
                         <div class="flex-1">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('Quick Select') }}</label>
-                            <select name="date_range" id="date-range-select" class="w-full h-10 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent">
+                            <label class="label">{{ __('Quick Select') }}</label>
+                            <select name="date_range" id="date-range-select" class="input-field">
                                 <option value="" {{ request('date_range') == '' ? 'selected' : '' }}>{{ __('Custom Range') }}</option>
                                 <option value="this_week" {{ request('date_range') == 'this_week' ? 'selected' : '' }}>{{ __('This Week') }}</option>
                                 <option value="last_week" {{ request('date_range') == 'last_week' ? 'selected' : '' }}>{{ __('Last Week') }}</option>
@@ -113,24 +113,24 @@
                             </select>
                         </div>
                         <div class="flex gap-2">
-                            <button type="submit" style="height: 40px; background: var(--accent); color: white; padding: 0 16px; border-radius: 8px; font-weight: 500; font-size: 14px; line-height: 1; border: none; display: flex; align-items: center; gap: 6px; white-space: nowrap;">
-                                <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <button type="submit" class="btn-primary btn-icon-wrapper whitespace-nowrap">
+                                <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
-                                <span style="line-height: 1;">{{ __('Generate') }}</span>
+                                <span class="leading-none">{{ __('Generate') }}</span>
                             </button>
-                            <a href="{{ route('reports.index') }}" style="height: 40px; color: var(--text); padding: 0 16px; font-weight: 500; font-size: 14px; line-height: 1; display: flex; align-items: center; white-space: nowrap; text-decoration: none;">
-                                <span style="line-height: 1;">{{ __('Clear Filters') }}</span>
+                            <a href="{{ route('reports.index') }}" class="btn-link whitespace-nowrap">
+                                {{ __('Clear Filters') }}
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-2 justify-between items-center">
-                    <a href="{{ route('report-exports.show', request()->all()) }}" style="background: #059669; color: white; padding: 8px 16px; border-radius: 8px; font-weight: 500; font-size: 14px; line-height: 1; display: flex; align-items: center; gap: 6px; text-decoration: none; border: none;">
-                        <svg style="width: 16px; height: 16px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <a href="{{ route('report-exports.show', request()->all()) }}" class="btn-export">
+                        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
-                        <span style="line-height: 1;">{{ __('Export CSV') }}</span>
+                        <span class="leading-none">{{ __('Export CSV') }}</span>
                     </a>
 
                     <!-- Summary Stats Inline -->

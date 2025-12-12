@@ -84,15 +84,12 @@
 
     /* Button styles */
     .btn-primary {
-        background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+        background: var(--accent);
         color: white;
-        transition: all 0.3s var(--ease-smooth);
+        transition: background-color 0.3s var(--ease-smooth);
         border: none;
-        box-shadow: 0 2px 8px rgba(251, 146, 60, 0.25), 0 1px 2px rgba(251, 146, 60, 0.15);
-        position: relative;
-        overflow: hidden;
         font-weight: 600;
-        border-radius: 12px;
+        border-radius: 8px;
         padding: 14px 24px;
         font-family: var(--font-body);
         font-size: 15px;
@@ -101,22 +98,8 @@
         text-decoration: none;
     }
 
-    .btn-primary::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
-        opacity: 0;
-        transition: opacity 0.3s var(--ease-smooth);
-    }
-
-    .btn-primary:hover::before {
-        opacity: 1;
-    }
-
     .btn-primary:hover {
-        transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 8px 24px rgba(251, 146, 60, 0.35), 0 4px 8px rgba(251, 146, 60, 0.2);
+        background: var(--color-primary-hover);
     }
 
     .btn-primary:active {
@@ -152,9 +135,9 @@
     /* Input styles */
     .input-field {
         width: 100%;
-        padding: 14px 16px;
+        padding: 12px 16px;
         border: 2px solid var(--color-border);
-        border-radius: 12px;
+        border-radius: 8px;
         background: var(--color-surface);
         font-family: var(--font-body);
         font-size: 15px;
