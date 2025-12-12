@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ClientSearchController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectFilterController;
+use App\Http\Controllers\ProjectSearchController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReportExportController;
 use App\Http\Controllers\RunningTimerSessionController;
@@ -62,6 +64,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('report-exports', ReportExportController::class)->name('report-exports.show');
 
     Route::get('project-filter', ProjectFilterController::class)->name('project-filter');
+
+    Route::get('clients-search', ClientSearchController::class)->name('clients-search.index');
+    Route::get('projects-search', ProjectSearchController::class)->name('projects-search.index');
 
     Route::get('settings', SettingsController::class)
         ->name('settings');
