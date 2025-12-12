@@ -8,342 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="{{ tailwindcss('css/app.css') }}" rel="stylesheet" data-turbo-track="reload" />
-    <style>
-        :root {
-            --color-bg: #FAFBFC;
-            --color-surface: #FFFFFF;
-            --color-text: #1A1F36;
-            --color-text-secondary: #697386;
-            --color-text-muted: #9AA5B1;
-            --color-border: #E3E8EE;
-            --color-border-light: #F3F4F6;
-            --color-primary: #0066FF;
-            --color-primary-hover: #0052CC;
-            --color-primary-light: #E6F0FF;
-            --color-accent: #0066FF;
-            --color-accent-hover: #0052CC;
-            --color-accent-light: #E6F0FF;
-            --color-success: #0066FF;
-            --color-success-light: #E6F0FF;
-            --font-display: 'Manrope', sans-serif;
-            --font-body: 'Manrope', sans-serif;
-            --ease-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
-            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        * {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--color-bg);
-            color: var(--color-text);
-        }
-
-        .font-display {
-            font-family: var(--font-display);
-            letter-spacing: -0.02em;
-            font-weight: 700;
-        }
-
-        /* Subtle Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.98);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
-        }
-
-        .stagger-1 { animation-delay: 0.15s; }
-        .stagger-2 { animation-delay: 0.3s; }
-        .stagger-3 { animation-delay: 0.45s; }
-        .stagger-4 { animation-delay: 0.6s; }
-        .stagger-5 { animation-delay: 0.75s; }
-        .stagger-6 { animation-delay: 0.9s; }
-
-        /* Button Styles */
-        .btn-primary {
-            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
-            color: white;
-            transition: all 0.3s var(--ease-smooth);
-            border: none;
-            box-shadow: 0 2px 8px rgba(249, 115, 22, 0.25), 0 1px 2px rgba(249, 115, 22, 0.15);
-            position: relative;
-            overflow: hidden;
-            font-weight: 600;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
-            opacity: 0;
-            transition: opacity 0.3s var(--ease-smooth);
-        }
-
-        .btn-primary:hover::before {
-            opacity: 1;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 24px rgba(249, 115, 22, 0.35), 0 4px 8px rgba(249, 115, 22, 0.2);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0) scale(1);
-        }
-
-        .btn-secondary {
-            border: 2px solid var(--color-border);
-            color: var(--color-text);
-            background: var(--color-surface);
-            transition: all 0.3s var(--ease-smooth);
-            font-weight: 600;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--color-primary);
-            color: var(--color-primary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.1);
-        }
-
-        .btn-secondary:active {
-            transform: translateY(0);
-        }
-
-        /* Card Styles */
-        .feature-card {
-            transition: all 0.4s var(--ease-smooth);
-            position: relative;
-            background: var(--color-surface);
-            border: 2px solid var(--color-border-light);
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--color-primary-light), transparent);
-            opacity: 0;
-            transition: opacity 0.4s var(--ease-smooth);
-        }
-
-        .feature-card:hover::before {
-            opacity: 0.5;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 32px rgba(37, 99, 235, 0.12), 0 4px 8px rgba(0, 0, 0, 0.05);
-            border-color: var(--color-primary);
-        }
-
-        .screenshot-container {
-            border: 2px solid var(--color-border);
-            border-radius: 16px;
-            overflow: hidden;
-            background: var(--color-surface);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
-            transition: all 0.5s var(--ease-smooth);
-            position: relative;
-        }
-
-        .screenshot-container::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), transparent 50%);
-            opacity: 0;
-            transition: opacity 0.5s var(--ease-smooth);
-            pointer-events: none;
-        }
-
-        .screenshot-container:hover::after {
-            opacity: 1;
-        }
-
-        .screenshot-container:hover {
-            box-shadow: 0 20px 48px rgba(37, 99, 235, 0.15), 0 8px 16px rgba(0, 0, 0, 0.08);
-            transform: translateY(-8px) scale(1.02);
-            border-color: var(--color-primary);
-        }
-
-        .screenshot-container img {
-            transition: transform 0.5s var(--ease-smooth);
-        }
-
-        .screenshot-container:hover img {
-            transform: scale(1.03);
-        }
-
-        .badge {
-            background: linear-gradient(135deg, var(--color-success-light), var(--color-primary-light));
-            border: none;
-            border-radius: 100px;
-            padding: 8px 18px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s var(--ease-smooth);
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
-        }
-
-        .badge:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
-        }
-
-        .accent-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--color-success);
-            border-radius: 50%;
-            display: inline-block;
-            animation: pulse 2.5s ease-in-out infinite;
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
-        }
-
-        /* Background Elements */
-        .gradient-bg {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gradient-bg::before {
-            content: '';
-            position: absolute;
-            top: -10%;
-            right: 5%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 65%);
-            pointer-events: none;
-            animation: float 8s ease-in-out infinite;
-            border-radius: 50%;
-        }
-
-        .gradient-bg::after {
-            content: '';
-            position: absolute;
-            bottom: -15%;
-            left: 5%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(249, 115, 22, 0.06) 0%, transparent 65%);
-            pointer-events: none;
-            animation: float 10s ease-in-out infinite reverse;
-            border-radius: 50%;
-        }
-
-        .geometric-accent {
-            position: absolute;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .geometric-accent.circle {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent-light));
-            opacity: 0.4;
-            filter: blur(20px);
-        }
-
-        .geometric-accent.square {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--color-accent-light), var(--color-success-light));
-            opacity: 0.3;
-            transform: rotate(45deg);
-            filter: blur(25px);
-        }
-
-        .section-spacing {
-            padding: 120px 0;
-        }
-
-        @media (max-width: 768px) {
-            .section-spacing {
-                padding: 80px 0;
-            }
-        }
-
-        /* Navigation Enhancement */
-        nav {
-            backdrop-filter: blur(12px);
-            background: rgba(255, 255, 255, 0.95) !important;
-            border-bottom: 1px solid var(--color-border-light);
-        }
-
-        /* Link Styles */
-        a.link-hover {
-            position: relative;
-            transition: color 0.3s var(--ease-smooth);
-        }
-
-        a.link-hover::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: currentColor;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.3s var(--ease-smooth);
-        }
-
-        a.link-hover:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-    </style>
 </head>
 <body class="min-h-screen">
     <!-- Navigation -->
@@ -365,7 +29,7 @@
                             <a href="{{ url('/dashboard') }}" class="btn-primary px-6 py-2.5 rounded-xl text-sm">{{ __('Dashboard') }}</a>
                         @else
                             @if (Route::has('register') && !\App\Models\User::exists())
-                                <a href="{{ route('register') }}" class="btn-primary px-6 py-2.5 rounded-xl text-sm">{{ __('Get Started') }}</a>
+                                <a href="{{ route('register') }}" class="btn-primary px-6 py-2.5 rounded-xl text-sm">{{ __('Install in 5 Minutes') }}</a>
                             @else
                                 <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors hidden sm:inline-block link-hover">{{ __('Log in') }}</a>
                             @endif
@@ -379,33 +43,75 @@
     <!-- Hero Section -->
     <section class="section-spacing gradient-bg overflow-hidden relative">
         <!-- Geometric Accents -->
-        <div class="geometric-accent circle " style="top: 20%; right: 15%;"></div>
-        <div class="geometric-accent square " style="bottom: 30%; left: 10%; animation-delay: 1s;"></div>
+        <div class="geometric-accent circle top-[20%] right-[15%]"></div>
+        <div class="geometric-accent square bottom-[30%] left-[10%] [animation-delay:1s]"></div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-center">
                 <div class="lg:col-span-6 space-y-8">
                     <div class="badge  stagger-1">
                         <span class="accent-dot"></span>
-                        <span class="text-gray-800">Open Source • MIT Licensed</span>
+                        <span class="text-gray-800">Open Source • O'Saasy Licensed</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">{{ __('Free to self-host forever. SaaS rights reserved.') }}</p>
+
+                    <div class="space-y-2">
+                        <div class="stagger-1">
+                            <span class="text-2xl sm:text-3xl lg:text-4xl font-display text-gray-900">
+                                {{ __('SimpleTime') }}
+                            </span>
+                            <span class="text-2xl sm:text-3xl lg:text-4xl text-gray-400 ml-2">{{ __('—') }}</span>
+                        </div>
+
+                        <h1 class="stagger-2">
+                            <div class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display leading-tight">
+                                <span class="text-gray-700 font-semibold">{{ __('don\'t spend') }}</span>
+                                <span class="bg-gradient-to-r from-blue-600 via-blue-700 to-purple-600 bg-clip-text text-transparent">
+                                    {{ __(' time') }}
+                                </span>
+                            </div>
+                            <div class="text-3xl sm:text-4xl lg:text-5xl font-display leading-tight mt-1">
+                                <span class="text-gray-600">{{ __('tracking') }}</span>
+                                <span class="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent font-bold">
+                                    {{ __(' time') }}
+                                </span>
+                                <span class="text-gray-600">{{ __('. ') }}</span>
+                            </div>
+                        </h1>
                     </div>
 
-                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-display mb-4 leading-[1.05]  stagger-2">
-                        <span class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
-                            {{ __('SimpleTime OS') }}
-                        </span>
-                    </h1>
-
-                    <p class="text-2xl sm:text-3xl font-display text-gray-600 leading-[1.25]  stagger-3">
-                        {{ __('Self-hosted time tracking for') }}
-                        <span class="text-orange-500">{{ __('freelancers') }}</span>
-                        {{ __('&') }}
-                        <span class="text-blue-600">{{ __('developers') }}</span>
+                    <p class="text-lg text-gray-700 leading-relaxed max-w-2xl mb-4  stagger-3">
+                        {{ __('Most time trackers overwhelm you with 100+ features you\'ll never use. SimpleTime OS gives you exactly what you need—timer, clients, projects, reports—nothing more.') }}
                     </p>
 
-                    <p class="text-base text-gray-600 leading-relaxed max-w-lg  stagger-4">
-                        {{ __('Track your work privately. Your data stays on your server. No subscriptions. A clean Laravel-powered time tracker for clients, projects, and reporting.') }}
+                    <p class="text-base text-gray-600 leading-relaxed max-w-xl  stagger-4">
+                        {{ __('Self-host in 5 minutes. Own your data forever. Pay nothing.') }}
                     </p>
+
+                    <div class="mt-6  stagger-4">
+                        <div class="text-lg text-gray-700 font-medium mb-2">{{ __('4 Core Features:') }}</div>
+                        <div class="flex flex-wrap items-center gap-4 text-base">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                                <span class="font-semibold text-gray-900">{{ __('Timer') }}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-green-600"></span>
+                                <span class="font-semibold text-gray-900">{{ __('Clients') }}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-orange-600"></span>
+                                <span class="font-semibold text-gray-900">{{ __('Projects') }}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-purple-600"></span>
+                                <span class="font-semibold text-gray-900">{{ __('Reports') }}</span>
+                            </div>
+                        </div>
+                        <div class="text-lg text-gray-600 mt-4">
+                            <span class="font-bold text-orange-600">{{ __('∞') }}</span> {{ __('Years Free') }}
+                        </div>
+                    </div>
 
                     <div class="flex flex-col sm:flex-row gap-4  stagger-5">
                         @auth
@@ -418,17 +124,39 @@
                         @else
                             @if (Route::has('register') && !\App\Models\User::exists())
                                 <a href="{{ route('register') }}" class="btn-primary px-8 py-4 rounded-2xl text-center inline-flex items-center justify-center gap-2">
-                                    <span>{{ __('Get Started') }}</span>
+                                    <span>{{ __('Install in 5 Minutes') }}</span>
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                     </svg>
                                 </a>
+                                <p class="text-sm text-gray-500 text-center sm:text-left">{{ __('5-minute install • No credit card') }}</p>
                             @else
                                 <a href="{{ route('login') }}" class="btn-secondary px-8 py-4 rounded-2xl text-center">
                                     {{ __('Sign In') }}
                                 </a>
                             @endif
                         @endauth
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-6 text-sm text-gray-600  stagger-6">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <span><strong class="text-gray-900">{{ __('Open Source') }}</strong></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                            <span><strong class="text-gray-900">{{ __('O\'Saasy') }}</strong> {{ __('licensed') }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                            <span><strong class="text-gray-900">{{ __('Laravel 12') }}</strong></span>
+                        </div>
                     </div>
 
                     <a href="https://github.com/jcergolj/simpletime-os#readme" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 text-sm font-medium text-gray-500 hover:text-blue-600 transition-colors group  stagger-6">
@@ -465,67 +193,189 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="group bg-white p-8 rounded-3xl border-2 border-blue-100 hover:border-blue-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-1">
-                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-display text-xl mb-3 text-gray-900">{{ __('Solo-Focused') }}</h3>
-                    <p class="text-gray-600 leading-relaxed">{{ __('Designed for one user—fast, simple, zero overhead.') }}</p>
-                </div>
-
-                <div class="group bg-white p-8 rounded-3xl border-2 border-orange-100 hover:border-orange-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Card 1: No Subscription Trap -->
+                <div class="group bg-white p-8 rounded-3xl border-2 border-orange-100 hover:border-orange-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-1">
                     <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-display text-xl mb-3 text-gray-900">{{ __('Forever Free') }}</h3>
-                    <p class="text-gray-600 leading-relaxed">{{ __('MIT license gives you full control—modify, share, and keep it.') }}</p>
+                    <h3 class="font-display text-xl mb-3 text-gray-900">{{ __('No Subscription Trap') }}</h3>
+                    <p class="text-gray-600 leading-relaxed">{{ __('O\'Saasy licensed—self-host, modify, and keep it forever. One-time setup, no recurring fees, no vendor lock-in.') }}</p>
                 </div>
 
+                <!-- Card 2: No Team Bloat -->
+                <div class="group bg-white p-8 rounded-3xl border-2 border-blue-100 hover:border-blue-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-2">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl mb-3 text-gray-900">{{ __('No Team Bloat') }}</h3>
+                    <p class="text-gray-600 leading-relaxed">{{ __('Designed for one user—fast, simple, zero overhead. Only the essential tools you need.') }}</p>
+                </div>
+
+                <!-- Supporting Card 1: Start in 2 Clicks -->
                 <div class="group bg-white p-8 rounded-3xl border-2 border-green-100 hover:border-green-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-3">
                     <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-display text-xl mb-3 text-gray-900">{{ __('Click & Track') }}</h3>
+                    <h3 class="font-display text-xl mb-3 text-gray-900">{{ __('Start in 2 Clicks') }}</h3>
                     <p class="text-gray-600 leading-relaxed">{{ __('Timers start instantly—no friction, no delays.') }}</p>
                 </div>
 
+                <!-- Supporting Card 2: Audit Every Line -->
                 <div class="group bg-white p-8 rounded-3xl border-2 border-purple-100 hover:border-purple-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-4">
                     <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-display text-xl mb-3 text-gray-900">{{ __('Minimalist Workflow') }}</h3>
-                    <p class="text-gray-600 leading-relaxed">{{ __('Only the essential tools—track time without distractions.') }}</p>
-                </div>
-
-                <div class="group bg-white p-8 rounded-3xl border-2 border-blue-100 hover:border-blue-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-5">
-                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                         </svg>
                     </div>
-                    <h3 class="font-display text-xl mb-3 text-gray-900">{{ __('Developer-Ready') }}</h3>
-                    <p class="text-gray-600 leading-relaxed">{{ __('Clean Laravel code that\'s easy to extend and audit.') }}</p>
+                    <h3 class="font-display text-xl mb-3 text-gray-900">{{ __('Audit Every Line') }}</h3>
+                    <p class="text-gray-600 leading-relaxed">{{ __('Clean Laravel code that\'s easy to extend and audit. All key features in a clean, intuitive interface.') }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="py-24 bg-white relative overflow-hidden">
+        <div class="absolute top-1/4 left-10 w-96 h-96 bg-blue-100 rounded-full opacity-20 blur-3xl"></div>
+        <div class="absolute bottom-1/4 right-10 w-80 h-80 bg-orange-100 rounded-full opacity-20 blur-3xl"></div>
+
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl sm:text-5xl font-display mb-4 text-gray-900">
+                    {{ __('Why Not Just Use Toggl?') }}
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    {{ __('Nothing wrong with it—but you\'re paying for features you\'ll never touch.') }}
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Left Column: The Bloated Way -->
+                <div class="border-2 border-gray-300 rounded-3xl p-10 bg-white">
+                    <div class="text-center mb-8">
+                        <div class="text-6xl mb-2">💸</div>
+                        <h3 class="text-3xl font-display text-gray-900 mb-2">
+                            {{ __('The Bloated Way') }}
+                        </h3>
+                        <p class="text-sm text-gray-500">{{ __('Toggl, Harvest, Clockify') }}</p>
+                    </div>
+
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl text-red-500">✗</span>
+                            <div>
+                                <strong class="text-gray-900">{{ __('$10/month') }}</strong>
+                                <div class="text-sm text-gray-600">{{ __('$100/year forever') }}</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl text-red-500">✗</span>
+                            <div>
+                                <strong class="text-gray-900">{{ __('100+ features') }}</strong>
+                                <div class="text-sm text-gray-600">{{ __('Built for teams, forced on solo users') }}</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl text-red-500">✗</span>
+                            <div>
+                                <strong class="text-gray-900">{{ __('Their servers') }}</strong>
+                                <div class="text-sm text-gray-600">{{ __('Your data, their rules') }}</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl text-red-500">✗</span>
+                            <div>
+                                <strong class="text-gray-900">{{ __('Feature gates') }}</strong>
+                                <div class="text-sm text-gray-600">{{ __('Upgrade emails, upsells, limits') }}</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl text-red-500">✗</span>
+                            <div>
+                                <strong class="text-gray-900">{{ __('Closed source') }}</strong>
+                                <div class="text-sm text-gray-600">{{ __('Can\'t audit, customize, or extend') }}</div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="group bg-white p-8 rounded-3xl border-2 border-orange-100 hover:border-orange-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2  stagger-6">
-                    <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                        </svg>
+                <!-- Right Column: The Simple Way -->
+                <div class="border-4 border-blue-600 rounded-3xl p-10 bg-gradient-to-br from-blue-50 to-white relative">
+                    <div class="absolute -top-3 -right-3 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-bold">
+                        {{ __('RECOMMENDED') }}
                     </div>
-                    <h3 class="font-display text-xl mb-3 text-gray-900">{{ __('Focus-First Design') }}</h3>
-                    <p class="text-gray-600 leading-relaxed">{{ __('All key features in a clean, intuitive interface.') }}</p>
+
+                    <div class="text-center mb-8">
+                        <div class="text-6xl mb-2">✨</div>
+                        <h3 class="text-3xl font-display text-blue-900 mb-2">
+                            {{ __('The Simple Way') }}
+                        </h3>
+                        <p class="text-sm text-blue-600">{{ __('SimpleTime OS') }}</p>
+                    </div>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl text-green-600">✓</span>
+                            <div>
+                                <strong class="text-gray-900">{{ __('$0 forever') }}</strong>
+                                <div class="text-sm text-gray-600">{{ __('O\'Saasy licensed—free to self-host') }}</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl text-green-600">✓</span>
+                            <div>
+                                <strong class="text-gray-900">{{ __('4 core features') }}</strong>
+                                <div class="text-sm text-gray-600">{{ __('Timer, Clients, Projects, Reports—nothing more') }}</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl text-green-600">✓</span>
+                            <div>
+                                <strong class="text-gray-900">{{ __('Your server') }}</strong>
+                                <div class="text-sm text-gray-600">{{ __('Full data ownership, privacy guaranteed') }}</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl text-green-600">✓</span>
+                            <div>
+                                <strong class="text-gray-900">{{ __('No limits') }}</strong>
+                                <div class="text-sm text-gray-600">{{ __('No upsells, no emails, no gates') }}</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-2xl text-green-600">✓</span>
+                            <div>
+                                <strong class="text-gray-900">{{ __('Open source') }}</strong>
+                                <div class="text-sm text-gray-600">{{ __('Audit, modify, extend freely') }}</div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="text-center">
+                        @if (Route::has('register') && !\App\Models\User::exists())
+                            <a href="{{ route('register') }}" class="btn-primary px-8 py-4 rounded-2xl inline-block">
+                                {{ __('Install SimpleTime OS') }}
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}" class="btn-primary px-8 py-4 rounded-2xl inline-block">
+                                {{ __('Get Started') }}
+                            </a>
+                        @endif
+                    </div>
                 </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <p class="text-lg text-gray-700">
+                    <strong>{{ __('Annual savings:') }}</strong> <span class="text-blue-600">{{ __('$100 by self-hosting') }}</span>
+                </p>
             </div>
         </div>
     </section>
@@ -603,11 +453,11 @@
                             <span>{{ __('Reporting') }}</span>
                         </div>
                         <h2 class="text-4xl sm:text-5xl font-display leading-tight text-gray-900">
-                            {{ __('Understand Where') }}
-                            <span class="text-blue-600">{{ __('Your Time Goes') }}</span>
+                            {{ __('See Your') }}
+                            <span class="text-blue-600">{{ __('Billable Hours') }}</span>
                         </h2>
                         <p class="text-lg text-gray-600 leading-relaxed">
-                            {{ __('Reports built for invoicing. See sum of total hours and amount per project instantly. CSV export included.') }}
+                            {{ __('Reports show exactly how many billable hours you worked per client or project. Filter by date, export to CSV, and share clean reports with clients for invoicing and transparency.') }}
                         </p>
                     </div>
                 </div>
@@ -615,96 +465,107 @@
         </div>
     </section>
 
-    <!-- Philosophy Section -->
-    <section class="bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white section-spacing relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl "></div>
-            <div class="absolute bottom-0 right-0 w-96 h-96 bg-orange-500 rounded-full filter blur-3xl " style="animation-delay: 2s;"></div>
-        </div>
+    <!-- Self-Hosting Made Simple Section -->
+    <section class="py-24 bg-gradient-to-b from-blue-50 via-white to-blue-50 relative overflow-hidden">
+        <div class="absolute top-0 right-1/4 w-96 h-96 bg-blue-200 rounded-full opacity-20 blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-green-200 rounded-full opacity-20 blur-3xl"></div>
 
-        <div class="max-w-5xl mx-auto px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-20">
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-display mb-8 leading-tight">
-                    {{ __('Open Source') }}
-                    <span class="bg-gradient-to-r from-blue-400 to-orange-400 bg-clip-text text-transparent">
-                        {{ __('Time Tracking') }}
-                    </span>
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl sm:text-5xl font-display mb-4 text-gray-900">
+                    {{ __('But Isn\'t Self-Hosting Hard?') }}
                 </h2>
-
-                <p class="text-xl text-blue-100 mb-6 leading-relaxed max-w-3xl mx-auto">
-                    {{ __('SimpleTime OS is the self-hosted, open-source version for developers, freelancers, and consultants who want full control over their data.') }}
-                </p>
-
-                <p class="text-2xl font-display text-blue-300 mb-4">
-                    {{ __('If you can install software on a server, this is made for you.') }}
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    {{ __('If you can clone a Git repo, you can install SimpleTime OS.') }}
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-                <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 hover:border-blue-400/30 transition-all duration-300">
-                    <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Left Column: Installation Code -->
+                <div class="order-2 md:order-1">
+                    <div class="bg-gray-900 rounded-2xl p-8 shadow-2xl">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="ml-2 text-sm text-gray-400">{{ __('install.sh') }}</span>
+                        </div>
+                        <pre class="text-green-400 text-sm font-mono leading-relaxed"><code>git clone https://github.com/jcergolj/simpletime-os
+cd simpletime-os
+./install.sh
+php artisan app:create-user
+php artisan serve
+
+<span class="text-gray-500"># Done. You're tracking time.</span></code></pre>
                     </div>
-                    <h3 class="font-display text-lg mb-3 text-white">{{ __('Single-User Focus') }}</h3>
-                    <p class="text-blue-200 text-sm leading-relaxed">{{ __('One user, one purpose — zero bloat, everything stays simple.') }}</p>
                 </div>
 
-                <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 hover:border-orange-400/30 transition-all duration-300">
-                    <div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-display text-lg mb-3 text-white">{{ __('Core Features Done Right') }}</h3>
-                    <p class="text-blue-200 text-sm leading-relaxed">{{ __('10 features that work perfectly, instead of 1,000 that overwhelm.') }}</p>
-                </div>
+                <!-- Right Column: Reassurance -->
+                <div class="order-1 md:order-2 space-y-6">
+                    <div class="bg-white rounded-2xl p-8 border-2 border-blue-100">
+                        <h3 class="text-2xl font-display mb-6 text-gray-900">
+                            {{ __('Ready in 5 Minutes') }}
+                        </h3>
 
-                <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 hover:border-green-400/30 transition-all duration-300">
-                    <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-display text-lg mb-3 text-white">{{ __('Self-Hosted & Private') }}</h3>
-                    <p class="text-blue-200 text-sm leading-relaxed">{{ __('Your data stays on your server — fully under your control.') }}</p>
-                </div>
+                        <ul class="space-y-4 mb-6">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <strong class="text-gray-900">{{ __('Single install script') }}</strong>
+                                    <p class="text-sm text-gray-600">{{ __('One command sets everything up') }}</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <strong class="text-gray-900">{{ __('Works on any PHP 8.4+ server') }}</strong>
+                                    <p class="text-sm text-gray-600">{{ __('Linux, macOS, Windows') }}</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <strong class="text-gray-900">{{ __('SQLite default') }}</strong>
+                                    <p class="text-sm text-gray-600">{{ __('No database setup needed') }}</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <div>
+                                    <strong class="text-gray-900">{{ __('Multiple hosting options') }}</strong>
+                                    <p class="text-sm text-gray-600">{{ __('Your laptop, DigitalOcean, Forge, office server') }}</p>
+                                </div>
+                            </li>
+                        </ul>
 
-                <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 hover:border-purple-400/30 transition-all duration-300">
-                    <div class="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
+                        <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
+                            <p class="text-sm text-gray-700 leading-relaxed">
+                                <span class="font-semibold text-blue-900">{{ __('Cost to self-host:') }}</span>
+                                {{ __('$0 (laptop) to $5/month (DigitalOcean)') }}
+                            </p>
+                        </div>
                     </div>
-                    <h3 class="font-display text-lg mb-3 text-white">{{ __('No Subscriptions') }}</h3>
-                    <p class="text-blue-200 text-sm leading-relaxed">{{ __('One-time setup, no limits, no feature gates.') }}</p>
-                </div>
 
-                <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 hover:border-blue-400/30 transition-all duration-300">
-                    <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                        </svg>
+                    <div class="text-center md:text-left">
+                        <a href="https://github.com/jcergolj/simpletime-os#readme" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 btn-primary px-8 py-4 rounded-2xl">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                            <span>{{ __('View Full Installation Guide') }}</span>
+                        </a>
                     </div>
-                    <h3 class="font-display text-lg mb-3 text-white">{{ __('Developer-Friendly') }}</h3>
-                    <p class="text-blue-200 text-sm leading-relaxed">{{ __('Clean Laravel 12 code you can learn from, extend, and audit.') }}</p>
-                </div>
-
-                <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 hover:border-orange-400/30 transition-all duration-300">
-                    <div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-display text-lg mb-3 text-white">{{ __('Open Source & Free') }}</h3>
-                    <p class="text-blue-200 text-sm leading-relaxed">{{ __('MIT licensed — inspect, modify, and contribute freely.') }}</p>
                 </div>
             </div>
         </div>
     </section>
-
-
 
     <!-- Roadmap Section -->
     <section class="section-spacing bg-gradient-to-b from-white via-orange-50/30 to-white relative overflow-hidden">
@@ -911,7 +772,7 @@
                             <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
                             </svg>
-                            <span>{{ __('MIT Licensed') }}</span>
+                            <span>{{ __('O\'Saasy Licensed') }}</span>
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -934,9 +795,6 @@
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <p class="text-gray-500 text-sm">
                         © {{ date('Y') }} <span class="font-semibold text-gray-700">{{ config('app.name', 'Simple') }}</span>. {{ __('All rights reserved.') }}
-                    </p>
-                    <p class="text-gray-500 text-sm">
-                        {{ __('Made with') }} <span class="text-red-500">♥</span> {{ __('for developers') }}
                     </p>
                 </div>
             </div>

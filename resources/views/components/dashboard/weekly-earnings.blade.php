@@ -1,6 +1,6 @@
 @props(['metrics'])
 
-<div id="weekly-earnings" class="card" style="padding: 20px;">
+<div id="weekly-earnings" class="card p-5">
     <div class="stat-label">{{ __('Weekly Earnings') }}</div>
 
     @if(count($metrics->weeklyEarnings) > 0)
@@ -13,10 +13,10 @@
         </div>
 
         @if(count($metrics->weeklyEarnings) > 1)
-            <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
+            <div class="mt-4 pt-4 border-t border-[var(--border)]">
                 <div class="flex justify-end">
-                    <div style="font-size: 12px; color: var(--text-muted);">
-                        {{ __('Total (combined)') }}: <span style="font-weight: 500;">{{ number_format($metrics->totalAmount / 100, 2) }}</span>
+                    <div class="text-xs text-[var(--text-muted)]">
+                        {{ __('Total (combined)') }}: <span class="font-medium">{{ number_format($metrics->totalAmount / 100, 2) }}</span>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "jcergolj/simpletime-os",
     "type": "project",
-    "description": "SimpleTime OS - A minimal time tracking application built with Laravel, Hotwire, and Tailwind CSS.",
+    "description": "SimpleTime OS - A minimal time tracking application built with Laravel.",
     "keywords": [
         "laravel",
         "framework",

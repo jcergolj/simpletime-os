@@ -31,12 +31,13 @@ class Money implements Arrayable, JsonSerializable
         );
     }
 
-    public static function fromValidated(array $data): self
+    public static function fromValidated(array $data): self|null
     {
-        $hourly_rate = $data['hourly_rate'];
-        throw_unless(isset($hourly_rate['amount']), Exception::class, 'Hourly rate amount is missing.', ExceptionCode::Hourly_Rate_Amount_Missing->value);
+        if (!isset($data['hourly_rate']['amount'])) {
+            return null;
+        }
 
-        throw_unless(isset($hourly_rate['currency']), Exception::class, 'Hourly rate currency is missing.', ExceptionCode::Hourly_Rate_Currency_Missing->value);
+        $hourly_rate = $data['hourly_rate'];
 
         return new self(
             amount: (int) round($hourly_rate['amount'] * 100),

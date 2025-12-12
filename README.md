@@ -1,40 +1,66 @@
 # SimpleTime OS
 
-Self-hosted time tracker built with Laravel 12 and Hotwire. Single-user, no bloat, MIT licensed.
+**SimpleTime — don't spend time tracking time.**
+
+Timer • Clients • Projects • Reports
+
+Time tracking for freelancers and consultants who bill by the hour. Self-host forever. Built with Laravel 12 and Hotwire. O'Saasy licensed—free to self-host forever, SaaS rights reserved.
 
 ![SimpleTime OS Dashboard](public/screenshots/dashboard.png)
 
-## What it is
+## Why SimpleTime OS?
 
-A time tracker for freelancers and consultants who need to track billable hours. Built for one person, not teams. Your data stays on your server.
+Most time trackers overwhelm you with 100+ features you'll never use. SimpleTime OS gives you exactly what you need—timer, clients, projects, reports—nothing more.
 
-Good fit if you:
+**$0 forever** vs **$9-15/month** for Toggl/Harvest/Clockify. Save $100/year by self-hosting.
+
+## Why Not Just Use Toggl?
+
+Nothing wrong with it—but you're paying for features you'll never touch.
+
+| The Bloated Way (Toggl, Harvest, Clockify) | The Simple Way (SimpleTime OS) |
+|---------------------------------------------|--------------------------------|
+| ✗ $100/year forever | ✓ $0 forever |
+| ✗ 100+ features built for teams, forced on solo users | ✓ 4 core features: Timer, Clients, Projects, Reports |
+| ✗ Their servers (your data, their rules) | ✓ Your server (full data ownership, privacy guaranteed) |
+| ✗ Feature gates, upgrade emails, upsells, limits | ✓ No limits, no upsells, no emails, no gates |
+| ✗ Closed source (can't audit, customize, or extend) | ✓ Open source (audit, modify, extend freely) |
+
+**Annual savings: $100 by self-hosting**
+
+## Built for Solo Developers
+
+SimpleTime OS is designed for one person—fast, simple, zero overhead. Track billable hours for clients without the complexity of team collaboration tools.
+
+**Good fit if you:**
 - Bill by the hour and need simple time tracking
-- Want to self-host and own your data
-- Like clean Laravel codebases
+- Want to self-host and own your data forever
+- Value clean, auditable Laravel codebases
 - Don't need project management features or team collaboration
 
-Not for you if you need multi-user support or enterprise features
+**Not for you if:**
+- You need multi-user support or enterprise features
+- You prefer managed SaaS over self-hosting
 
 ## Features
 
-### Timer
+### Track Time Without Friction
+One-click start/stop, keyboard shortcuts (`Ctrl+Shift+S/T/Space`), survives page refreshes. Only one timer runs at a time—no confusion, no lost time.
+
 ![Running Timer](public/screenshots/time-running-dashboard.png)
 
-One-click start/stop, keyboard shortcuts (`Ctrl+Shift+S/T/Space`), survives page refreshes. Only one timer runs at a time.
+### Organize Your Work Clearly
+Create clients and projects inline while starting a timer. Set hourly rates at client or project level (56 currencies supported). Project rates override client rates.
 
-### Clients & Projects
 ![Create Client On The Fly](public/screenshots/start-tracking-with-new-client-dashboard.png)
 
-Create clients/projects inline while starting a timer. Set hourly rates at client or project level (56 currencies). Project rates override client rates.
+### See Your Billable Hours
+Reports show exactly how many billable hours you worked per client or project. Filter by date, export to CSV, and share clean reports with clients for invoicing and transparency.
 
-### Reports
 ![Reports and CSV Export](public/screenshots/reports.png)
 
-Filter by date range, client, or project. Export to CSV. Multi-currency totals.
-
-### Preferences
-Choose date format (US/UK/EU) and time format (12/24-hour). Applies everywhere in the app.
+### Preferences That Respect You
+Choose your date format (US/UK/EU) and time format (12/24-hour). Applies everywhere in the app—no surprises.
 
 ## Tech Stack
 
@@ -46,6 +72,10 @@ Hotwire means SPA-like UX without heavy JS. Importmap means no build step for Ja
 
 ## Installation
 
+**Ready in 5 Minutes**
+
+If you can clone a Git repo, you can install SimpleTime OS.
+
 Requires PHP 8.4+
 
 ```bash
@@ -56,7 +86,16 @@ php artisan app:create-user
 php artisan serve
 ```
 
-Manual install steps in `install.sh` if you prefer to do it yourself
+**Done. You're tracking time.**
+
+Manual install steps in `install.sh` if you prefer to do it yourself.
+
+### Hosting Options
+- **$0/month**: Your laptop or home server
+- **$5/month**: DigitalOcean, Linode, Vultr
+- **$12/month**: Laravel Forge (managed deployment)
+
+All options give you full data ownership. No vendor lock-in.
 
 ## Common Commands
 
@@ -103,6 +142,21 @@ APP_TIMEZONE=UTC  # Set to your timezone
 
 User preferences (date/time formats, hourly rates) configurable in Settings page.
 
+## O'Saasy License
+
+**Free to self-host forever. SaaS rights reserved.**
+
+The O'Saasy License means:
+- ✓ **Use it freely**: Install, modify, and run SimpleTime OS on your own server at no cost
+- ✓ **Own your data**: Full control and privacy—your data never leaves your server
+- ✓ **Audit the code**: Open source, inspect every line
+- ✓ **Extend it**: Build custom features for your own needs
+- ✗ **No SaaS competition**: You cannot offer SimpleTime OS as a competing hosted service
+
+**Why this license?** It keeps the project sustainable while ensuring you can self-host forever without restrictions.
+
+Full license text: [LICENSE](LICENSE)
+
 ## Contributing
 
 PRs welcome. Standard fork → branch → PR workflow.
@@ -111,7 +165,9 @@ If you're good with UI/UX and want to help make it more minimal/clean, that'd be
 
 ## License
 
-MIT licensed - do what you want with it.
+O'Saasy licensed - free to self-host forever, SaaS rights reserved.
+
+See the [O'Saasy License](#osaasy-license) section above for details.
 
 ## Support
 
@@ -121,4 +177,12 @@ Open an issue if something breaks. Common fixes:
 
 ## Future Plans
 
-Core stays free and open source. Might add optional paid features later to support development, but the base app will always be MIT licensed.
+We're building features that expand SimpleTime OS while maintaining our core philosophy of simplicity:
+
+### Coming Soon
+- **API & Webhooks**: Integrate with invoicing, project management, and automation tools
+- **SaaS Hosted Version**: Don't want to self-host? We'll handle the technical details for you
+
+Core stays free and open source. Optional paid features will support development, but the base app will always be O'Saasy licensed and self-hostable.
+
+Star on [GitHub](https://github.com/jcergolj/simpletime-os) to stay updated.

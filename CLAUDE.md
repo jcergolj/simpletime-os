@@ -8,6 +8,7 @@ This application uses modular documentation in `.ai/agent_docs/`. Each file focu
 - **[.ai/agent_docs/php.md](.ai/agent_docs/php.md)** - PHP 8.4 conventions and type declarations
 - **[.ai/agent_docs/laravel-core.md](.ai/agent_docs/laravel-core.md)** - Laravel 12 patterns and best practices
 - **[.ai/agent_docs/hotwire.md](.ai/agent_docs/hotwire.md)** - Turbo/Stimulus frontend conventions
+- **[.ai/agent_docs/html-css.md](.ai/agent_docs/html-css.md)** - HTML/CSS styling and component markup
 - **[.ai/agent_docs/testing.md](.ai/agent_docs/testing.md)** - PHPUnit testing guidelines
 - **[.ai/agent_docs/laravel-boost.md](.ai/agent_docs/laravel-boost.md)** - MCP server tools and documentation search
 - **[.ai/agent_docs/formatting.md](.ai/agent_docs/formatting.md)** - Code formatting rules
