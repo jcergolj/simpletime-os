@@ -28,8 +28,8 @@
         --color-primary: #0066FF;
         --color-primary-hover: #0052CC;
         --color-primary-light: #E6F0FF;
-        --color-accent: #F97316;
-        --color-accent-hover: #EA580C;
+        --color-accent: #FB923C;
+        --color-accent-hover: #F97316;
         --color-accent-light: #FFF7ED;
         --color-success: #10B981;
         --color-success-light: #D1FAE5;
@@ -88,7 +88,7 @@
         color: white;
         transition: all 0.3s var(--ease-smooth);
         border: none;
-        box-shadow: 0 2px 8px rgba(249, 115, 22, 0.25), 0 1px 2px rgba(249, 115, 22, 0.15);
+        box-shadow: 0 2px 8px rgba(251, 146, 60, 0.25), 0 1px 2px rgba(251, 146, 60, 0.15);
         position: relative;
         overflow: hidden;
         font-weight: 600;
@@ -116,7 +116,7 @@
 
     .btn-primary:hover {
         transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 8px 24px rgba(249, 115, 22, 0.35), 0 4px 8px rgba(249, 115, 22, 0.2);
+        box-shadow: 0 8px 24px rgba(251, 146, 60, 0.35), 0 4px 8px rgba(251, 146, 60, 0.2);
     }
 
     .btn-primary:active {

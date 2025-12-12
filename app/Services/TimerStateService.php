@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\TimeEntry;
-use Illuminate\Support\Facades\DB;
 
 class TimerStateService
 {

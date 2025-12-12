@@ -65,7 +65,7 @@ class CreateUserCommand extends Command
 
         $hourlyRateInput = $this->ask('What is your default hourly rate? (Optional, press Enter to skip)');
 
-        /** @var Money|null  $hourlyRate */
+        /** @var Money|null $hourlyRate */
         $hourlyRate = null;
 
         if (! empty($hourlyRateInput)) {

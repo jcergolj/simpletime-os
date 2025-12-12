@@ -1,5 +1,3 @@
-all buttons on clients, projects, time entries, reeports should have the same look, animations on hoover and feel as start timer, but keep the current colors
-
 add spacing at when timer is running on dashboard or when editing running time entry
 13 inch
 use frontend design skills to match edit running time entry with other forms
