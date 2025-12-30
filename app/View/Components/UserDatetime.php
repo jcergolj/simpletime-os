@@ -24,17 +24,15 @@ class UserDatetime extends Component
             return $this->fallback ?? '';
         }
 
-        $carbon = $this->datetime instanceof Carbon ? $this->datetime : Carbon::parse($this->datetime);
         $user = auth()->user();
 
         if (! $user) {
+            $carbon = $this->datetime instanceof Carbon ? $this->datetime : Carbon::parse($this->datetime);
+
             return $carbon->format('M j, Y g:i A'); // Fallback format
         }
 
-        $dateFormat = $user->getPreferredDateFormat();
-        $timeFormat = $user->getPreferredTimeFormat();
-
-        return $carbon->format($dateFormat->datetimeFormatWithTime($timeFormat));
+        return $user->preferences->formatDatetime($this->datetime);
     }
 
     public function render(): View|Closure|string

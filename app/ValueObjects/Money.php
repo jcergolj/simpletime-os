@@ -77,6 +77,11 @@ class Money implements Arrayable, JsonSerializable
         return $this->amount / 100;
     }
 
+    public function toInputValue(): string
+    {
+        return number_format($this->toDecimal(), 2, '.', '');
+    }
+
     public function equals(Money $other): bool
     {
         return $this->amount === $other->amount && $this->currency === $other->currency;

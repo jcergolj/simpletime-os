@@ -24,14 +24,15 @@ class UserTime extends Component
             return $this->fallback ?? '';
         }
 
-        $carbon = $this->time instanceof Carbon ? $this->time : Carbon::parse($this->time);
-        $userFormat = auth()->user()?->getPreferredTimeFormat();
+        $user = auth()->user();
 
-        if (! $userFormat) {
+        if (! $user) {
+            $carbon = $this->time instanceof Carbon ? $this->time : Carbon::parse($this->time);
+
             return $carbon->format('g:i A'); // Fallback format
         }
 
-        return $carbon->format($userFormat->timeFormat());
+        return $user->preferences->formatTime($this->time);
     }
 
     public function render(): View|Closure|string

@@ -24,14 +24,15 @@ class UserDate extends Component
             return $this->fallback ?? '';
         }
 
-        $carbon = $this->date instanceof Carbon ? $this->date : Carbon::parse($this->date);
-        $userFormat = auth()->user()?->getPreferredDateFormat();
+        $user = auth()->user();
 
-        if (! $userFormat) {
+        if (! $user) {
+            $carbon = $this->date instanceof Carbon ? $this->date : Carbon::parse($this->date);
+
             return $carbon->format('M j, Y'); // Fallback format
         }
 
-        return $carbon->format($userFormat->dateFormat());
+        return $user->preferences->formatDate($this->date);
     }
 
     public function render(): View|Closure|string

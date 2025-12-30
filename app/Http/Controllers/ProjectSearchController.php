@@ -33,6 +33,7 @@ class ProjectSearchController extends Controller
             'projects' => $projects,
             'clientId' => $clientId,
             'selectedClient' => $selectedClient,
+            'defaultHourlyRate' => $request->user()->hourlyRate,
         ]);
     }
 }

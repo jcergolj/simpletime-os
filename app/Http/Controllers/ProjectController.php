@@ -39,10 +39,17 @@ class ProjectController extends Controller
     {
         $validated = $request->validated();
 
+        $hourlyRate = Money::fromValidated($validated);
+
+        if ($hourlyRate === null) {
+            $client = Client::find($validated['client_id']);
+            $hourlyRate = $client->hourlyRate ?? $request->user()->hourlyRate;
+        }
+
         $project = Project::create([
             'name' => $validated['name'],
             'client_id' => $validated['client_id'],
-            'hourly_rate' => Money::fromValidated($validated),
+            'hourly_rate' => $hourlyRate,
         ]);
 
         if ($request->wantsJson() || $request->ajax()) {

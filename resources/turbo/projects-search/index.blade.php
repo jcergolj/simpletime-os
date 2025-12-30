@@ -85,6 +85,7 @@
             <x-form.hourly-rate-search
                 input-target="newProjectRate"
                 select-target="newProjectCurrency"
+                :default-hourly-rate="$defaultHourlyRate"
             />
             <div class="label">
                 <span class="label-text-alt text-base-content/50">{{ __('Leave empty to use client\'s default rate') }}</span>

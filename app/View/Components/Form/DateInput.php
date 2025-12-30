@@ -27,7 +27,7 @@ class DateInput extends Component
 
     public function userFormat(): ?DateFormat
     {
-        return auth()->user()?->getPreferredDateFormat();
+        return auth()->user()?->preferences->dateFormat;
     }
 
     public function formatExample(): string

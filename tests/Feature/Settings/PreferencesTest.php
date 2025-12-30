@@ -89,13 +89,13 @@ final class PreferencesTest extends TestCase
 
         // Test UK format
         $user->update(['date_format' => 'uk']);
-        $this->actingAs($user);
+        $this->actingAs($user->fresh());
         $component = new UserDate($testDate);
         $this->assertSame('25/12/2025', $component->formattedDate);
 
         // Test EU format
         $user->update(['date_format' => 'eu']);
-        $this->actingAs($user);
+        $this->actingAs($user->fresh());
         $component = new UserDate($testDate);
         $this->assertSame('25.12.2025', $component->formattedDate);
     }
@@ -112,13 +112,13 @@ final class PreferencesTest extends TestCase
 
         // Test UK + 24h
         $user->update(['date_format' => 'uk', 'time_format' => '24']);
-        $this->actingAs($user);
+        $this->actingAs($user->fresh());
         $component = new UserDatetime($testDate);
         $this->assertSame('25/12/2025 14:30', $component->formattedDatetime);
 
         // Test EU + 12h (mixed format)
         $user->update(['date_format' => 'eu', 'time_format' => '12']);
-        $this->actingAs($user);
+        $this->actingAs($user->fresh());
         $component = new UserDatetime($testDate);
         $this->assertSame('25.12.2025 2:30 PM', $component->formattedDatetime);
     }
@@ -135,7 +135,7 @@ final class PreferencesTest extends TestCase
 
         // Test 24-hour format
         $user->update(['time_format' => '24']);
-        $this->actingAs($user);
+        $this->actingAs($user->fresh());
         $component = new UserTime($testDate);
         $this->assertSame('14:30', $component->formattedTime);
     }

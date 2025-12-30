@@ -41,6 +41,7 @@
             <x-form.hourly-rate-search
                 input-target="newClientRate"
                 select-target="newClientCurrency"
+                :default-hourly-rate="$defaultHourlyRate"
             />
 
             <x-form.error for="hourly_rate.amount" />

@@ -20,6 +20,10 @@ class ClientSearchController extends Controller
             ->limit(10)
             ->get();
 
-        return view('turbo::clients-search.index', ['clients' => $clients, 'query' => $query]);
+        return view('turbo::clients-search.index', [
+            'clients' => $clients,
+            'query' => $query,
+            'defaultHourlyRate' => $request->user()->hourlyRate,
+        ]);
     }
 }

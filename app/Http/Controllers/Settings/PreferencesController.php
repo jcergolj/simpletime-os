@@ -17,8 +17,8 @@ class PreferencesController extends Controller
     public function edit(Request $request): View
     {
         return view('settings.preferences.edit', [
-            'dateFormat' => $request->user()->getPreferredDateFormat(),
-            'timeFormat' => $request->user()->getPreferredTimeFormat(),
+            'dateFormat' => $request->user()->preferences->dateFormat,
+            'timeFormat' => $request->user()->preferences->timeFormat,
             'dateFormatOptions' => DateFormat::options(),
             'timeFormatOptions' => TimeFormat::options(),
             'hourly_rate' => $request->user()->hourlyRate,

@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\DateFormat;
-use App\Enums\TimeFormat;
+use App\ValueObjects\DateTimeFormatter;
 use App\ValueObjects\Money;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,6 +12,7 @@ use Illuminate\Support\Str;
 
 /**
  * @property Money|null $hourlyRate
+ * @property DateTimeFormatter $preferences
  */
 class User extends Authenticatable
 {
@@ -30,46 +29,6 @@ class User extends Authenticatable
             ->explode(' ')
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
-    }
-
-    public function getPreferredDateFormat(): DateFormat
-    {
-        return DateFormat::from($this->date_format ?? DateFormat::default()->value);
-    }
-
-    public function getPreferredTimeFormat(): TimeFormat
-    {
-        return TimeFormat::from($this->time_format ?? TimeFormat::default()->value);
-    }
-
-    public function formatDate($date): string
-    {
-        if (is_string($date)) {
-            $date = Carbon::parse($date);
-        }
-
-        return $date->format($this->getPreferredDateFormat()->dateFormat());
-    }
-
-    public function formatTime($time): string
-    {
-        if (is_string($time)) {
-            $time = Carbon::parse($time);
-        }
-
-        return $time->format($this->getPreferredTimeFormat()->timeFormat());
-    }
-
-    public function formatDatetime($datetime): string
-    {
-        if (is_string($datetime)) {
-            $datetime = Carbon::parse($datetime);
-        }
-
-        $dateFormat = $this->getPreferredDateFormat();
-        $timeFormat = $this->getPreferredTimeFormat();
-
-        return $datetime->format($dateFormat->datetimeFormatWithTime($timeFormat));
     }
 
     protected function casts(): array
@@ -98,6 +57,16 @@ class User extends Authenticatable
 
                 return null;
             }
+        );
+    }
+
+    protected function preferences(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): DateTimeFormatter => DateTimeFormatter::from([
+                'date_format' => $this->attributes['date_format'] ?? null,
+                'time_format' => $this->attributes['time_format'] ?? null,
+            ])
         );
     }
 }

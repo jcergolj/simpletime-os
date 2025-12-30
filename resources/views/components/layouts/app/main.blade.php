@@ -10,6 +10,8 @@
 
         <meta name="turbo-refresh-method" content="morph">
         <meta name="turbo-refresh-scroll" content="preserve">
+
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body @class(["min-h-screen", "hotwire-native" => Turbo::isHotwireNativeVisit()]) data-controller="session-recovery" style="background: var(--color-bg);">
         <!-- Top Navigation -->
