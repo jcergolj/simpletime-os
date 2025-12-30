@@ -67,7 +67,7 @@ class ProjectController extends Controller
 
         InAppNotification::success(__('Project :name successfully created.', ['name' => $project->name]));
 
-        return turbo_stream()->redirect(route('projects.index'));
+        return turbo_stream()->reload();
     }
 
     public function edit(Project $project): View
@@ -105,7 +105,7 @@ class ProjectController extends Controller
 
         InAppNotification::success(__('Project :name successfully updated.', ['name' => $project->name]));
 
-        return turbo_stream()->redirect(route('projects.index'));
+        return turbo_stream()->reload();
     }
 
     public function destroy(Project $project): RedirectResponse

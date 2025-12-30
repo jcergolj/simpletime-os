@@ -81,7 +81,7 @@ class TimeEntryController extends Controller
 
         InAppNotification::success(__('Time Entry successful created.'));
 
-        return turbo_stream()->redirect(route('time-entries.index'));
+        return turbo_stream()->reload();
     }
 
     public function edit(TimeEntry $timeEntry, Request $request): View|RedirectResponse
@@ -137,7 +137,7 @@ class TimeEntryController extends Controller
             return to_route('dashboard');
         }
 
-        return turbo_stream()->redirect(route('time-entries.index'));
+        return turbo_stream()->reload();
     }
 
     public function destroy(Request $request, TimeEntry $timeEntry): RedirectResponse

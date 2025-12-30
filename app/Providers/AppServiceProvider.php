@@ -2,11 +2,12 @@
 
 namespace App\Providers;
 
-use HotwiredLaravel\TurboLaravel\Http\PendingTurboStreamResponse;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\ServiceProvider;
 use URL;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\ServiceProvider;
+use HotwiredLaravel\TurboLaravel\Http\TurboResponseFactory;
+use HotwiredLaravel\TurboLaravel\Http\PendingTurboStreamResponse;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,8 +36,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(resource_path('turbo'), 'turbo');
 
-        PendingTurboStreamResponse::macro('redirect', fn (string $route) => turbo_stream()
-            ->action('redirect')
-            ->target($route));
+        PendingTurboStreamResponse::macro('reload', fn () =>
+            TurboResponseFactory::makeStream('<turbo-stream action="refresh"></turbo-stream>')
+        );
     }
 }

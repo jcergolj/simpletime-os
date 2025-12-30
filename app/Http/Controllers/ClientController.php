@@ -54,7 +54,7 @@ class ClientController extends Controller
 
         InAppNotification::success(__('Client :name successfully created.', ['name' => $client->name]));
 
-        return turbo_stream()->redirect(route('clients.index'));
+        return turbo_stream()->reload();
     }
 
     public function edit(Client $client): View
@@ -73,7 +73,7 @@ class ClientController extends Controller
 
         InAppNotification::success(__('Client :name successfully updated.', ['name' => $client->name]));
 
-        return turbo_stream()->redirect(route('clients.index'));
+        return turbo_stream()->reload();
     }
 
     public function destroy(Client $client): RedirectResponse

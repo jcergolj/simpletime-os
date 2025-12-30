@@ -1,2 +1,0 @@
-consider using form instead of stimulus controllers turbo frame when searching or creating existing or new client or project
-hourly rate not properly used it should be project client user update it when client or project is selected
