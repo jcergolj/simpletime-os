@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTimeEntryRequest;
-use App\Http\Requests\UpdateTimeEntryRequest;
-use App\Models\Client;
-use App\Models\TimeEntry;
-use App\Services\DashboardMetricsService;
-use App\ValueObjects\Money;
 use Carbon\Carbon;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Client;
+use App\Models\Project;
+use App\Models\TimeEntry;
+use Illuminate\View\View;
+use App\ValueObjects\Money;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Services\DashboardMetricsService;
+use App\Http\Requests\StoreTimeEntryRequest;
+use App\Http\Requests\UpdateTimeEntryRequest;
 use Jcergolj\InAppNotifications\Facades\InAppNotification;
 
 class TimeEntryController extends Controller
@@ -57,6 +58,15 @@ class TimeEntryController extends Controller
             $duration = max(0, $startTime->diffInSeconds($endTime));
         }
 
+        $hourlyRate = Money::fromValidated($validated);
+
+        if ($hourlyRate === null) {
+            $project = isset($validated['project_id']) ? Project::find($validated['project_id']) : null;
+            $client = isset($validated['client_id']) ? Client::find($validated['client_id']) : null;
+
+            $hourlyRate = $project?->hourlyRate ?? $client?->hourlyRate ?? $request->user()->hourlyRate;
+        }
+
         $timeEntry = TimeEntry::create([
             'start_time' => $validated['start_time'],
             'end_time' => $validated['end_time'],
@@ -64,7 +74,7 @@ class TimeEntryController extends Controller
             'notes' => $validated['notes'],
             'client_id' => $validated['client_id'],
             'project_id' => $validated['project_id'],
-            'hourly_rate' => Money::fromValidated($validated),
+            'hourly_rate' => $hourlyRate,
         ]);
 
         Log::channel('time-entries')->info('time-entry-created', $timeEntry->toArray());
@@ -78,7 +88,7 @@ class TimeEntryController extends Controller
     {
         if (! $timeEntry->end_time && $request->boolean('is_recent', false)) {
             return to_route('dashboard')
-                ->with('error', 'Cannot edit a running time entry from recent list. Please edit it from the timer widget.');
+                ->with('error', __('Cannot edit a running time entry from recent list. Please edit it from the timer widget.'));
         }
 
         return view('turbo::time-entries.edit', ['timeEntry' => $timeEntry, 'is_recent' => $request->boolean('is_recent', false)]);
@@ -88,7 +98,7 @@ class TimeEntryController extends Controller
     {
         if (! $timeEntry->end_time && $request->boolean('is_recent', false)) {
             return to_route('dashboard')
-                ->with('error', 'Cannot edit a running time entry from recent list. Please edit it from the timer widget.');
+                ->with('error', __('Cannot edit a running time entry from recent list. Please edit it from the timer widget.'));
         }
 
         $validated = $request->validated();
@@ -100,6 +110,15 @@ class TimeEntryController extends Controller
             $duration = max(0, $startTime->diffInSeconds($endTime));
         }
 
+        $hourlyRate = Money::fromValidated($validated);
+
+        if ($hourlyRate === null) {
+            $project = isset($validated['project_id']) ? Project::find($validated['project_id']) : null;
+            $client = isset($validated['client_id']) ? Client::find($validated['client_id']) : null;
+
+            $hourlyRate = $project?->hourlyRate ?? $client?->hourlyRate ?? $request->user()->hourlyRate;
+        }
+
         $timeEntry->update([
             'start_time' => $validated['start_time'],
             'end_time' => $validated['end_time'],
@@ -107,7 +126,7 @@ class TimeEntryController extends Controller
             'notes' => $validated['notes'],
             'client_id' => $validated['client_id'],
             'project_id' => $validated['project_id'],
-            'hourly_rate' => Money::fromValidated($validated),
+            'hourly_rate' => $hourlyRate,
         ]);
 
         Log::channel('time-entries')->info('time-entry-updated', $timeEntry->fresh()->toArray());

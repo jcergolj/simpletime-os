@@ -24,9 +24,18 @@ class TimerSessionCompletionController extends Controller
             return to_route('dashboard');
         }
 
+        $hourlyRate = $runningEntry->hourlyRate;
+
+        if ($hourlyRate === null) {
+            $hourlyRate = $runningEntry->project?->hourlyRate
+                ?? $runningEntry->client?->hourlyRate
+                ?? $request->user()->hourlyRate;
+        }
+
         $runningEntry->update([
             'end_time' => now(),
             'duration' => max(0, $runningEntry->start_time->diffInSeconds(now())),
+            'hourly_rate' => $hourlyRate,
         ]);
 
         Log::channel('time-entries')->info('time-entry-auto-stopped', $runningEntry->toArray());
